@@ -1,4 +1,4 @@
-@extends('cms.parent')
+@extends('dashboard.cms.parent')
 
 @section('title', 'title')
 @section('main-title', 'main-title')
