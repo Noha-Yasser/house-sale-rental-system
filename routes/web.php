@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\CityController;
 use App\Http\Controllers\CountryController;
+use App\Http\Controllers\PropertyController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -18,8 +19,10 @@ Route::prefix('admin')->group(function(){
    _update');
 
       Route::resource('cities',CityController::class);
-   Route::post('cities_update/{id}',[CityController::class,'update'])->name('cities
-   _update');
+      Route::post('cities_update/{id}',[CityController::class,'update'])->name('cities
+      _update');
+      
+      Route::resource('properties', PropertyController::class);
 
 });
 //  Route::view('/admin','cms.parent');
