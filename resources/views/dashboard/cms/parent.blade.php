@@ -247,21 +247,65 @@
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="{{ route('countries.index') }}" class="nav-link">
+                <a href="{{ route('admins.index') }}" class="nav-link">
                   <i class="fas fa-list-ul nav-icon"></i>
                   <p>Index</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="{{ route('countries.create') }}" class="nav-link">
+                <a href="{{ route('admins.create') }}" class="nav-link">
                   <i class="fas fa-plus-circle nav-icon"></i>
                   <p>Create</p>
                 </a>
               </li>
             </ul>
           </li>
-
-
+            <li class="nav-item">
+            <a href="#" class="nav-link">
+              <i class="nav-icon fas fa-building"></i>
+ <p>
+                Company
+                <i class="fas fa-angle-left right"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="{{ route('companies.index') }}" class="nav-link">
+                  <i class="fas fa-list-ul nav-icon"></i>
+                  <p>Index</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="{{ route('companies.create') }}" class="nav-link">
+                  <i class="fas fa-plus-circle nav-icon"></i>
+                  <p>Create</p>
+                </a>
+              </li>
+            </ul>
+          </li>
+  <li class="nav-item">
+            <a href="#" class="nav-link">
+         <i class="fas fa-users"></i>
+ <p>
+                Customer
+                <i class="fas fa-angle-left right"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="{{ route('customers.index') }}" class="nav-link">
+                  <i class="fas fa-list-ul nav-icon"></i>
+                  <p>Index</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="{{ route('customers.create') }}" class="nav-link">
+                  <i class="fas fa-plus-circle nav-icon"></i>
+                  <p>Create</p>
+                </a>
+              </li>
+            </ul>
+          </li>
 
      <li class="nav-header">Content Management</li>
           <li class="nav-item">

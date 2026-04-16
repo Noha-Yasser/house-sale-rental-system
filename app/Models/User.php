@@ -46,4 +46,6 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
+public function city(){return $this->belongsTo(city::class); }
+public function actor(){return $this->morphTo();}
 }
