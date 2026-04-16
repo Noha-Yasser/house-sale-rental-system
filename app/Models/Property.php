@@ -10,6 +10,10 @@ class Property extends Model
     /** @use HasFactory<\Database\Factories\PropertyFactory> */
     use HasFactory;
 
+     public function property(){
+        return $this->hasMany(Review::class);
+    }
+
 
     protected $fillable = [
         'title',

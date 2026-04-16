@@ -1,8 +1,8 @@
 @extends('dashboard.cms.parent')
 
 @section('title', 'Property')
-@section('main-title', 'main-title')
-@section('sub-title', 'sub-title')
+@section('main-title', 'Property')
+@section('sub-title', 'Property')
 
 @section('styles')
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
@@ -77,7 +77,7 @@
                 </a>
 
                 <!-- Edit -->
-                <a href="" class="btn btn-warning btn-sm ml-1" title="edit">
+                <a href="{{ route('properties.edit',$property->id) }}" class="btn btn-warning btn-sm ml-1" title="edit">
                     <i class="fas fa-edit"></i>
                 </a>
 
