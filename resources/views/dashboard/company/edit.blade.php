@@ -21,16 +21,19 @@
 
              <div class="row">
              
-                  <div class="form-group col-sm-4">
-                  <label>City</label>
-                 
-               
-                  <select class="form-control select2 select2-danger" data-dropdown-css-class="select2-danger" id="city_id" name="city_id" style="width: 100%;" >
-                 
-                        <select class="form-control select2 select2-danger" data-dropdown-css-class="select2-danger" id="city_id" name="city_id" style="width: 100%;" >
                 
-                 
+                  <label>city</label>
+                  <select class="form-control select2 select2-danger" data-dropdown-css-class="select2-danger" id="city_id" name="city_id" style="width: 100%;" >
+                    <option selected>{{ $companies->city->city_name ?? ""}}</option>
+                    @foreach($cities as $city)
+                     <!--    <option value="{{ $city->id }}">{{ $city->city_name }}</option>-->
+<option value="{{ $city->id }}" {{ $city->id == $companies->user->city_id ? 'selected' : '' }}>
+    {{ $city->city_name }} 
+</option>
+                    @endforeach
+
                   </select>
+                
               </div>     
                   <div class="form-group col-md-4">
                     <label for="name">name</label>
@@ -101,7 +104,7 @@
         formData.append('email',document.getElementById('email').value);
     
         formData.append('address',document.getElementById('address').value);
-        storeRoute('/admin/companies-update/'+ id,formData)
+        storeRoute('/admin/companies_update/'+ id,formData)
 
     }
 </script>

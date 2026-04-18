@@ -20,5 +20,8 @@ class Customer extends Model
     ];
 
     protected $hidden = ['password'];
-     public function user(){return $this->morphOne(User::class,'actor','actor_type','actor_id','id');}
+    public function user() {
+    return $this->morphOne(User::class, 'actor');
+}
+    // public function user(){return $this->morphOne(User::class,'actor','actor_type','actor_id','id');}
 }

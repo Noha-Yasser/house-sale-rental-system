@@ -30,7 +30,8 @@
                 <table class="table table-bordered">
                     <tr><th width="200">ID</th><td>{{ $companies->id }}</td></tr>
                     <tr><th>Company Name</th><td>{{ $companies->user->name ?? "" }}</td></tr>
-                    <tr><th>Address</th><td>{{$companies->user->address ?? "" }}</td></tr>
+                   
+                    <tr><th>Address</th><td>{{$companies->user->city->city_name ?? "" }}</td></tr>
                     <tr><th>Description</th><td>{{ $companies->description ?? "" }}</td></tr>
                     <tr><th>Website</th><td>@if($companies->website) <a href="{{ $company->website }}" target="_blank">{{ $company->website }}</a> @else  @endif</td></tr>
                     <tr><th>Rating</th><td>{{ $companies->rating > 0 ? $company->rating . ' ★' : 'Not rated' }}</td></tr>

@@ -63,7 +63,7 @@
         formData.append('street',document.getElementById('street').value);
         formData.append('country_id',document.getElementById('country_id').value);
 
-        storeRoute('/admin/cities-update/'+id,formData);
+        storeRoute('/admin/cities_update/'+id,formData);
 
     }
 </script>
