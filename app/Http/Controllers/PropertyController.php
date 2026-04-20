@@ -29,15 +29,60 @@ class PropertyController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validator=validator($request->all(),[
+            'title' => 'required|string|max:30|min:3',
+            'description' => 'required|string|max:100|min:5',
+            'price' => 'required',
+            'area' => 'required|numeric',
+            'type' => 'required|string',
+            'bedrooms' => 'nullable|numeric',
+            'bathrooms' => 'nullable|numeric',
+            'address' => 'nullable|string|max:30|min:5',
+            'state' => 'nullable|string|max:30|min:5',
+            'zip_code' => 'required|digits:4',
+            'status' => 'required',
+            // 'photo' => 'required',
+        ]);
+
+        if(! $validator->fails()){
+            $properties = new Property();
+            $properties->title = $request -> get('title');
+            $properties->description = $request -> get('description');
+            $properties->price = $request -> get('price');
+            $properties->type = $request -> get('type');
+            $properties->bedrooms = $request -> get('bedrooms');
+            $properties->area = $request -> get('area');
+            $properties->bathrooms = $request -> get('bathrooms');
+            $properties->address = $request -> get('address');
+            $properties->state = $request -> get('state');
+            $properties->zip_code = $request -> get('zip_code');
+            $properties->status = $request -> get('status');
+            $properties->photo = $request -> get('photo');
+    
+            $isSaved = $properties -> save();
+
+            return response()->json([
+                'icon'=>'success',
+                'title'=>'Created Property is Successfully',
+            ],200);
+
+
+        }else{
+            return response()->json([
+                'icon'=>'error',
+                'title'=>$validator->getMessageBag()->first(),
+
+            ],400);
+        }
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(Property $property)
+    public function show($id)
     {
-        //
+          $properties = Property::findOrFail($id);
+         return response()->view('dashboard.property.show',compact('properties'));
     }
 
     /**
@@ -52,16 +97,57 @@ class PropertyController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Property $property)
+    public function update(Request $request, $id)
     {
-        //
+         $validator=validator($request->all(),[
+            'title' => 'required|string|max:30|min:3',
+            'description' => 'required|string|max:100|min:5',
+            'price' => 'required',
+            'area' => 'required|numeric',
+            'type' => 'required|string',
+            'bedrooms' => 'nullable|numeric',
+            'bathrooms' => 'nullable|numeric',
+            'address' => 'nullable|string|max:30|min:5',
+            'state' => 'nullable|string|max:30|min:5',
+            'zip_code' => 'required|digits:4',
+            'status' => 'required',
+            // 'photo' => 'required',
+        ]);
+
+        if(! $validator->fails()){
+            $properties = Property::findOrFail($id);
+            $properties->title = $request -> get('title');
+            $properties->description = $request -> get('description');
+            $properties->price = $request -> get('price');
+            $properties->type = $request -> get('type');
+            $properties->bedrooms = $request -> get('bedrooms');
+            $properties->area = $request -> get('area');
+            $properties->bathrooms = $request -> get('bathrooms');
+            $properties->address = $request -> get('address');
+            $properties->state = $request -> get('state');
+            $properties->zip_code = $request -> get('zip_code');
+            $properties->status = $request -> get('status');
+            $properties->photo = $request -> get('photo');
+    
+            $isUpdated = $properties -> save();
+
+            return rdirect()->route('properties.index');
+
+
+        }else{
+            return response()->json([
+                'icon'=>'error',
+                'title'=>$validator->getMessageBag()->first(),
+
+            ],400);
+        }
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Property $property)
+    public function destroy($id)
     {
-        //
+        $properties = Property::destroy($id);
     }
 }

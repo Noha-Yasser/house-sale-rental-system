@@ -10,7 +10,7 @@ class Property extends Model
     /** @use HasFactory<\Database\Factories\PropertyFactory> */
     use HasFactory;
 
-     public function property(){
+     public function reviews(){
         return $this->hasMany(Review::class);
     }
 

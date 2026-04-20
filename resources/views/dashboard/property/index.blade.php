@@ -57,8 +57,8 @@
 @endsection
 
 @section('content')
-<h3 class="section-title">Real Estate</h3>
 
+    <a href="{{ route('properties.create') }}" class="btn btn-primary ml-4">ADD NEW Property</a>
   <div class="grid">
 
 
@@ -72,7 +72,7 @@
         <span>${{$property -> price}}</span>
         <div  class="d-flex justify-content-center align-items-center">
                 <!-- Show -->
-                <a href="" class="btn btn-info btn-sm ml-1" title="show">
+                <a href="{{ route('properties.show',$property->id) }}" class="btn btn-info btn-sm ml-1" title="show">
                     <i class="fas fa-eye"></i>
                 </a>
 
@@ -82,7 +82,7 @@
                 </a>
 
                 <!-- Delete -->
-                <button type="button" onclick="" class="btn btn-danger btn-sm  ml-1" title="delete">
+                <button type="button" onclick="performDestroy({{ $property->id }}, this)" class="btn btn-danger btn-sm  ml-1" title="delete">
                     <i class="fas fa-trash"></i>
                 </button>
         </div>
@@ -95,7 +95,11 @@
 @endsection
 
 @section('scripts')
-
+<script>
+    function performDestroy(id,reference){
+        confirmDestroy('/admin/properties/'+id,reference);
+    }
+</script>
 @endsection
 
 

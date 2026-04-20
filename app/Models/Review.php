@@ -9,10 +9,11 @@ class Reviews extends Model
 {
     /** @use HasFactory<\Database\Factories\ReviewsFactory> */
     use HasFactory;
-
-    public function review(){
+    
+     public function property(){
         return $this->belongsTo(Property::class);
     }
+
 
       protected $fillable = [
         'comments',

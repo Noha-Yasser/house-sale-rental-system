@@ -102,7 +102,7 @@
     <!-- Title -->
     <div class="input-box full">
       <label for="title">Title :</label>
-      <input type="text" id="title" placeholder="Title" required>
+      <input type="text" id="title" placeholder="Title" name="title" required>
     </div>
 
     <div class="form-grid">
@@ -110,68 +110,68 @@
       <!-- Description -->
       <div class="input-box">
         <label for="description">Description :</label>
-        <input type="text" id="description" placeholder="Description" required>
+        <input type="text" id="description" placeholder="Description" name="description" required>
       </div>
 
       <!-- Type -->
       <div class="input-box">
         <label for="type">Type :</label>
-         <select required id="type">
-            <option value="Apartment">Open</option>
-            <option value="House">Closed</option>
-            <option value="Estate">Closed</option>
+         <select required id="type" name="type">
+            <option value="Apartment">Apartment</option>
+            <option value="House">House</option>
+            <option value="Estate">Estate</option>
           </select>
       </div>
 
       <!-- Area -->
       <div class="input-box">
         <label for="area">Area :</label>
-        <input type="text" id="area" placeholder="Area" required>
+        <input type="number" id="area" placeholder="Area" name="area" required>
       </div>
       
       <!-- Zip Code -->
       <div class="input-box">
-        <label for="zipcode">Zip Code :</label>
-        <input type="number" id="zipcode" placeholder="Zip Code" required>
+        <label for="zip_code">Zip Code :</label>
+        <input type="number" id="zip_code" placeholder="Zip Code" name="zip_code" required>
       </div>
 
       <!-- Address -->
       <div class="input-box">
         <label for="address">Address :</label>
-        <input type="text" id="address" placeholder="Address" required>
+        <input type="text" id="address" placeholder="Address" name="address" required>
       </div>
 
       <!-- Price -->
       <div class="input-box">
         <label for="price">Price :</label>
-        <input type="number" id="price" placeholder="Price" required>
+        <input type="number" id="price" placeholder="Price" name="price" required>
       </div>
 
       <!-- Bathrooms -->
       <div class="input-box">
         <label for="bathrooms">Bathrooms :</label>
-        <input type="number" id="bathrooms" placeholder="Bathrooms" required>
+        <input type="number" id="bathrooms" placeholder="Bathrooms" name="bathrooms" required>
       </div>
 
       <!-- Bedrooms -->
       <div class="input-box">
         <label for="bedrooms">Bedrooms :</label>
-        <input type="number" id="bedrooms" placeholder="Bedrooms" required>
+        <input type="number" id="bedrooms" placeholder="Bedrooms"  name="bedrooms" required>
       </div>
 
       <!-- State -->
       <div class="input-box">
         <label for="state">State :</label>
-        <input type="text" id="state" placeholder="State" required>
+        <input type="text" id="state" placeholder="State"  name="state" required>
       </div>
 
       <!-- Status -->
       <div class="input-box">
         <label for="status">Status :</label>
-        <select required id="status">
-            <option value="Available">Open</option>
-            <option value="Sold">Closed</option>
-            <option value="Pending">Closed</option>
+        <select required id="status"  name="status">
+            <option value="Available">Available</option>
+            <option value="Sold">Sold</option>
+            <option value="Pending">Pending</option>
           </select>
       </div>
 
@@ -183,7 +183,7 @@
       
     </div>
 
-    <button type="submit" class="add-btn">Add</button>
+    <button type="button" onclick="performStore()" class="add-btn">Add</button>
 
   </form>
 
@@ -192,6 +192,26 @@
 @endsection
 
 @section('scripts')
+<script>
+   function performStore(){
+    let formdata = new FormData();
+    formdata.append('title',document.getElementById('title').value);
+    formdata.append('description',document.getElementById('description').value);
+    formdata.append('price',document.getElementById('price').value);
+    formdata.append('type',document.getElementById('type').value);
+    formdata.append('bedrooms',document.getElementById('bedrooms').value);
+    formdata.append('bathrooms',document.getElementById('bathrooms').value);
+    formdata.append('area',document.getElementById('area').value);
+    formdata.append('address',document.getElementById('address').value);
+    formdata.append('state',document.getElementById('state').value);
+    formdata.append('zip_code',document.getElementById('zip_code').value);
+    formdata.append('status',document.getElementById('status').value);
+    formdata.append('photo',document.getElementById('photo').value);
+
+    store('/admin/properties', formdata)
+
+  }
+</script>
 
 @endsection
 
