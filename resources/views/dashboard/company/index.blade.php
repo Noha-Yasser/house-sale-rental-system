@@ -46,7 +46,7 @@
                         @endif
                     </td>
                     <td>{{ $company->user->name ?? ""}}</td>
-                    <td>{{ $company->user->address ?? "" }}</td>
+                <td><span class="badge bg-info">{{ $customer->user->city->city_name ?? "" }}</span></td>
                     <td>
                         @if($company->rating > 0)
                             <span class="badge badge-success">{{ $company->rating }} ★</span>

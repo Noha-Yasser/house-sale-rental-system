@@ -20,7 +20,7 @@ class PropertyFactory extends Factory
         return [
             'title' => fake()->sentence(3),
 
-            'description' => fake()->text(200),
+            'description' => fake()->text(20),
 
             'price' => fake()->randomFloat(2, 50000, 500000),
 

@@ -6,6 +6,8 @@ use App\Models\City;
 use App\Models\Customer;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Validator;
 
 class CustomerController extends Controller
 {
@@ -32,40 +34,71 @@ class CustomerController extends Controller
      */
     public function store(Request $request)
     {
-        $validator=Validator($request->all(),[
-            'name'=>'required|string|min:3|max:20',
-            'phone'=>'required|digits:10',],[
-            'name.required'=>'its required',
-            'phone.required'=>'its required',
-            'phone.min'=>"phone more than that"
-
+        // تأكدي أن الأسماء هنا تطابق الـ "name" الموجود في حقول الـ HTML والـ FormData في السكريبت
+        $validator = Validator::make($request->all(), [
+            'name'        => 'required|string|min:3|max:50',
+            'email'       => 'required|email|unique:customers,email', // منع تكرار الإيميل
+            'password'    => 'required|string|min:6',
+            'phone'       => 'required|digits:10',
+            'city_id'     => 'required|exists:cities,id',
+            'gender'      => 'required|string',
+            'birthday'    => 'required|date',
+            'identity_id' => 'required|string',
+            'address'     => 'required|string|max:255',
+        ], [
+            // رسائل مخصصة (اختياري)
+            'name.required' => 'يجب إدخال اسم الزبون',
+            'phone.digits'  => 'رقم الهاتف يجب أن يتكون من 10 أرقام فقط',
         ]);
-        if(! $validator->fails()){
-            $customers=new Customer();
-            $customers->email=$request->get('email');
-             $customers->password=$request->get('password');
-             $isSaved=$customers->save();
-             if($isSaved){
-                $users=new User();
-              
-                $users->name=$request->get('name');
-                 $users->phone=$request->get('phone');
-             $users->address=$request->get('address');
-                 $users->city_id=$request->get('city_id');
-                     $users->actor()->associate($customers);
-             $isSaved=$users->save();
-             return response()->json(['icon'=>'Success',
-            'title'=>'Created Customer is successfully', ],200);
-             }
+
+        if ($validator->fails()) {
+            return response()->json([
+                'icon'  => 'error',
+                'title' => $validator->getMessageBag()->first()
+            ], 400);
         }
 
-        else{return response()->json([
-            'icon'=>'error',
-            'title'=>$validator->getMessageBag()->first()
-        ],400);}
-    }
+        // 2. حفظ بيانات الزبون (Customer) في جدول customers
+        $customer = new Customer();
+        $customer->email       = $request->get('email');
+        $customer->password    = Hash::make($request->get('password')); // تشفير كلمة المرور
+        $customer->gender      = $request->get('gender');
+        $customer->birthday    = $request->get('birthday');
+        $customer->identity_id = $request->get('identity_id');
+        
+        $isSaved = $customer->save();
 
-    /**
+        if ($isSaved) {
+            // 3. حفظ بيانات المستخدم المرتبطة (User) في جدول users (علاقة Morph)
+            $user = new User();
+            $user->name    = $request->get('name');
+            $user->phone   = $request->get('phone');
+            $user->address = $request->get('address');
+            $user->city_id = $request->get('city_id');
+            
+            // ربط اليوزر بالزبون عن طريق الـ Actor
+            // هذا السطر سيملاً حقول actor_id و actor_type تلقائياً
+            $user->actor()->associate($customer);
+            
+            $isUserSaved = $user->save();
+
+            if ($isUserSaved) {
+                return response()->json([
+                    'icon'  => 'success',
+                    'title' => 'تم إنشاء حساب الزبون بنجاح'
+                ], 200);
+            } else {
+                // في حال فشل حفظ اليوزر، نحذف الزبون لضمان عدم وجود بيانات يتيمة
+                $customer->delete();
+            }
+        }
+
+        return response()->json([
+            'icon'  => 'error',
+            'title' => 'فشلت عملية الحفظ، حاول مرة أخرى'
+        ], 500);
+    }
+        /**
      * Display the specified resource.
      */
     public function show(string $id)
@@ -111,9 +144,10 @@ class CustomerController extends Controller
                  $users->phone=$request->get('phone');
              $users->address=$request->get('address');
                  $users->city_id=$request->get('city_id');
+                 
                      $users->actor()->associate($customers);
              $isSaved=$users->save();
-             return ['redirect'=>route('customers.index')];
+             return response()->json(['redirect'=>route('customers.index')]);
              }
         }
 

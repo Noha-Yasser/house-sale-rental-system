@@ -33,9 +33,17 @@
             </div>
 
             <div class="form-group">
-                <label for="address">Address</label>
-                <input type="text" name="address" id="address" class="form-control @error('address') is-invalid @enderror" value="{{ old('address') }}">
-              
+                
+                  <label>City</label>
+                  <select class="form-control select2 select2-danger" data-dropdown-css-class="select2-danger" id="city_id" name="city_id" style="width: 100%;" >
+                    {{-- <option selected="selected">Alabama</option> --}}
+                    @foreach($cities as $city)
+                    <option value="{{ $city->id }}">{{ $city->city_name }}</option>
+
+                    @endforeach
+
+                  </select>
+             
             </div>
 
             <div class="form-group">
@@ -89,7 +97,7 @@
          formData.append('email',document.getElementById('email').value);
         formData.append('password',document.getElementById('password').value);
         
-        store('/company/companys',formData)
+        store('/admin/companies',formData)
 
     }
 </script>

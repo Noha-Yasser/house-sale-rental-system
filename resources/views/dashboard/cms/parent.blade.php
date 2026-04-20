@@ -29,13 +29,17 @@
 
  @yield('styles')
 </head>
-<body class="hold-transition sidebar-mini layout-fixed">
+
+  <body class="hold-transition sidebar-mini layout-fixed layout-footer-fixed">
 <div class="wrapper">
 
   <!-- Preloader -->
-  <div class="preloader flex-column justify-content-center align-items-center">
-    <img class="animation__shake" src="dist/img/AdminLTELogo.png" alt="AdminLTELogo" height="60" width="60">
+  <div class="preloader flex-column justify-content-center align-items-center bg-white">
+  <div class="animation__shake d-flex flex-column align-items-center">
+    <i class="fas fa-building text-primary mb-3" style="font-size: 7rem;"></i>
+    <h1 class="brand-text font-weight text-dark">Apartment</h1>
   </div>
+</div>
 
   <!-- Navbar -->
   <nav class="main-header navbar navbar-expand navbar-white navbar-light">
@@ -221,14 +225,15 @@
               </p>
             </a>
             <ul class="nav nav-treeview">
-              <li class="nav-item">
-                <a href="./index.html" class="nav-link active">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Home </p>
-                </a>
-              </li>
+            
 
+<li class="nav-item">
 
+    <a href="{{ route('dashboard.home') }}" class="nav-link {{ request()->routeIs('dashboard.home') ? 'active' : '' }}">
+        <i class="nav-icon fas fa-home"></i>
+        <p>Home </p>
+    </a>
+</li>
             </ul>
           </li>
 
@@ -513,11 +518,20 @@
 <script src="{{ asset('cms/dist/js/demo.js') }}"></script>
 <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
 <script src="{{ asset('cms/dist/js/pages/dashboard.js') }}"></script>
+<script src="{{ asset('plugins/jquery/jquery.min.js') }}"></script>
+<script src="{{ asset('plugins/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
+<script src="{{ asset('dist/js/adminlte.js') }}"></script>
 
 <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script src="{{ asset('js/crud.js') }}"></script>
-
+<script>
+  $(window).on('load', function() {
+    if ($(".preloader").length) {
+      $(".preloader").fadeOut("slow");
+    }
+  });
+</script>
 @yield('scripts')
 </body>
 </html>

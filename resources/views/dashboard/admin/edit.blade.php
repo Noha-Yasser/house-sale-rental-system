@@ -87,7 +87,7 @@
         formData.append('email',document.getElementById('email').value);
     
         formData.append('address',document.getElementById('address').value);
-        storeRoute('/admin/admins-update/'+ id,formData)
+        storeRoute('/admin/admins_update/'+ id,formData)
 
     }
 </script>

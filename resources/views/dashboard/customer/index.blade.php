@@ -35,33 +35,20 @@
 
                   </thead>
                   <tbody>
-                    @foreach($customers as $customer)
-                    <tr>
-                      <td>{{ $customer->id }}</td>
-                      <td>{{ $customer->name }}</td>
-                      <td>{{ $customer->email }}</td>
-                      <td><span class="badge bg-info">{{ $customer->city->name ?? ""}}</td>
-                    <td>{{ $customer->Seeting }}</td> 
-                       <td>
-
-                <!-- Show -->
-                <a href="{{ route('customers.show', $customer->id) }}" class="btn btn-info btn-sm" title="show">
-                    <i class="fas fa-eye"></i>
-                </a>
-
-                <!-- Edit -->
-                <a href="{{ route('customers.edit', $customer->id) }}" class="btn btn-warning btn-sm" title="edit">
-                    <i class="fas fa-edit"></i>
-                </a>
-
-                <!-- Delete -->
-                <button type="button" onclick="performDestroy({{ $customer->id }}, this)" class="btn btn-danger btn-sm" title="delete">
-                    <i class="fas fa-trash"></i>
-                </button>
-            </td>
-
-                    </tr>
-                @endforeach
+                  @foreach($customers as $customer)
+<tr>
+    <td>{{ $customer->id }}</td>
+    <td>{{ $customer->user->name ?? 'N/A' }}</td> 
+    <td>{{ $customer->email }}</td>
+  
+    <td><span class="badge bg-info">{{ $customer->user->city->city_name ?? "" }}</span></td>
+    <td>
+        <a href="{{ route('customers.show', $customer->id) }}" class="btn btn-info btn-sm"><i class="fas fa-eye"></i></a>
+        <a href="{{ route('customers.edit', $customer->id) }}" class="btn btn-warning btn-sm"><i class="fas fa-edit"></i></a>
+        <button type="button" onclick="performDestroy({{ $customer->id }}, this)" class="btn btn-danger btn-sm"><i class="fas fa-trash"></i></button>
+    </td>
+</tr>
+@endforeach
                   </tbody>
                 </table>
               </div>

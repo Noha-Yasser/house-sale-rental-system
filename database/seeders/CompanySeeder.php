@@ -2,55 +2,35 @@
 
 namespace Database\Seeders;
 
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use App\Models\Company;
+use App\Models\User;
+use App\Models\City;
 use Illuminate\Database\Seeder;
 
 class CompanySeeder extends Seeder
 {
-    /**
-     * Run the database seeds.
-     */
     public function run(): void
-    { $companies = [
+    {
+        // تأكد من وجود مدينة واحدة على الأقل (باستخدام الأسماء الصحيحة للأعمدة)
+        $defaultCity = City::firstOrCreate(
+            ['id' => 1],
             [
-                'company_name' => 'Elite Real Estate',
-                'address' => 'Ramallah, Palestine',
-                'description' => 'Luxury properties and premium real estate services since 2010.',
-                'website' => 'https://elite-realestate.ps',
-                'rating' => 4.8,
-            ],
-            [
-                'company_name' => 'HomeFinder',
-                'address' => 'Gaza, Palestine',
-                'description' => 'Your trusted partner for finding the perfect home.',
-                'website' => 'https://homefinder.ps',
-                'rating' => 4.5,
-            ],
-            [
-                'company_name' => 'Cairo Properties',
-                'address' => 'Cairo, Egypt',
-                'description' => 'Best properties in Cairo with competitive prices.',
-                'website' => 'https://cairoproperties.com',
-                'rating' => 4.2,
-            ],
-            [
-                'company_name' => 'Dubai Realty',
-                'address' => 'Dubai, UAE',
-                'description' => 'Luxury living in the heart of Dubai.',
-                'website' => 'https://dubairealty.ae',
-                'rating' => 4.9,
-            ],
-            [
-                'company_name' => 'Riyadh Homes',
-                'address' => 'Riyadh, Saudi Arabia',
-                'description' => 'Affordable homes and modern apartments.',
-                'website' => 'https://riyadh-homes.sa',
-                'rating' => 4.3,
-            ],
-        ];
+                'city_name' => 'Default City',  // city_name مش name
+                 'street' => 'Default Street',
+                'country_id' => 1
+            ]
+        );
 
-        foreach ($companies as $company) {
-         //  companies::create($company);
-        }
+        Company::factory(10)->create()->each(function ($company) use ($defaultCity) {
+            User::create([
+                'name' => $company->email,
+                'phone' => fake()->phoneNumber(),
+                'image' => fake()->imageUrl(100, 100, 'people', true, 'avatar'),
+                'address' => fake()->address(),
+                'city_id' => $defaultCity->id,  // هذا صحيح
+                'actor_id' => $company->id,
+                'actor_type' => Company::class,
+            ]);
+        });
     }
 }

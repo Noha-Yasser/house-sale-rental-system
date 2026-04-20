@@ -31,10 +31,12 @@
                      required>
                   </div>
   <div class="form-group">
-                    <label for="address">customer address</label>
-                    <input type="text" class="form-control" id="address" placeholder="Enter customer address" name="address" disabled
-                    value="{{ $customers->user->address  ?? ""}}"
-                     required>
+               
+                 <div class="form-group">
+    <label>City</label>
+    <input type="text" class="form-control" disabled 
+           value="{{ $customers->user->city->city_name ?? 'N/A' }}">
+</div>
                   </div>
                     <div class="form-group">
                     <label for="email">customer email</label>
@@ -71,7 +73,9 @@
                 <!-- /.card-body -->
 
                 <div class="card-footer">
-                  <button type="submit" class="btn btn-primary">Update</button>
+           <a href="{{ route('customers.edit', $customers->id) }}" class="btn btn-primary">
+    Go to Edit
+</a>
                   <a href="{{ route('customers.index') }}" class="btn btn-primary">Go Back</a>
                 </div>
               </form>

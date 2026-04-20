@@ -26,7 +26,7 @@
                   <select class="form-control select2 select2-danger" data-dropdown-css-class="select2-danger" id="city_id" name="city_id" style="width: 100%;" >
                     {{-- <option selected="selected">Alabama</option> --}}
                     @foreach($cities as $city)
-                    <option value="{{ $city->id }}">{{ $city->name }}</option>
+                    <option value="{{ $city->id }}">{{ $city->city_name }}</option>
 
                     @endforeach
 
@@ -111,7 +111,7 @@
          formData.append('address',document.getElementById('address').value);
         formData.append('identity_id',document.getElementById('identity_id').value);
              formData.append('phone',document.getElementById('phone').value);
-        store('/admin/customer',formData)
+        store('/admin/customers',formData)
 
     }
 </script>
