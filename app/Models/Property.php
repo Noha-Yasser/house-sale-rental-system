@@ -14,7 +14,13 @@ class Property extends Model
         return $this->hasMany(Review::class);
     }
 
+public function images() {
+    return $this->hasMany(PropertyImage::class, 'property_id');
+}
 
+public function primaryImage() {
+    return $this->hasOne(PropertyImage::class, 'property_id')->where('is_primary', true);
+}
     protected $fillable = [
         'title',
         'description',

@@ -181,6 +181,34 @@
         <input type="text" id="photo" placeholder="Enter a URL of photo" value="{{$properties->photo}}" required>
       </div>
       
+
+  
+@if($property->images->count() > 0)
+<div class="form-group">
+    <label>Current images</label>
+    <div class="row">
+        @foreach($property->images as $image)
+        <div class="col-md-2 text-center mb-2" id="img-{{ $image->id }}">
+            <img src="{{ asset('storage/properties/' . $image->image) }}" class="img-fluid rounded" style="height: 100px; object-fit: cover;">
+            @if($image->is_primary)
+                <span class="badge badge-primary d-block">main</span>
+            @endif
+            <button type="button" class="btn btn-danger btn-sm mt-1" onclick="deleteImage({{ $image->id }})">
+                <i class="fas fa-trash"></i> delete
+            </button>
+        </div>
+        @endforeach
+    </div>
+</div>
+@endif
+
+
+<div class="form-group">
+    <label for="new_images">Add new photos</label>
+    <input type="file" name="new_images[]" id="new_images" class="form-control" multiple accept="image/*">
+</div>
+
+
     </div>
 
     <button type="button" onclick="performUpdate({{$properties->id}})" class="add-btn" >Edit</button>
@@ -208,9 +236,37 @@
     formdata.append('status',document.getElementById('status').value);
     formdata.append('photo',document.getElementById('photo').value);
 
+    let imagesInput = document.getElementById('images');
+    if (imagesInput && imagesInput.files.length > 0) {
+        for (let i = 0; i < imagesInput.files.length; i++) {
+            formdata.append('images[]', imagesInput.files[i]);
+        }
+        console.log('تم إضافة ' + imagesInput.files.length + ' صور');
+    } else {
+        console.log('لم يتم اختيار أي صور');
+    }
     storeRoute('/admin/properties_update/'+id , formdata)
 
   }
+
+  function deleteImage(imageId) {
+    if (confirm('Are you sure you want to delete this picture?')) {
+        fetch('/admin/property-images/' + imageId, {
+            method: 'DELETE',
+            headers: {
+                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
+                'X-Requested-With': 'XMLHttpRequest'
+            }
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                document.getElementById('img-' + imageId).remove();
+                toastr.success('Deleted');
+            }
+        });
+    }
+}
 </script>
 @endsection
 

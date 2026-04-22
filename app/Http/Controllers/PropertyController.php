@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Property;
+use App\Models\PropertyImage;
 use Illuminate\Http\Request;
 
 class PropertyController extends Controller
@@ -41,7 +42,7 @@ class PropertyController extends Controller
             'state' => 'nullable|string|max:30|min:5',
             'zip_code' => 'required|digits:4',
             'status' => 'required',
-            'photo' => 'nullable|image|mimes:jpg,jpeg,png,gif|max:2048',
+         
         ]);
 
         if(! $validator->fails()){
@@ -57,10 +58,23 @@ class PropertyController extends Controller
             $properties->state = $request -> get('state');
             $properties->zip_code = $request -> get('zip_code');
             $properties->status = $request -> get('status');
-            $properties->photo = $request -> get('photo');
-    
+         $properties->services = $request->get('services') ?? '';
+$properties->unique_feature = $request->get('unique_feature') ?? '';
+$properties->photo = $request->get('photo') ?? '';
+    $properties->views_count = 0; 
             $isSaved = $properties -> save();
-
+                if ($request->hasFile('images')) {
+                    foreach ($request->file('images') as $index => $image) {
+                        $imageName = time() . '_' . $index . '.' . $image->getClientOriginalExtension();
+                        $image->move('storage/properties', $imageName);
+                        
+                        PropertyImage::create([
+                            'property_id' => $properties->id,
+                            'image_path' => $imageName,
+                            'is_primary' => ($index === 0) 
+                        ]);
+                    }
+                }
             return response()->json([
                 'icon'=>'success',
                 'title'=>'Created Property is Successfully',
@@ -111,7 +125,7 @@ class PropertyController extends Controller
             'state' => 'nullable|string|max:30|min:5',
             'zip_code' => 'required|digits:4',
             'status' => 'required',
-            'photo' => 'nullable|image|mimes:jpg,jpeg,png,gif|max:2048',
+      
         ]);
 
         if(! $validator->fails()){
@@ -128,10 +142,22 @@ class PropertyController extends Controller
             $properties->zip_code = $request -> get('zip_code');
             $properties->status = $request -> get('status');
             $properties->photo = $request -> get('photo');
-    
+
+    if ($request->hasFile('new_images')) {
+    foreach ($request->file('new_images') as $image) {
+        $imageName = time() . '_' . uniqid() . '.' . $image->getClientOriginalExtension();
+        $image->move('storage/properties', $imageName);
+        
+        PropertyImage::create([
+            'property_id' => $properties->id,
+            'image_path' => $imageName,
+            'is_primary' => false  
+        ]);
+    }
+}
             $isUpdated = $properties -> save();
 
-            return rdirect()->route('properties.index');
+              return['redirect'=>route('properties.index')];
 
 
         }else{
@@ -150,4 +176,21 @@ class PropertyController extends Controller
     {
         $properties = Property::destroy($id);
     }
+
+
+    public function destroyImage($id)
+{
+    $image = PropertyImage::findOrFail($id);
+    
+   
+    $imagePath = public_path('storage/properties/' . $image->image);
+    if (file_exists($imagePath)) {
+        unlink($imagePath);
+    }
+    
+   
+    $image->delete();
+    
+    return response()->json(['success' => true]);
+}
 }

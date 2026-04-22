@@ -66,7 +66,11 @@
     <!-- Card -->
      @foreach ($properties as $property)
         <div class="card">
-        <img src='{{ $property->photo }}'>
+      @if($property->primaryImage)
+    <img src="{{ asset('storage/properties/' . $property->primaryImage->image) }}" style="width: 80px; height: 60px; object-fit: cover;">
+@else
+    <img src="{{ asset('cms/dist/img/no-image.png') }}" style="width: 80px; height: 60px;">
+@endif
         <h4>{{$property ->title}}</h4>
         <p>{{$property ->address}}</p>
         <p>{{$property ->type}} | {{$property ->status}}</p>

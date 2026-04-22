@@ -41,23 +41,17 @@ Route::prefix('admin')->group(function(){
     Route::resource('companies', CompanyController::class);
      Route::post('companies_update/{id}',[CompanyController::class,'update'])->name('companies_update');
 
-<<<<<<< HEAD
-      Route::resource('customers', CustomerController::class);
+
+    Route::resource('customers', CustomerController::class);
      Route::post('customers_update/{id}',[CustomerController::class,'update'])->name('customers_update');
      
-Route::view('/home', 'dashboard.cms.index')->name('dashboard.home');
-
-
-=======
-
-     Route::resource('customers', CustomerController::class);
-     Route::post('customers_update/{id}',[customerController::class,'update'])->name('companies_update');
     
      Route::resource('transactions', TransactionController::class);
      Route::post('transactions_update/{id}',[TransactionController::class,'update'])->name('transactions_update');
      
-      Route::view('/home', 'dashboard.cms.index')->name('dashboard.home');
->>>>>>> 1d968f65c22c1e56b7b9ade70727879f9e186892
+    Route::view('/home', 'dashboard.cms.index')->name('dashboard.home');
+
+Route::delete('property-images/{id}', [PropertyController::class, 'destroyImage'])->name('property-images.destroy');
 
 });
 

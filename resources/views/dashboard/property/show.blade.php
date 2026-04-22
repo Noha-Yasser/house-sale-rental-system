@@ -172,7 +172,19 @@
             <option value="Pending"  {{$properties-> status == "Pending" ? "selected" : ""}}>Pending</option>
           </select>
       </div>
-    
+    @if($properties->primaryImage)
+    <img src="{{ asset('storage/properties/' . $properties->primaryImage->image) }}" class="img-fluid">
+@endif
+@if($properties->images->where('is_primary', false)->count() > 0)
+<h5>معرض الصور</h5>
+<div class="row">
+    @foreach($properties->images->where('is_primary', false) as $image)
+    <div class="col-md-3 mb-2">
+        <img src="{{ asset('storage/properties/' . $image->image) }}" class="img-fluid rounded">
+    </div>
+    @endforeach
+</div>
+@endif
       
     </div>
 
