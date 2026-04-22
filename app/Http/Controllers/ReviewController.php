@@ -12,15 +12,17 @@ class ReviewsController extends Controller
      */
     public function index()
     {
-        //
+     
+       //
     }
 
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
+    public function create($id)
     {
-        //
+        $properties=Property::findOrFail($id);
+        return response()->view('dashboard.review.create',compact('properties'));
     }
 
     /**
@@ -28,7 +30,32 @@ class ReviewsController extends Controller
      */
     public function store(Request $request)
     {
-        //
+         $validator=validator($request->all(),[
+            'comments'=>'required',
+            'property_id'=>'nullable',
+        ]);
+
+        if(! $validator->fails()){
+            $reviews=new Review();
+            $reviews->comments=$request->get('comments');
+            $reviews->property_id=$request->get('property_id');
+
+            $isSaved=$reviews->save();
+            return response()->json([
+                'icon'=>'success',
+                'title'=>'Created New Review is Successfully'
+            ],200);
+
+
+
+        }
+        else{
+            return response()->json([
+                'icon'=>'error',
+                'title'=>$validator->getMessageBag()->first(),
+
+            ],400);
+        }
     }
 
     /**

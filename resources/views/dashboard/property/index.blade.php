@@ -21,6 +21,7 @@
   padding: 15px;
   text-align: center;
   box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+  height:500px;
 }
 
 .card img {
@@ -70,7 +71,10 @@
         <p>{{$property ->address}}</p>
         <p>{{$property ->type}} | {{$property ->status}}</p>
         <span>${{$property -> price}}</span>
-        <div  class="d-flex justify-content-center align-items-center">
+        <p>
+            <a href="">{{$property ->reviews_count}} Reviws</a>
+        </p>
+        <div  class="icons d-flex justify-content-center align-items-center">
                 <!-- Show -->
                 <a href="{{ route('properties.show',$property->id) }}" class="btn btn-info btn-sm ml-1" title="show">
                     <i class="fas fa-eye"></i>
@@ -90,7 +94,9 @@
         </div>
     @endforeach
    
-
+    <div>
+        {{$properties->links()}}
+    </div>
   </div>
 @endsection
 

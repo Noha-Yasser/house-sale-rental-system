@@ -178,7 +178,7 @@
        <!-- Photo -->
       <div class="input-box">
         <label for="photo">Photo :</label>
-        <input type="text" id="photo" placeholder="Enter a URL of photo" required>
+        <input type="file" name="photo" id="photo" class="form-control-file @error('photo') is-invalid @enderror" accept="image/*">
       </div>
       
     </div>

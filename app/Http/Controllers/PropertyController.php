@@ -12,7 +12,7 @@ class PropertyController extends Controller
      */
     public function index()
     {
-        $properties = Property::OrderBy('id','desc')->paginate(10);
+        $properties = Property::withCount('reviews')->orderBy('id','desc')->paginate(12);
         return response()->view('dashboard.property.index',compact('properties'));
     }
 
@@ -41,7 +41,7 @@ class PropertyController extends Controller
             'state' => 'nullable|string|max:30|min:5',
             'zip_code' => 'required|digits:4',
             'status' => 'required',
-            // 'photo' => 'required',
+            'photo' => 'nullable|image|mimes:jpg,jpeg,png,gif|max:2048',
         ]);
 
         if(! $validator->fails()){
@@ -111,7 +111,7 @@ class PropertyController extends Controller
             'state' => 'nullable|string|max:30|min:5',
             'zip_code' => 'required|digits:4',
             'status' => 'required',
-            // 'photo' => 'required',
+            'photo' => 'nullable|image|mimes:jpg,jpeg,png,gif|max:2048',
         ]);
 
         if(! $validator->fails()){

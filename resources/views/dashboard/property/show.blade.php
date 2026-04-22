@@ -1,8 +1,8 @@
 @extends('dashboard.cms.parent')
 
-@section('title', 'Edit Estate')
-@section('main-title', 'Edit Estate')
-@section('sub-title', 'Edit Estate')
+@section('title', 'Show Estate')
+@section('main-title', 'Show Estate')
+@section('sub-title', 'Show Estate')
 
 @section('styles')
     <style>
@@ -172,19 +172,9 @@
             <option value="Pending"  {{$properties-> status == "Pending" ? "selected" : ""}}>Pending</option>
           </select>
       </div>
-
     
       
     </div>
-
-  <div class="reviews mt-6">
-      <h2 class="w-100 bg-light shadow-sm rounded d-flex px-2 m-3">   
-          REVIEWS
-      </h2>   
-      <p class="w-100 bg-light shadow-sm rounded d-flex px-2 m-3">   
-        reviews description
-      </p>   
-  </div>
 
   </form>
 
