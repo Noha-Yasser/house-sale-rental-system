@@ -35,11 +35,15 @@ Route::prefix('admin')->group(function(){
      Route::post('companies_update/{id}',[CompanyController::class,'update'])->name('companies_update');
 
       Route::resource('customers', CustomerController::class);
-     Route::post('customers_update/{id}',[CustomerController::class,'update'])->name('companies_update');
+     Route::post('customers_update/{id}',[CustomerController::class,'update'])->name('customers_update');
      
 Route::view('/home', 'dashboard.cms.index')->name('dashboard.home');
+
+
+
 });
 
+Route::get('/admin/get-cities/{countryId}', [App\Http\Controllers\CityController::class, 'getCitiesByCountry']);
 
 //  admins Route::view('/admin','cms.parent'); AdminController
 

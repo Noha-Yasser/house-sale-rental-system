@@ -2,14 +2,16 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Company;
-use Illuminate\Http\Request;
-use App\Models\User;
 use App\Models\City;
-
-use Dotenv\Validator;
+use App\Models\Company;
+use App\Models\Country;
+use App\Models\User;
 use GrahamCampbell\ResultType\Success;
 use Illuminate\Auth\Events\Validated;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Validator;
+
 class CompanyController extends Controller
 {
     /**
@@ -26,7 +28,8 @@ class CompanyController extends Controller
      */
     public function create()
     { $cities= City::all();
-       return response()->view('dashboard.company.create',compact('cities'));
+     $countries = Country::all();
+       return response()->view('dashboard.company.create',compact('cities','countries'));
     }
 
     /**
@@ -34,39 +37,46 @@ class CompanyController extends Controller
      */
     public function store(Request $request)
     {
-       
-        $validator=Validator($request->all(),[
-             'logo' => 'nullable|image|mimes:jpg,jpeg,png,gif|max:2048',
-         
-            'description' => 'nullable|string',
-            'website' => 'nullable|url|max:255',
-            'rating' => 'nullable|numeric|min:0|max:5',
-        ]);
+       $validator = Validator::make($request->all(), [
+        'name' => 'required|string|min:3', // اسم الشركة (يخزن في user)
+        'email' => 'required|email|unique:companies,email',
+        'city_id' => 'required|exists:cities,id',
+      
+    ]);
 
-       if(! $validator->fails()){
-            $companies=new Company();
-            $companies->email=$request->get('email');
-            $companies->website=$request->get('website');
-            $companies->rating=$request->get('rating');
-            $companies->password=$request->get('password');
-             $isSaved=$companies->save();
-             if($isSaved){
-                $users=new User();
-              
-                $users->name=$request->get('name');
-                 $users->phone=$request->get('phone');
-             $users->address=$request->get('address');
-                 $users->city_id=$request->get('city_id');
-                     $users->actor()->associate($companies);
-             $isSaved=$users->save();
-             return response()->json(['icon'=>'Success',
-            'title'=>'Created Company is successfully', ],200);
-             }}
-              else{return response()->json([
-            'icon'=>'error',
-            'title'=>$validator->getMessageBag()->first()
-        ],400);}
+    if ($validator->fails()) {
+        return response()->json(['icon' => 'error', 'title' => $validator->getMessageBag()->first()], 400);
     }
+
+    // 1. حفظ بيانات الشركة الخاصة (التي ليس لها علاقة باليوزر)
+    $company = new Company();
+    $company->email = $request->get('email');
+    $company->password = Hash::make($request->get('password'));
+    $company->website = $request->get('website');
+    $company->rating = $request->get('rating', 0);
+    // كود حفظ اللوجو هنا...
+    $isSaved = $company->save();
+
+    if ($isSaved) {
+        // 2. حفظ بيانات "اليوزر" وربطها بالشركة
+        $user = new User();
+           if ($request->hasFile('image')) {
+                $image = $request->file('image');
+                $imageName = time() . 'image.' . $image->getClientOriginalExtension();
+                $image->move('storage/images/company', $imageName);
+                $user->image = $imageName;
+            }
+        $user->name = $request->get('name'); // هنا اسم الشركة الحقيقي
+        $user->phone = $request->get('phone');
+        $user->address = $request->get('address');
+        $user->city_id = $request->get('city_id');
+        $user->actor()->associate($company); // ربط Morph
+        $user->save();
+
+        return response()->json(['icon' => 'success', 'title' => 'success store'], 200);
+    }
+}
+    
 
     /**
      * Display the specified resource.
@@ -82,48 +92,72 @@ public function show(string $id)
      * Show the form for editing the specified resource.
      */
   public function edit(string $id)
-    {    $cities= City::all();
+    {  $countries = Country::all();
+          $cities= City::all();
        $companies=Company::findOrFail($id);
-        return view('dashboard.company.edit', compact('companies'));
-    }
+        return response()-> view('dashboard.company.edit', compact('companies','cities','countries'));   }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request,  string $id)
-    {
-        $validator=Validator($request->all(),[
-             'logo' => 'nullable|image|mimes:jpg,jpeg,png,gif|max:2048',
-         
-            'description' => 'nullable|string',
-            'website' => 'nullable|url|max:255',
-            'rating' => 'nullable|numeric|min:0|max:5',
-        ]);
 
-       if(! $validator->fails()){
-                $companies=Company::findOrFail($id);
-            $companies->email=$request->get('email');
-            $companies->website=$request->get('website');
-            $companies->rating=$request->get('rating');
-            $companies->password=$request->get('password');
-             $isSaved=$companies->save();
+          public function update(Request $request, string $id)
+{
+    $validator = Validator($request->all(), [
+        'name'        => 'required|string|max:100',
+        'email'       => 'required|email|unique:companies,email,' . $id,
+        'website'     => 'nullable|string|max:255', 
+        'description' => 'nullable|string|max:1000',
+         'address' => 'nullable|string',
+        'rating'      => 'nullable|numeric|min:0|max:5',
+        'city_id'     => 'required|exists:cities,id',
+      
+        'password'    => 'nullable|string|min:6', 
+    ]);
+
+  
+  if(! $validator->fails()){
+    $companies = Company::findOrFail($id);
+
+  
+    $companies->email       = $request->get('email');
+    $companies->website     = $request->get('website');
+    $companies->rating      = $request->get('rating');
+    $companies->description = $request->get('description');
+
+    $isSaved=$companies->save();
              if($isSaved){
                 $users=$companies->user;
-              
+                 if ($request->hasFile('image')) {
+                $image = $request->file('image');
+                $imageName = time() . 'image.' . $image->getClientOriginalExtension();
+                $image->move('storage/images/company', $imageName);
+                $users->image = $imageName;
+            }
                 $users->name=$request->get('name');
                  $users->phone=$request->get('phone');
              $users->address=$request->get('address');
                  $users->city_id=$request->get('city_id');
+                 
                      $users->actor()->associate($companies);
              $isSaved=$users->save();
-             return response()->json(['icon'=>'Success',
-            'title'=>'Created Company is successfully', ],200);
-             }
-    } else{return response()->json([
+             return response()->json(['redirect'=>route('companies.index')]);
+             }}
+                else{return response()->json([
             'icon'=>'error',
             'title'=>$validator->getMessageBag()->first()
-        ],400);}}
+        ],400);}
+}
 
+
+
+
+
+
+
+
+
+    
     /**
      * Remove the specified resource from storage.
      */

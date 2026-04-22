@@ -19,58 +19,81 @@
              @csrf
                 <div class="card-body">
 
-                <div class="row">
-              <div class="col-12 col-sm-4">
-                <div class="form-group">
-                  <label>city</label>
-                  <select class="form-control select2 select2-danger" data-dropdown-css-class="select2-danger" id="city_id" name="city_id" style="width: 100%;" >
-                    <option selected>{{ $customers->user->city->city_name }}</option>
-                    @foreach($cities as $city)
-                     <!--    <option value="{{ $city->id }}">{{ $city->city_name }}</option>-->
-<option value="{{ $city->id }}" {{ $city->id == $customers->user->city_id ? 'selected' : '' }}>
-    {{ $city->city_name }} 
-</option>
-                    @endforeach
-
-                  </select>
-                </div>
+               
+             
+                     <div class="card-body">
+                            <div class="row">  
+                                           <div class="form-group col-md-4">
+                                                   <label for="name">customer name</label>
+                                                    <!--     <input type="text" class="form-control" id="name" placeholder="Enter customer name" name="name" value="{{ $customer->user->name ?? "" }}" required>-->
+                                                    <input type="text" id="name" name="name" value="{{ $customers->user->name ?? '' }}" class="form-control">
+                                                  </div>
                 <!-- /.form-group -->
-              </div>
-            </div>
-                  <div class="form-group">
-                    <label for="name">customer name</label>
-                <!--     <input type="text" class="form-control" id="name" placeholder="Enter customer name" name="name" value="{{ $customer->user->name ?? "" }}" required>-->
-                 <input type="text" id="name" name="name" value="{{ $customers->user->name ?? '' }}" class="form-control">
-              </div>
-                  <div class="form-group">
-                    <label for="email">customer email</label>
-                    <input type="text" class="form-control" id="email" placeholder="Enter customer email" name="email" value="{{$customers->email }}" required>
-                  </div>
+                                                
+                                             <div class="form-group col-md-4">
+                                                    <label for="identity_id">customer identity_id</label>
+                                                    <input type="text" class="form-control" id="identity_id" placeholder="Enter customer identity_id" name="identity_id" value="{{$customers->identity_id }}" required>
+                                                  </div>
 
-                     <div class="form-group">
-                    <label for="password">customer password</label>
-                    <input type="text" class="form-control" id="password" placeholder="Enter customer password" name="password" value="{{$customers->password }}" required>
-                  </div>
-                     <div class="form-group">
-                    <label for="gender">customer gender</label>
-                    <input type="text" class="form-control" id="gender" placeholder="Enter customer gender" name="gender" value="{{$customers->gender }}" required>
-                  </div>
-                     <div class="form-group">
-                    <label for="birthday">customer birthday</label>
-                    <input type="text" class="form-control" id="birthday" placeholder="Enter customer birthday" name="birthday" value="{{$customers->birthday }}" required>
-                  </div>
-                     <div class="form-group">
-                    <label for="address">customer address</label>
-                    <input type="text" class="form-control" id="address" placeholder="Enter customer address" name="address" value="{{$customers->user->address }}" required>
-                  </div>
-                        <div class="form-group">
-                    <label for="identity_id">customer identity_id</label>
-                    <input type="text" class="form-control" id="identity_id" placeholder="Enter customer identity_id" name="identity_id" value="{{$customers->identity_id }}" required>
-                  </div>
-                     <div class="form-group">
-                    <label for="phone">customer phone</label>
-                    <input type="text" class="form-control" id="phone" placeholder="Enter customer phone" name="phone" value="{{$customers->user->phone }}" required>
-                  </div>
+                                                  <div class="form-group col-md-4">
+                                                  <label for="image">image</label>
+                                                  <input type="file" class="form-control" id="image" placeholder="choose Image" name="image" accept="image/*" required>
+                                                </div>
+                                                  
+                           </div>
+          
+                          <div class="row">
+                                                         <div class="form-group col-md-4">
+                                                            <label>Country</label>
+                                                            <select class="form-control" id="country_id" onchange="loadCities(this.value)">
+                                                                <option value="">choose country</option>
+                                                                @foreach($countries as $country)
+                                                                    <option value="{{ $country->id }}">{{ $country->country_name }}</option>
+                                                                @endforeach
+                                                            </select>
+                                                        </div>
+
+                                                        <div class="form-group col-md-4">
+                                                            <label>City</label>
+                                                            <select class="form-control" id="city_id">
+                                                                <option value="">choose city</option>
+                                                            </select>
+                                                        </div>
+  <div class="form-group col-md-4">
+                                                    <label for="address">Detailed Customer address (street, building number)</label>
+                                                    <input type="text" class="form-control" id="address" placeholder="Enter customer address" name="address" value="{{$customers->user->address }}" required>
+                                                  </div> 
+
+                                                  
+                                                     
+                                                   
+                          </div>
+                          
+                          <div class="row">
+                              <div class="form-group col-md-4">
+                                                      <label for="gender">customer gender</label>
+                                                      <input type="text" class="form-control" id="gender" placeholder="Enter customer gender" name="gender" value="{{$customers->gender }}" required>
+                                                    </div>
+                                              <div class="form-group col-md-4">
+                                                      <label for="email">customer email</label>
+                                                      <input type="text" class="form-control" id="email" placeholder="Enter customer email" name="email" value="{{$customers->email }}" required>
+                                                    </div>
+
+                                                        <div class="form-group col-md-4">
+                                                        <label for="password">customer password</label>
+                                                        <input type="text" class="form-control" id="password" placeholder="Enter customer password" name="password" value="{{$customers->password }}" required>
+                                                      </div>
+                                                      <div class="form-group col-md-4">
+                                                      <label for="birthday">customer birthday</label>
+                                                      <input type="text" class="form-control" id="birthday" placeholder="Enter customer birthday" name="birthday" value="{{$customers->birthday }}" required>
+                                                    </div>
+                                                  
+                                                       
+                                                    <div class="form-group col-md-4">
+                                                    <label for="phone">customer phone</label>
+                                                    <input type="text" class="form-control" id="phone" placeholder="Enter customer phone" name="phone" value="{{$customers->user->phone }}" required>
+                                                  </div>
+                            </div>
                 </div>
                 <!-- /.card-body -->
 
@@ -88,6 +111,7 @@
 <script>
     function performUpdate(id){
         let formData=new FormData();
+        formData.append('image',document.getElementById('image').files[0]);
          formData.append('city_id',document.getElementById('city_id').value);
         formData.append('name',document.getElementById('name').value);
         formData.append('email',document.getElementById('email').value);
@@ -101,6 +125,38 @@
         storeRoute('/admin/customers_update/'+id,formData);
 
     }
+
+    function loadCities(countryId) {
+    let citySelect = document.getElementById('city_id');
+    
+    // إذا لم يتم اختيار دولة، نفرغ قائمة المدن
+    if (!countryId) {
+        citySelect.innerHTML = '<option value="">choose city </option>';
+        return;
+    }
+
+    citySelect.innerHTML = '<option value="">Loading....</option>';
+
+    axios.get('/admin/get-cities/' + countryId)
+        .then(function (response) {
+            // تفريغ القائمة قبل البدء
+            citySelect.innerHTML = '<option value=""> choose city</option>';
+            
+            // التأكد من أن البيانات مصفوفة
+            let cities = response.data;
+            
+            cities.forEach(function (city) {
+                let option = document.createElement('option');
+                option.value = city.id;
+                option.text = city.city_name;
+                citySelect.appendChild(option);
+            });
+        })
+        .catch(function (error) {
+    console.error("Full Error:", error.response); // هذا سيطبع الخطأ كاملاً في الـ Console
+    citySelect.innerHTML = '<option value="">error: ' + error.response.status + '</option>';
+});
+}
 </script>
 
 @endsection

@@ -27,7 +27,7 @@
                     <tr>
                       <th style="width: 10px">ID</th>
                       <th class="text-center"> Name</th>
-                     {{--  <th class="text-center">Image</th> --}} 
+                      <th class="text-center">Image</th> 
                        <th class="text-center">Phone</th>
                       <th class="text-center">Email</th>
                     <th class="text-center">City Name</th>
@@ -40,12 +40,19 @@
                     <tr>
                       <td>{{ $admin->id }}</td>
                       <td>{{ $admin->user->name ??""}}</td>
-                     {{-- <td>{{ $admin->user->Image  }}</td> --}} 
+                   <td class="text-center">
+    @if($admin->user->image ?? false)
+        <img src="{{ asset('storage/images/admin/' . $admin->user->image) }}" 
+           class="img-circle img-bordered-sm"  width="80" height="80" style="object-fit: cover; border-radius: 50%;">
+    @else
+        <span class="text-muted">No Image</span>
+    @endif
+</td>
                       <td>{{ $admin->user->phone ??""}}</td>
                        <td>{{ $admin->email }}</td>
-                   <td><span class="badge bg-info">{{ $admin->user->city->name ?? "" }}</td>
-                   <td>{{ $admin->Seeting }}</td> 
-                       <td>
+                   <td><span class="badge bg-info">{{ $admin->user->city->city_name ?? "" }}</td>
+                   <td>{{ $admin->Seeting }}
+                     
 
                 <!-- Show -->
                 <a href="{{ route('admins.show', $admin->id) }}" class="btn btn-info btn-sm" title="show">

@@ -14,7 +14,7 @@
           <div class="col-md-12">
             <div class="card">
               <div class="card-header">
-                {{-- <h3 class="card-title">customer Table</h3> --}}
+            
                 <a href="{{ route('customers.create') }}" class="btn btn-primary">ADD NEW customer</a>
 
               </div>
@@ -26,6 +26,7 @@
 
                     <tr>
                       <th style="width: 10px">ID</th>
+                         <th class="text-center">Image</th> 
                       <th class="text-center">customer Name</th>
                       <th class="text-center">email</th>
                       <th class="text-center">City Name</th>
@@ -38,6 +39,14 @@
                   @foreach($customers as $customer)
 <tr>
     <td>{{ $customer->id }}</td>
+             <td class="text-center">
+    @if($customer->user->image ?? false)
+        <img src="{{ asset('storage/images/customer/' . $customer->user->image) }}" 
+           class="img-circle img-bordered-sm"  width="80" height="80" style="object-fit: cover; border-radius: 50%;">
+    @else
+        <span class="text-muted">No Image</span>
+    @endif
+</td>
     <td>{{ $customer->user->name ?? 'N/A' }}</td> 
     <td>{{ $customer->email }}</td>
   

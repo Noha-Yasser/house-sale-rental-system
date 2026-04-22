@@ -19,34 +19,35 @@
         </div>
     </div>
     <div class="card-body">
-        @if(session('success'))
+        {{-- @if(session('success'))
             <div class="alert alert-success">{{ session('success') }}</div>
-        @endif
+        @endif --}}
 
         <table class="table table-bordered table-striped">
             <thead>
                 <tr>
-                    <th>ID</th>
-                    <th>Logo</th>
-                    <th>Company Name</th>
-                    <th>Address</th>
-                    <th>Rating</th>
-                    <th>Actions</th>
+                    <th  class="text-center">ID</th>
+                    <th class="text-center">Logo</th>
+                    <th class="text-center">Company Name</th>
+                 <th class="text-center">City Name</th>
+                    <th class="text-center">Rating</th>
+                    <th class="text-center">Actions</th>
                 </tr>
             </thead>
             <tbody>
-                @forelse($companies as $company)
+                @foreach($companies as $company)
                 <tr>
                     <td>{{ $company->id }}</td>
-                    <td>
-                        @if($company->logo)
-                            <img src="{{ asset('storage/companies/' . $company->logo) }}" width="50" height="50" style="object-fit: cover;">
-                        @else
-                            <span class="text-muted">No Logo</span>
-                        @endif
-                    </td>
+                       <td class="text-center">
+    @if($company->user->image ?? false)
+        <img src="{{ asset('storage/images/company/' . $company->user->image) }}" 
+           class="img-circle img-bordered-sm"  width="80" height="80" style="object-fit: cover; border-radius: 50%;">
+    @else
+        <span class="text-muted">No Image</span>
+    @endif
+      </td>
                     <td>{{ $company->user->name ?? ""}}</td>
-                <td><span class="badge bg-info">{{ $customer->user->city->city_name ?? "" }}</span></td>
+                <td><span class="badge bg-info">{{ $company->user->city->city_name ?? "" }}</span></td>
                     <td>
                         @if($company->rating > 0)
                             <span class="badge badge-success">{{ $company->rating }} ★</span>
@@ -62,9 +63,9 @@
                 </button>
                      </td>
                 </tr>
-                @empty
+                {{-- @empty
                 <tr><td colspan="6" class="text-center">No companies found</td></tr>
-                @endforelse
+                @endforelse --}}@endforeach
             </tbody>
         </table>
 
@@ -76,7 +77,7 @@
 
 <script>
     function performDestroy(id,reference){
-        confirmDestroy('/company/companies/'+id,reference);
+        confirmDestroy('/admin/companies/'+id,reference);
     }
 </script>
 @endsection
