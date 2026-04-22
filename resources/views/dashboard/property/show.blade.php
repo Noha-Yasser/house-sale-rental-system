@@ -1,8 +1,8 @@
 @extends('dashboard.cms.parent')
 
-@section('title', 'Create Estate')
-@section('main-title', 'Create Estate')
-@section('sub-title', 'Create Estate')
+@section('title', 'Show Estate')
+@section('main-title', 'Show Estate')
+@section('sub-title', 'Show Estate')
 
 @section('styles')
     <style>
@@ -90,19 +90,17 @@
 
 @section('content')
     <div class="container">
-        <div class="d-flex justify-content-between">
-            <h2>Add New Estate</h2>
-            <a href="{{ route('properties.index')}}">
-                <button class="GoBack">Back</button>
-            </a>
-        </div>
+      
+    <div class="photo w-100 bg-light shadow-sm rounded d-flex align-items-center px-2">
+      here is a photo
+    </div>
 
   <form>
 
     <!-- Title -->
     <div class="input-box full">
       <label for="title">Title :</label>
-      <input type="text" id="title" placeholder="Title" name="title" required>
+      <input type="text" id="title" placeholder="Title" value="{{$properties->title}}" required disabled>
     </div>
 
     <div class="form-grid">
@@ -110,80 +108,73 @@
       <!-- Description -->
       <div class="input-box">
         <label for="description">Description :</label>
-        <input type="text" id="description" placeholder="Description" name="description" required>
+        <input type="text" id="description" placeholder="Description" value="{{$properties->description}}" required disabled>
       </div>
 
       <!-- Type -->
       <div class="input-box">
         <label for="type">Type :</label>
-         <select required id="type" name="type">
-            <option value="Apartment">Apartment</option>
-            <option value="House">House</option>
-            <option value="Estate">Estate</option>
+         <select required id="type" disabled>
+            <option value="Apartment" {{$properties-> type == "Apartment" ? "selected" : ""}} >Apartment</option>
+            <option value="House" {{$properties-> type == "House" ? "selected" : ""}} >House</option>
+            <option value="Estate" {{$properties-> type == "Estate" ? "selected" : ""}} >Estate</option>
           </select>
       </div>
 
       <!-- Area -->
       <div class="input-box">
         <label for="area">Area :</label>
-        <input type="number" id="area" placeholder="Area" name="area" required>
+        <input type="text" id="area" placeholder="Area" value="{{$properties->area}}" required disabled>
       </div>
       
       <!-- Zip Code -->
       <div class="input-box">
         <label for="zip_code">Zip Code :</label>
-        <input type="number" id="zip_code" placeholder="Zip Code" name="zip_code" required>
+        <input type="number" id="zip_code" placeholder="Zip Code" value="{{$properties->zip_code}}" required disabled>
       </div>
 
       <!-- Address -->
       <div class="input-box">
         <label for="address">Address :</label>
-        <input type="text" id="address" placeholder="Address" name="address" required>
+        <input type="text" id="address" placeholder="Address" value="{{$properties->address}}" required disabled>
       </div>
 
       <!-- Price -->
       <div class="input-box">
         <label for="price">Price :</label>
-        <input type="number" id="price" placeholder="Price" name="price" required>
+        <input type="number" id="price" placeholder="Price" value="{{$properties->price}}" required disabled>
       </div>
 
       <!-- Bathrooms -->
       <div class="input-box">
         <label for="bathrooms">Bathrooms :</label>
-        <input type="number" id="bathrooms" placeholder="Bathrooms" name="bathrooms" required>
+        <input type="number" id="bathrooms" placeholder="Bathrooms" value="{{$properties->bathrooms}}" required disabled>
       </div>
 
       <!-- Bedrooms -->
       <div class="input-box">
         <label for="bedrooms">Bedrooms :</label>
-        <input type="number" id="bedrooms" placeholder="Bedrooms"  name="bedrooms" required>
+        <input type="number" id="bedrooms" placeholder="Bedrooms" value="{{$properties->bedrooms}}" required disabled>
       </div>
 
       <!-- State -->
       <div class="input-box">
         <label for="state">State :</label>
-        <input type="text" id="state" placeholder="State"  name="state" required>
+        <input type="text" id="state" placeholder="State" value="{{$properties->state}}" required>
       </div>
 
       <!-- Status -->
       <div class="input-box">
         <label for="status">Status :</label>
-        <select required id="status"  name="status">
-            <option value="Available">Available</option>
-            <option value="Sold">Sold</option>
-            <option value="Pending">Pending</option>
+        <select required id="status" disabled>
+            <option value="Available"  {{$properties-> status == "Available" ? "selected" : ""}}>Available</option>
+            <option value="Sold"  {{$properties-> status == "Sold" ? "selected" : ""}}>Sold</option>
+            <option value="Pending"  {{$properties-> status == "Pending" ? "selected" : ""}}>Pending</option>
           </select>
       </div>
-
-       <!-- Photo -->
-      <div class="input-box">
-        <label for="photo">Photo :</label>
-        <input type="file" name="photo" id="photo" class="form-control-file @error('photo') is-invalid @enderror" accept="image/*">
-      </div>
+    
       
     </div>
-
-    <button type="button" onclick="performStore()" class="add-btn">Add</button>
 
   </form>
 
@@ -192,26 +183,6 @@
 @endsection
 
 @section('scripts')
-<script>
-   function performStore(){
-    let formdata = new FormData();
-    formdata.append('title',document.getElementById('title').value);
-    formdata.append('description',document.getElementById('description').value);
-    formdata.append('price',document.getElementById('price').value);
-    formdata.append('type',document.getElementById('type').value);
-    formdata.append('bedrooms',document.getElementById('bedrooms').value);
-    formdata.append('bathrooms',document.getElementById('bathrooms').value);
-    formdata.append('area',document.getElementById('area').value);
-    formdata.append('address',document.getElementById('address').value);
-    formdata.append('state',document.getElementById('state').value);
-    formdata.append('zip_code',document.getElementById('zip_code').value);
-    formdata.append('status',document.getElementById('status').value);
-    formdata.append('photo',document.getElementById('photo').value);
-
-    store('/admin/properties', formdata)
-
-  }
-</script>
 
 @endsection
 

@@ -117,9 +117,9 @@
       <div class="input-box">
         <label for="type">Type :</label>
          <select required id="type">
-            <option value="Apartment" >Apartment</option>
-            <option value="House" >House</option>
-            <option value="Estate" >Estate</option>
+            <option value="Apartment" {{$properties-> type == "Apartment" ? "selected" : ""}} >Apartment</option>
+            <option value="House" {{$properties-> type == "House" ? "selected" : ""}} >House</option>
+            <option value="Estate" {{$properties-> type == "Estate" ? "selected" : ""}} >Estate</option>
           </select>
       </div>
 
@@ -131,8 +131,8 @@
       
       <!-- Zip Code -->
       <div class="input-box">
-        <label for="zipcode">Zip Code :</label>
-        <input type="number" id="zipcode" placeholder="Zip Code" value="{{$properties->zip_code}}" required>
+        <label for="zip_code">Zip Code :</label>
+        <input type="number" id="zip_code" placeholder="Zip Code" value="{{$properties->zip_code}}" required>
       </div>
 
       <!-- Address -->
@@ -169,9 +169,9 @@
       <div class="input-box">
         <label for="status">Status :</label>
         <select required id="status">
-            <option value="Available" >Available</option>
-            <option value="Sold" >Sold</option>
-            <option value="Pending" >Pending</option>
+            <option value="Available"  {{$properties-> status == "Available" ? "selected" : ""}}>Available</option>
+            <option value="Sold"  {{$properties-> status == "Sold" ? "selected" : ""}}>Sold</option>
+            <option value="Pending"  {{$properties-> status == "Pending" ? "selected" : ""}}>Pending</option>
           </select>
       </div>
 
@@ -183,7 +183,7 @@
       
     </div>
 
-    <button type="submit" class="add-btn" >Edit</button>
+    <button type="button" onclick="performUpdate({{$properties->id}})" class="add-btn" >Edit</button>
 
   </form>
 
@@ -192,7 +192,26 @@
 @endsection
 
 @section('scripts')
+<script>
+   function performUpdate(id){
+    let formdata = new FormData();
+    formdata.append('title',document.getElementById('title').value);
+    formdata.append('description',document.getElementById('description').value);
+    formdata.append('price',document.getElementById('price').value);
+    formdata.append('type',document.getElementById('type').value);
+    formdata.append('bedrooms',document.getElementById('bedrooms').value);
+    formdata.append('bathrooms',document.getElementById('bathrooms').value);
+    formdata.append('area',document.getElementById('area').value);
+    formdata.append('address',document.getElementById('address').value);
+    formdata.append('state',document.getElementById('state').value);
+    formdata.append('zip_code',document.getElementById('zip_code').value);
+    formdata.append('status',document.getElementById('status').value);
+    formdata.append('photo',document.getElementById('photo').value);
 
+    storeRoute('/admin/properties_update/'+id , formdata)
+
+  }
+</script>
 @endsection
 
 

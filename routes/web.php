@@ -5,6 +5,10 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\CityController;
 use App\Http\Controllers\CompanyController;
 use App\Http\Controllers\CountryController;
+use App\Http\Controllers\TransactionController;
+use App\Http\Controllers\ReviewController;
+
+
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -19,27 +23,41 @@ Route::prefix('admin')->group(function(){
    Route::resource('countries',CountryController::class);
    Route::post('countries_update/{id}',[CountryController::class,'update'])->name('countries _update');
 
+
    Route::resource('cities',CityController::class);
    Route::post('cities_update/{id}',[CityController::class,'update'])->name('cities _update');
  
   Route::resource('admins',AdminController::class);
    Route::post('admins_update/{id}',[AdminController::class,'update'])->name('admins_update');
 
-      Route::resource('cities',CityController::class);
-      Route::post('cities_update/{id}',[CityController::class,'update'])->name('cities
-      _update');
       
       Route::resource('properties', PropertyController::class);
+      Route::post('properties_update/{id}', [PropertyController::class , 'update'])->name('properties_update');
+     
+      Route::resource('reviews', PropertyController::class);
+      Route::post('reviews_update/{id}', [PropertyController::class , 'update'])->name('reviews_update');
+
 
     Route::resource('companies', CompanyController::class);
      Route::post('companies_update/{id}',[CompanyController::class,'update'])->name('companies_update');
 
+<<<<<<< HEAD
       Route::resource('customers', CustomerController::class);
      Route::post('customers_update/{id}',[CustomerController::class,'update'])->name('customers_update');
      
 Route::view('/home', 'dashboard.cms.index')->name('dashboard.home');
 
 
+=======
+
+     Route::resource('customers', CustomerController::class);
+     Route::post('customers_update/{id}',[customerController::class,'update'])->name('companies_update');
+    
+     Route::resource('transactions', TransactionController::class);
+     Route::post('transactions_update/{id}',[TransactionController::class,'update'])->name('transactions_update');
+     
+      Route::view('/home', 'dashboard.cms.index')->name('dashboard.home');
+>>>>>>> 1d968f65c22c1e56b7b9ade70727879f9e186892
 
 });
 
