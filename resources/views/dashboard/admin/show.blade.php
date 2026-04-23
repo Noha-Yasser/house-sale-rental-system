@@ -13,8 +13,7 @@
               <div class="card-header">
                 <h3 class="card-title">Show Data of admin</h3>
               </div>
-              <!-- /.card-header -->
-              <!-- form start -->
+           
               <form>
                 <div class="card-body">
                         <div class="form-group">
@@ -60,8 +59,7 @@
                         @endforeach
                         </div> --}}
                 </div>
-                <!-- /.card-body -->
-
+            
                 <div class="card-footer">
                  {{--  <button type="submit" class="btn btn-primary">Update</button>   --}}  
                       <a href="{{  route('admins.edit', $admins->id)  }}" class="btn btn-primary">Update</a>

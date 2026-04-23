@@ -16,7 +16,7 @@
               <!-- /.card-header -->
               <!-- form start -->
               <form method="POST" onsubmit="event.preventDefault(); performStore();">
-             @csrf>
+             @csrf
                 <div class="card-body">
 
                 <div class="row">

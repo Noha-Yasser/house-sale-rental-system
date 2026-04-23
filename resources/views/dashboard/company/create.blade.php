@@ -142,7 +142,7 @@
             });
         })
         .catch(function (error) {
-    console.error("Full Error:", error.response); // هذا سيطبع الخطأ كاملاً في الـ Console
+    console.error("Full Error:", error.response); 
     citySelect.innerHTML = '<option value="">error: ' + error.response.status + '</option>';
 });
 }

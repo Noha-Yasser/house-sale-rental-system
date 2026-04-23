@@ -35,10 +35,10 @@ class CustomerController extends Controller
      */
     public function store(Request $request)
     {
-        // تأكدي أن الأسماء هنا تطابق الـ "name" الموجود في حقول الـ HTML والـ FormData في السكريبت
+       
         $validator = Validator::make($request->all(), [
             'name'        => 'required|string|min:3|max:50',
-            'email'       => 'required|email|unique:customers,email', // منع تكرار الإيميل
+            'email'       => 'required|email|unique:customers,email', 
             'password'    => 'required|string|min:6',
             'phone'       => 'required|digits:10',
             'city_id'     => 'required|exists:cities,id',
@@ -47,7 +47,7 @@ class CustomerController extends Controller
             'identity_id' => 'required|string',
             'address'     => 'required|string|max:255',
         ], [
-            // رسائل مخصصة (اختياري)
+           
             'name.required' => 'يجب إدخال اسم الزبون',
             'phone.digits'  => 'رقم الهاتف يجب أن يتكون من 10 أرقام فقط',
         ]);
@@ -59,10 +59,10 @@ class CustomerController extends Controller
             ], 400);
         }
 
-        // 2. حفظ بيانات الزبون (Customer) في جدول customers
+       
         $customer = new Customer();
         $customer->email       = $request->get('email');
-        $customer->password    = Hash::make($request->get('password')); // تشفير كلمة المرور
+        $customer->password    = Hash::make($request->get('password')); 
         $customer->gender      = $request->get('gender');
         $customer->birthday    = $request->get('birthday');
         $customer->identity_id = $request->get('identity_id');
@@ -70,7 +70,7 @@ class CustomerController extends Controller
         $isSaved = $customer->save();
 
         if ($isSaved) {
-            // 3. حفظ بيانات المستخدم المرتبطة (User) في جدول users (علاقة Morph)
+            
             $user = new User();
                 if ($request->hasFile('image')) {
                 $image = $request->file('image');
@@ -83,8 +83,7 @@ class CustomerController extends Controller
             $user->address = $request->get('address');
             $user->city_id = $request->get('city_id');
             
-            // ربط اليوزر بالزبون عن طريق الـ Actor
-            // هذا السطر سيملاً حقول actor_id و actor_type تلقائياً
+            
             $user->actor()->associate($customer);
             
             $isUserSaved = $user->save();
@@ -95,7 +94,7 @@ class CustomerController extends Controller
                     'title' => 'تم إنشاء حساب الزبون بنجاح'
                 ], 200);
             } else {
-                // في حال فشل حفظ اليوزر، نحذف الزبون لضمان عدم وجود بيانات يتيمة
+                
                 $customer->delete();
             }
         }

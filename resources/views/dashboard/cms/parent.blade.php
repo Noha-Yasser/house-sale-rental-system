@@ -237,6 +237,15 @@
             </ul>
           </li>
 
+       
+
+    <a href="{{ route('contacts.index') }}" class="nav-link">
+  <i class='fas fa-phone-alt'></i>
+        <p>  Contact </p>
+    </a>
+
+           
+
           <li class="nav-header">User Management</li>
 
 

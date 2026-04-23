@@ -38,7 +38,7 @@ class CompanyController extends Controller
     public function store(Request $request)
     {
        $validator = Validator::make($request->all(), [
-        'name' => 'required|string|min:3', // اسم الشركة (يخزن في user)
+        'name' => 'required|string|min:3', 
         'email' => 'required|email|unique:companies,email',
         'city_id' => 'required|exists:cities,id',
       
@@ -48,17 +48,17 @@ class CompanyController extends Controller
         return response()->json(['icon' => 'error', 'title' => $validator->getMessageBag()->first()], 400);
     }
 
-    // 1. حفظ بيانات الشركة الخاصة (التي ليس لها علاقة باليوزر)
+   
     $company = new Company();
     $company->email = $request->get('email');
     $company->password = Hash::make($request->get('password'));
     $company->website = $request->get('website');
     $company->rating = $request->get('rating', 0);
-    // كود حفظ اللوجو هنا...
+    
     $isSaved = $company->save();
 
     if ($isSaved) {
-        // 2. حفظ بيانات "اليوزر" وربطها بالشركة
+      
         $user = new User();
            if ($request->hasFile('image')) {
                 $image = $request->file('image');
@@ -66,11 +66,11 @@ class CompanyController extends Controller
                 $image->move('storage/images/company', $imageName);
                 $user->image = $imageName;
             }
-        $user->name = $request->get('name'); // هنا اسم الشركة الحقيقي
+        $user->name = $request->get('name'); 
         $user->phone = $request->get('phone');
         $user->address = $request->get('address');
         $user->city_id = $request->get('city_id');
-        $user->actor()->associate($company); // ربط Morph
+        $user->actor()->associate($company); 
         $user->save();
 
         return response()->json(['icon' => 'success', 'title' => 'success store'], 200);
