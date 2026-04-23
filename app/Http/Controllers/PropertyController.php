@@ -32,14 +32,14 @@ class PropertyController extends Controller
     {
         $validator=validator($request->all(),[
             'title' => 'required|string|max:30|min:3',
-            'description' => 'required|string|max:100|min:5',
+            'description' => 'required|string|max:100|min:3',
             'price' => 'required',
             'area' => 'required|numeric',
             'type' => 'required|string',
             'bedrooms' => 'nullable|numeric',
             'bathrooms' => 'nullable|numeric',
-            'address' => 'nullable|string|max:30|min:5',
-            'state' => 'nullable|string|max:30|min:5',
+            'address' => 'nullable|string|max:30|min:3',
+            'state' => 'nullable|string|max:30|min:3',
             'zip_code' => 'required|digits:4',
             'status' => 'required',
          
@@ -115,14 +115,14 @@ $properties->photo = $request->get('photo') ?? '';
     {
          $validator=validator($request->all(),[
             'title' => 'required|string|max:30|min:3',
-            'description' => 'required|string|max:100|min:5',
+            'description' => 'required|string|max:100|min:3',
             'price' => 'required',
             'area' => 'required|numeric',
             'type' => 'required|string',
             'bedrooms' => 'nullable|numeric',
             'bathrooms' => 'nullable|numeric',
-            'address' => 'nullable|string|max:30|min:5',
-            'state' => 'nullable|string|max:30|min:5',
+            'address' => 'nullable|string|max:30|min:3',
+            'state' => 'nullable|string|max:30|min:3',
             'zip_code' => 'required|digits:4',
             'status' => 'required',
       

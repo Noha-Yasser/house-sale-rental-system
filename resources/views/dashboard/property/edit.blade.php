@@ -91,7 +91,7 @@
 @section('content')
     <div class="container">
         <div class="d-flex justify-content-between">
-            <h2>Add New Estate</h2>
+            <h2>Edit Estate</h2>
             <a href="{{ route('properties.index')}}">
                 <button class="GoBack">Back</button>
             </a>
@@ -117,7 +117,7 @@
       <div class="input-box">
         <label for="type">Type :</label>
          <select required id="type">
-            <option value="Apartment" {{$properties-> type == "Apartment" ? "selected" : ""}} >Apartment</option>
+            <option value="Apartment" {{$properties->type == "Apartment" ? "selected" : ""}} >Apartment</option>
             <option value="House" {{$properties-> type == "House" ? "selected" : ""}} >House</option>
             <option value="Estate" {{$properties-> type == "Estate" ? "selected" : ""}} >Estate</option>
           </select>
@@ -183,11 +183,11 @@
       
 
   
-@if($property->images->count() > 0)
+@if($properties->images->count() > 0)
 <div class="form-group">
     <label>Current images</label>
     <div class="row">
-        @foreach($property->images as $image)
+        @foreach($properties->images as $image)
         <div class="col-md-2 text-center mb-2" id="img-{{ $image->id }}">
             <img src="{{ asset('storage/properties/' . $image->image) }}" class="img-fluid rounded" style="height: 100px; object-fit: cover;">
             @if($image->is_primary)

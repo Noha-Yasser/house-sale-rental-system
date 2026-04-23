@@ -34,8 +34,8 @@ Route::prefix('admin')->group(function(){
       Route::resource('properties', PropertyController::class);
       Route::post('properties_update/{id}', [PropertyController::class , 'update'])->name('properties_update');
      
-      Route::resource('reviews', PropertyController::class);
-      Route::post('reviews_update/{id}', [PropertyController::class , 'update'])->name('reviews_update');
+      Route::resource('reviews', ReviewController::class);
+      Route::post('reviews_update/{id}', [ReviewController::class , 'update'])->name('reviews_update');
 
 
     Route::resource('companies', CompanyController::class);

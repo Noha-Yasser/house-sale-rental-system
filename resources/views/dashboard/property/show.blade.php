@@ -91,9 +91,9 @@
 @section('content')
     <div class="container">
       
-    <div class="photo w-100 bg-light shadow-sm rounded d-flex align-items-center px-2">
-      here is a photo
-    </div>
+     @if($properties->primaryImage)
+          <img src="{{ asset('storage/properties/' . $properties->primaryImage->image) }}" class="img-fluid">
+      @endif
 
   <form>
 
@@ -172,22 +172,38 @@
             <option value="Pending"  {{$properties-> status == "Pending" ? "selected" : ""}}>Pending</option>
           </select>
       </div>
-    @if($properties->primaryImage)
-    <img src="{{ asset('storage/properties/' . $properties->primaryImage->image) }}" class="img-fluid">
-@endif
-@if($properties->images->where('is_primary', false)->count() > 0)
-<h5>معرض الصور</h5>
-<div class="row">
-    @foreach($properties->images->where('is_primary', false) as $image)
-    <div class="col-md-3 mb-2">
-        <img src="{{ asset('storage/properties/' . $image->image) }}" class="img-fluid rounded">
-    </div>
-    @endforeach
-</div>
-@endif
-      
+    
+
     </div>
 
+     
+      @if($properties->images->where('is_primary', false)->count() > 0)
+      <h5>معرض الصور</h5>
+      <div class="row">
+          @foreach($properties->images->where('is_primary', false) as $image)
+          <div class="col-md-3 mb-2">
+              <img src="{{ asset('storage/properties/' . $image->image) }}" class="img-fluid rounded">
+          </div>
+          @endforeach
+      </div>
+      @endif
+
+    <h2 class=" bg-light shadow-sm rounded d-flex px-2 m-2 mt-4 w-100">   
+                  REVIEWS
+    </h2> 
+    @foreach($properties->reviews as $review)
+        <div  class="icons d-flex justify-content-between align-items-center">
+                      <p class="w-100 bg-light shadow-sm rounded d-flex px-4 m-2"> 
+                        {{$review->comments }}  
+                      </p>   
+                      
+        </div>
+    @endforeach
+    <!-- @if($properties->reviews_count == 0)
+        <p class="w-100 bg-light shadow-sm rounded d-flex px-4 m-2"> 
+            No Reviews for This Property 
+        </p>
+    @endif -->
   </form>
 
 

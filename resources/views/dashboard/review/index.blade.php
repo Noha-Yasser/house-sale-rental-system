@@ -1,59 +1,89 @@
 @extends('dashboard.cms.parent')
 
-@section('title', 'Review')
-@section('main-title', 'index Review')
-@section('sub-title', 'index Review')
+@section('title', 'Reviews')
+@section('main-title', 'index Reviews')
+@section('sub-title', 'index Reviews')
 
 @section('styles')
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 @endsection
 
 @section('content')
-    <div class="contect">
-       <!-- <img src='{{ $property->photo }}'>
-        <h4>{{$properties ->title}}</h4>
-        <p>{{$properties ->address}}</p>
-        <p>{{$properties ->type}} | {{$property ->status}}</p>
-        <span>${{$properties -> price}}</span> -->
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-md-12">
+            <div class="card">
+              <div class="card-header">
+                {{-- <h3 class="card-title">Reviews Table</h3> --}}
+                <a href="{{ route('reviews.create') }}" class="btn btn-primary">ADD NEW Review</a>
 
-         <div class="reviews mt-6  d-flex justify-content-between">
-            <h2 class=" bg-light shadow-sm rounded d-flex px-2 m-2 mt-4">   
-                REVIEWS
-            </h2>  
-              <!-- Add -->
-            <a href="{{ route('review.create', $properties->id) }}" class="btn btn-info btn-sm ml-1" title="add">
-                                  Add Comment
-            </a> 
-            @foreach($properties->reviews as $review)
-                <div  class="icons d-flex justify-content-between align-items-center">
-                      <p class="w-100 bg-light shadow-sm rounded d-flex px-4 m-2"> 
-                        {{$review->comments }}  
-                      </p>   
-                      <div  class="icons d-flex justify-content-center align-items-center">
+              </div>
+              <!-- /.card-header -->
+              <div class="card-body">
+                <table class="table table-bordered">
+                  <thead>
 
-                              <!-- Edit -->
-                              <a href="" class="btn btn-warning btn-sm ml-1" title="edit">
-                                  <i class="fas fa-edit"></i>
-                              </a>
 
-                              <!-- Delete -->
-                              <button type="button" class="btn btn-danger btn-sm  ml-1" title="delete">
-                                  <i class="fas fa-trash"></i>
-                              </button>
-                      </div>
-                </div>
+                    <tr>
+                      <th style="width: 10px">ID</th>
+                      <th class="text-center">Comments</th>
+                      <th class="text-center">Property Name</th>
+                      <th class="text-center">Actions</th>
 
-              
-            @endforeach
-          
-        </div>
-    </div>
+                    </tr>
+
+                  </thead>
+                  <tbody>
+                    @foreach($reviews as $review)
+                    <tr>
+                      <td>{{ $review->id }}</td>
+                      <td>{{ $review->comments}}</td>
+                      <td><span class="badge bg-info px-2">{{ $review->property->title ?? ""}}</td>
+                  
+                       <td>
+
+                            <!-- Show -->
+                            <a href="{{ route('reviews.show', $review->id) }}" class="btn btn-info btn-sm" title="show">
+                                <i class="fas fa-eye"></i>
+                            </a>
+
+                            <!-- Edit -->
+                            <a href="{{ route('reviews.edit', $review->id) }}" class="btn btn-warning btn-sm" title="edit">
+                                <i class="fas fa-edit"></i>
+                            </a>
+
+                            <!-- Delete -->
+                            <button type="button" onclick="performDestroy({{ $review->id }}, this)" class="btn btn-danger btn-sm" title="delete">
+                                <i class="fas fa-trash"></i>
+                            </button>
+                        </td>
+
+                    </tr>
+                @endforeach
+                  </tbody>
+                </table>
+              </div>
+              <!-- /.card-body -->
+              {{-- <div class="card-footer clearfix">
+                <ul class="pagination pagination-sm m-0 float-right">
+                  <li class="page-item"><a class="page-link" href="#">&laquo;</a></li>
+                  <li class="page-item"><a class="page-link" href="#">1</a></li>
+                  <li class="page-item"><a class="page-link" href="#">2</a></li>
+                  <li class="page-item"><a class="page-link" href="#">3</a></li>
+                  <li class="page-item"><a class="page-link" href="#">&raquo;</a></li>
+                </ul>
+              </div> --}}
+              {{ $reviews->links() }}
+            </div>
+          </div>
+         </div>
+
 @endsection
 
 @section('scripts')
 <script>
     function performDestroy(id,reference){
-        confirmDestroy('/admin/cities/'+id,reference);
+        confirmDestroy('/admin/reviews/'+id,reference);
     }
 </script>
 @endsection
