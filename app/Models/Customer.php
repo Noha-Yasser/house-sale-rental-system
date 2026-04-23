@@ -24,4 +24,8 @@ class Customer extends Model
     return $this->morphOne(User::class, 'actor');
 }
     // public function user(){return $this->morphOne(User::class,'actor','actor_type','actor_id','id');}
+    public function bookings()
+{
+    return $this->hasMany(Booking::class, 'customer_id');
+}
 }

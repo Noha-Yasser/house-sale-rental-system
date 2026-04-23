@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -13,6 +14,11 @@ class Property extends Model
      public function property(){
         return $this->hasMany(Review::class);
     }
+
+        public function bookings()
+      {
+    return $this->hasMany(Booking::class);
+     }
 
 
     protected $fillable = [
@@ -31,4 +37,5 @@ class Property extends Model
         'services',
         'unique_feature',
     ];
+
 }

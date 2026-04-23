@@ -2,9 +2,11 @@
 use App\Http\Controllers\PropertyController;
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\BookingController;
 use App\Http\Controllers\CityController;
 use App\Http\Controllers\CompanyController;
 use App\Http\Controllers\CountryController;
+use App\Models\Booking;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -21,14 +23,14 @@ Route::prefix('admin')->group(function(){
 
    Route::resource('cities',CityController::class);
    Route::post('cities_update/{id}',[CityController::class,'update'])->name('cities _update');
- 
+
   Route::resource('admins',AdminController::class);
    Route::post('admins_update/{id}',[AdminController::class,'update'])->name('admins_update');
 
       Route::resource('cities',CityController::class);
       Route::post('cities_update/{id}',[CityController::class,'update'])->name('cities
       _update');
-      
+
       Route::resource('properties', PropertyController::class);
 
     Route::resource('companies', CompanyController::class);
@@ -36,7 +38,11 @@ Route::prefix('admin')->group(function(){
 
       Route::resource('customers', CustomerController::class);
      Route::post('customers_update/{id}',[CustomerController::class,'update'])->name('companies_update');
-     
+
+
+    Route::resource('bookings', BookingController::class);
+     Route::post('bookings_update/{id}',[BookingController::class,'update'])->name('bookings_update');
+
 Route::view('/home', 'dashboard.cms.index')->name('dashboard.home');
 });
 
