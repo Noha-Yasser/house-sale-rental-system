@@ -11,9 +11,10 @@ class Property extends Model
     /** @use HasFactory<\Database\Factories\PropertyFactory> */
     use HasFactory;
 
-     public function property(){
+     public function reviews(){
         return $this->hasMany(Review::class);
     }
+
 
         public function bookings()
       {
@@ -21,6 +22,14 @@ class Property extends Model
      }
 
 
+public function images() {
+    return $this->hasMany(PropertyImage::class, 'property_id');
+}
+
+
+public function primaryImage() {
+    return $this->hasOne(PropertyImage::class, 'property_id')->where('is_primary', true);
+}
     protected $fillable = [
         'title',
         'description',

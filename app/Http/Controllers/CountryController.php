@@ -53,7 +53,7 @@ class CountryController extends Controller
          $isSaved=$countries->save();
          return response()->json([
             'icon'=>'success',
-            'tittle'=>'created is succesfully'
+            'title'=>'created is succesfully'
          ],200);
          }
 

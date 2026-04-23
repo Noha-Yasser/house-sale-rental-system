@@ -21,6 +21,7 @@
   padding: 15px;
   text-align: center;
   box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+  height:500px;
 }
 
 .card img {
@@ -57,22 +58,29 @@
 @endsection
 
 @section('content')
-<h3 class="section-title">Real Estate</h3>
 
+    <a href="{{ route('properties.create') }}" class="btn btn-primary ml-4">ADD NEW Property</a>
   <div class="grid">
 
 
     <!-- Card -->
      @foreach ($properties as $property)
         <div class="card">
-        <img src='{{ $property->photo }}'>
+              @if($property->primaryImage)
+                  <img src="{{ asset('storage/properties/' . $property->primaryImage->image) }}" style="width: 100%; height: 200px; object-fit: cover;">
+              @else
+                  <img src="{{ asset('cms/dist/img/no-image.png') }}" style="width: 100%; height: 200px;">
+              @endif
         <h4>{{$property ->title}}</h4>
         <p>{{$property ->address}}</p>
         <p>{{$property ->type}} | {{$property ->status}}</p>
         <span>${{$property -> price}}</span>
-        <div  class="d-flex justify-content-center align-items-center">
+        <p>
+            <a href="">{{$property ->reviews_count}} Reviws</a>
+        </p>
+        <div  class="icons d-flex justify-content-center align-items-center">
                 <!-- Show -->
-                <a href="" class="btn btn-info btn-sm ml-1" title="show">
+                <a href="{{ route('properties.show',$property->id) }}" class="btn btn-info btn-sm ml-1" title="show">
                     <i class="fas fa-eye"></i>
                 </a>
 
@@ -82,7 +90,7 @@
                 </a>
 
                 <!-- Delete -->
-                <button type="button" onclick="" class="btn btn-danger btn-sm  ml-1" title="delete">
+                <button type="button" onclick="performDestroy({{ $property->id }}, this)" class="btn btn-danger btn-sm  ml-1" title="delete">
                     <i class="fas fa-trash"></i>
                 </button>
         </div>
@@ -90,12 +98,18 @@
         </div>
     @endforeach
    
-
+    <div>
+        {{$properties->links()}}
+    </div>
   </div>
 @endsection
 
 @section('scripts')
-
+<script>
+    function performDestroy(id,reference){
+        confirmDestroy('/admin/properties/'+id,reference);
+    }
+</script>
 @endsection
 
 

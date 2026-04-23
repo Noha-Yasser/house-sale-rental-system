@@ -15,6 +15,14 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
+
+      $this->call([
+        PropertySeeder::class,
+        ReviewSeeder::class,
+        TransactionSeeder::class,
+        CountrySeeder::class,
+
+      ]);
         // User::factory(10)->create();
 
       //  User::factory()->create([

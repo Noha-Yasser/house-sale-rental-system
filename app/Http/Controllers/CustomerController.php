@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\City;
+use App\Models\Country;
 use App\Models\Customer;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -24,9 +25,9 @@ class CustomerController extends Controller
      * Show the form for creating a new resource.
      */
     public function create()
-    {
+    {$countries = Country::all();
         $cities= City::all();
-        return response()->view('dashboard.customer.create',compact('cities'));
+        return response()->view('dashboard.customer.create',compact('cities','countries'));
     }
 
     /**
@@ -71,6 +72,12 @@ class CustomerController extends Controller
         if ($isSaved) {
             // 3. حفظ بيانات المستخدم المرتبطة (User) في جدول users (علاقة Morph)
             $user = new User();
+                if ($request->hasFile('image')) {
+                $image = $request->file('image');
+                $imageName = time() . 'image.' . $image->getClientOriginalExtension();
+                $image->move('storage/images/customer', $imageName);
+                $user->image = $imageName;
+            }
             $user->name    = $request->get('name');
             $user->phone   = $request->get('phone');
             $user->address = $request->get('address');
@@ -112,10 +119,10 @@ class CustomerController extends Controller
      * Show the form for editing the specified resource.
      */
     public function edit(string $id)
-    {
+    {$countries = Country::all();
            $cities= City::all();
            $customers=Customer::findOrFail($id);
-           return response()->view('dashboard.customer.edit',compact('customers','cities'));
+           return response()->view('dashboard.customer.edit',compact('customers','cities','countries'));
     }
 
     /**
@@ -139,7 +146,12 @@ class CustomerController extends Controller
              $isSaved=$customers->save();
              if($isSaved){
                 $users=$customers->user;
-              
+                  if ($request->hasFile('image')) {
+                $image = $request->file('image');
+                $imageName = time() . 'image.' . $image->getClientOriginalExtension();
+                $image->move('storage/images/customer', $imageName);
+                $users->image = $imageName;
+            }
                 $users->name=$request->get('name');
                  $users->phone=$request->get('phone');
              $users->address=$request->get('address');
@@ -164,4 +176,6 @@ class CustomerController extends Controller
     {
         $customers=Customer::destroy($id);
     }
+
+
 }

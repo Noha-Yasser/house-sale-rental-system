@@ -42,7 +42,7 @@ class PropertyFactory extends Factory
 
             'status' => fake()->randomElement(['available', 'sold', 'pending']),
 
-            'photo' => fake()->imageUrl(640, 480, 'house'),
+            'photo' => fake()->imageUrl(640, 480, 'house', true ),
 
             'services' => fake()->sentence(2),
             'unique_feature' => fake()->sentence(2),

@@ -12,17 +12,17 @@ class Company extends Model
 
 
     protected $fillable = [
-        'company_name',
-        'logo',
+    
+       
         'address',
         'description',
         'website',
         'rating',
-        'country_id',
+       
         'city_id'
     ];
 protected $hidden = ['password'];
 
- public function user(){return $this->morphOne(User::class,'actor','actor_type','actor_id','id');}
-
-}
+ //public function user(){return $this->morphOne(User::class,'actor','actor_type','actor_id','id');}
+ public function user() {
+    return $this->morphOne(User::class, 'actor');}}

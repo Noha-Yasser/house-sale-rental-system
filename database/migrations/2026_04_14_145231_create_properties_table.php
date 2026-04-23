@@ -17,17 +17,17 @@ return new class extends Migration
             $table->string('description');
             $table->decimal('price');
             $table->string('type');
-            $table->integer('bedrooms');
+            $table->integer('bedrooms')->nullable();
             $table->integer('area');
-            $table->integer('bathrooms');
-            $table->integer('views_count');
-            $table->string('address');
-            $table->string('state');
+            $table->integer('bathrooms')->nullable();
+           $table->integer('views_count')->default(0);
+            $table->string('address')->nullable();
+            $table->string('state')->nullable();
             $table->string('zip_code');
             $table->string('status');
-            $table->string('photo'); 
-            $table->string('services');
-            $table->string('unique_feature');
+            $table->string('photo')->nullable(); 
+            $table->string('services')->nullable();
+            $table->string('unique_feature')->nullable();
 
             $table->timestamps();
         });

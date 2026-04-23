@@ -91,7 +91,7 @@
 @section('content')
     <div class="container">
         <div class="d-flex justify-content-between">
-            <h2>Add New Estate</h2>
+            <h2>Edit Estate</h2>
             <a href="{{ route('properties.index')}}">
                 <button class="GoBack">Back</button>
             </a>
@@ -117,9 +117,9 @@
       <div class="input-box">
         <label for="type">Type :</label>
          <select required id="type">
-            <option value="Apartment" >Apartment</option>
-            <option value="House" >House</option>
-            <option value="Estate" >Estate</option>
+            <option value="Apartment" {{$properties->type == "Apartment" ? "selected" : ""}} >Apartment</option>
+            <option value="House" {{$properties-> type == "House" ? "selected" : ""}} >House</option>
+            <option value="Estate" {{$properties-> type == "Estate" ? "selected" : ""}} >Estate</option>
           </select>
       </div>
 
@@ -131,8 +131,8 @@
       
       <!-- Zip Code -->
       <div class="input-box">
-        <label for="zipcode">Zip Code :</label>
-        <input type="number" id="zipcode" placeholder="Zip Code" value="{{$properties->zip_code}}" required>
+        <label for="zip_code">Zip Code :</label>
+        <input type="number" id="zip_code" placeholder="Zip Code" value="{{$properties->zip_code}}" required>
       </div>
 
       <!-- Address -->
@@ -169,9 +169,9 @@
       <div class="input-box">
         <label for="status">Status :</label>
         <select required id="status">
-            <option value="Available" >Available</option>
-            <option value="Sold" >Sold</option>
-            <option value="Pending" >Pending</option>
+            <option value="Available"  {{$properties-> status == "Available" ? "selected" : ""}}>Available</option>
+            <option value="Sold"  {{$properties-> status == "Sold" ? "selected" : ""}}>Sold</option>
+            <option value="Pending"  {{$properties-> status == "Pending" ? "selected" : ""}}>Pending</option>
           </select>
       </div>
 
@@ -181,9 +181,37 @@
         <input type="text" id="photo" placeholder="Enter a URL of photo" value="{{$properties->photo}}" required>
       </div>
       
+
+  
+@if($properties->images->count() > 0)
+<div class="form-group">
+    <label>Current images</label>
+    <div class="row">
+        @foreach($properties->images as $image)
+        <div class="col-md-2 text-center mb-2" id="img-{{ $image->id }}">
+            <img src="{{ asset('storage/properties/' . $image->image) }}" class="img-fluid rounded" style="height: 100px; object-fit: cover;">
+            @if($image->is_primary)
+                <span class="badge badge-primary d-block">main</span>
+            @endif
+            <button type="button" class="btn btn-danger btn-sm mt-1" onclick="deleteImage({{ $image->id }})">
+                <i class="fas fa-trash"></i> delete
+            </button>
+        </div>
+        @endforeach
+    </div>
+</div>
+@endif
+
+
+<div class="form-group">
+    <label for="new_images">Add new photos</label>
+    <input type="file" name="new_images[]" id="new_images" class="form-control" multiple accept="image/*">
+</div>
+
+
     </div>
 
-    <button type="submit" class="add-btn" >Edit</button>
+    <button type="button" onclick="performUpdate({{$properties->id}})" class="add-btn" >Edit</button>
 
   </form>
 
@@ -192,7 +220,54 @@
 @endsection
 
 @section('scripts')
+<script>
+   function performUpdate(id){
+    let formdata = new FormData();
+    formdata.append('title',document.getElementById('title').value);
+    formdata.append('description',document.getElementById('description').value);
+    formdata.append('price',document.getElementById('price').value);
+    formdata.append('type',document.getElementById('type').value);
+    formdata.append('bedrooms',document.getElementById('bedrooms').value);
+    formdata.append('bathrooms',document.getElementById('bathrooms').value);
+    formdata.append('area',document.getElementById('area').value);
+    formdata.append('address',document.getElementById('address').value);
+    formdata.append('state',document.getElementById('state').value);
+    formdata.append('zip_code',document.getElementById('zip_code').value);
+    formdata.append('status',document.getElementById('status').value);
+    formdata.append('photo',document.getElementById('photo').value);
 
+    let imagesInput = document.getElementById('images');
+    if (imagesInput && imagesInput.files.length > 0) {
+        for (let i = 0; i < imagesInput.files.length; i++) {
+            formdata.append('images[]', imagesInput.files[i]);
+        }
+        console.log('تم إضافة ' + imagesInput.files.length + ' صور');
+    } else {
+        console.log('لم يتم اختيار أي صور');
+    }
+    storeRoute('/admin/properties_update/'+id , formdata)
+
+  }
+
+  function deleteImage(imageId) {
+    if (confirm('Are you sure you want to delete this picture?')) {
+        fetch('/admin/property-images/' + imageId, {
+            method: 'DELETE',
+            headers: {
+                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
+                'X-Requested-With': 'XMLHttpRequest'
+            }
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                document.getElementById('img-' + imageId).remove();
+                toastr.success('Deleted');
+            }
+        });
+    }
+}
+</script>
 @endsection
 
 

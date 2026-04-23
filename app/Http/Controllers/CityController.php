@@ -124,4 +124,15 @@ class CityController extends Controller
         //
         $cities=City::destroy($id);
     }
+public function getCitiesByCountry($countryId)
+{
+    try {
+        // تأكدي أن اسم العمود هو country_id كما في الـ Migration
+        $cities = City::where('country_id', $countryId)->get(['id', 'city_name']);
+        return response()->json($cities);
+    } catch (\Exception $e) {
+        // في حال حدوث خطأ في قاعدة البيانات، سيرسل رسالة واضحة
+        return response()->json(['error' => $e->getMessage()], 500);
+    }
+}
 }
