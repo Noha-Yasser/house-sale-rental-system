@@ -36,8 +36,10 @@
 }
 
 .card p {
-  color: gray;
-  font-size: 14px;
+ color: black;
+    font-size: 16px;
+    background-color: #007bff75;
+    border-radius: 7px;
 }
 
 .card span {
@@ -75,6 +77,7 @@
         <p>{{$property ->address}}</p>
         <p>{{$property ->type}} | {{$property ->status}}</p>
         <span>${{$property -> price}}</span>
+        <p>{{$property->company->user->name}} Company</p>
         <p>
             <a href="">{{$property ->reviews_count}} Reviws</a>
         </p>

@@ -104,7 +104,16 @@
       <label for="title">Title :</label>
       <input type="text" id="title" placeholder="Title" value="{{$properties->title}}" required>
     </div>
-
+    <!-- Company Name  -->
+      <div class="input-box full">
+          <label for="company_id">Select Company Name</label>
+          <select required id="company_id" name="company_id" class="form-control" >
+            <option value="{{$properties -> company_id}}" selected >{{$properties-> company->user->name}}</option>
+            @foreach($companies as $company)
+                  <option value="{{$company->id}}">{{$company->user->name}}</option>
+            @endforeach
+          </select>
+      </div>
     <div class="form-grid">
 
       <!-- Description -->
@@ -158,6 +167,23 @@
         <label for="bedrooms">Bedrooms :</label>
         <input type="number" id="bedrooms" placeholder="Bedrooms" value="{{$properties->bedrooms}}" required>
       </div>
+<!-- Country and city  -->
+             <div class="input-box">
+                                                            <label>Country</label>
+                                                            <select class="form-control" id="country_id" onchange="loadCities(this.value)">
+                                                                <option value="">choose country</option>
+                                                                @foreach($countries as $country)
+                                                                    <option value="{{ $country->id }}">{{ $country->country_name }}</option>
+                                                                @endforeach
+                                                            </select>
+                                                        </div>
+
+                                                        <div class="input-box">
+                                                            <label>City</label>
+                                                            <select class="form-control" id="city_id">
+                                                                <option value="">choose city</option>
+                                                            </select>
+                                                        </div>
 
       <!-- State -->
       <div class="input-box">
@@ -224,6 +250,7 @@
    function performUpdate(id){
     let formdata = new FormData();
     formdata.append('title',document.getElementById('title').value);
+    formdata.append('company_id',document.getElementById('company_id').value);
     formdata.append('description',document.getElementById('description').value);
     formdata.append('price',document.getElementById('price').value);
     formdata.append('type',document.getElementById('type').value);
@@ -231,12 +258,11 @@
     formdata.append('bathrooms',document.getElementById('bathrooms').value);
     formdata.append('area',document.getElementById('area').value);
     formdata.append('address',document.getElementById('address').value);
-    formdata.append('state',document.getElementById('state').value);
     formdata.append('zip_code',document.getElementById('zip_code').value);
     formdata.append('status',document.getElementById('status').value);
     formdata.append('photo',document.getElementById('photo').value);
-
-    let imagesInput = document.getElementById('images');
+     formdata.append('city_id',document.getElementById('city_id').value);
+   let imagesInput = document.getElementById('images');
     if (imagesInput && imagesInput.files.length > 0) {
         for (let i = 0; i < imagesInput.files.length; i++) {
             formdata.append('images[]', imagesInput.files[i]);
@@ -266,6 +292,38 @@
             }
         });
     }
+}
+
+function loadCities(countryId) {
+    let citySelect = document.getElementById('city_id');
+    
+    // إذا لم يتم اختيار دولة، نفرغ قائمة المدن
+    if (!countryId) {
+        citySelect.innerHTML = '<option value="">choose city </option>';
+        return;
+    }
+
+    citySelect.innerHTML = '<option value="">Loading....</option>';
+
+    axios.get('/admin/get-cities/' + countryId)
+        .then(function (response) {
+            // تفريغ القائمة قبل البدء
+            citySelect.innerHTML = '<option value=""> choose city</option>';
+            
+            // التأكد من أن البيانات مصفوفة
+            let cities = response.data;
+            
+            cities.forEach(function (city) {
+                let option = document.createElement('option');
+                option.value = city.id;
+                option.text = city.city_name;
+                citySelect.appendChild(option);
+            });
+        })
+        .catch(function (error) {
+    console.error("Full Error:", error.response); // هذا سيطبع الخطأ كاملاً في الـ Console
+    citySelect.innerHTML = '<option value="">error: ' + error.response.status + '</option>';
+});
 }
 </script>
 @endsection

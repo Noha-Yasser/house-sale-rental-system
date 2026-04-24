@@ -11,20 +11,27 @@ class Property extends Model
     /** @use HasFactory<\Database\Factories\PropertyFactory> */
     use HasFactory;
 
-     public function reviews(){
+    public function reviews(){
         return $this->hasMany(Review::class);
     }
 
 
-        public function bookings()
-      {
-    return $this->hasMany(Booking::class);
-     }
+    public function bookings()
+    {
+        return $this->hasMany(Booking::class);
+    }
 
-public function city(){return $this->belongsTo(city::class); }
-public function images() {
-    return $this->hasMany(PropertyImage::class, 'property_id');
-}
+    public function company(){
+        return $this->belongsTo(Company::class); 
+    }
+    public function city(){
+        return $this->belongsTo(city::class); 
+    }
+
+
+    public function images() {
+        return $this->hasMany(PropertyImage::class, 'property_id');
+    }
 
 
 public function primaryImage() {

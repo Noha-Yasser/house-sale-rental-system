@@ -90,7 +90,8 @@
 
 @section('content')
     <div class="container">
-      
+      <!-- photo -->
+      <p>Photo</p>
      @if($properties->primaryImage)
           <img src="{{ asset('storage/properties/' . $properties->primaryImage->image) }}" class="img-fluid">
       @endif
@@ -102,6 +103,14 @@
       <label for="title">Title :</label>
       <input type="text" id="title" placeholder="Title" value="{{$properties->title}}" required disabled>
     </div>
+
+     <!-- Company Name  -->
+      <div class="input-box full">
+          <label for="company_id">Select Company Name</label>
+          <select required id="company_id" name="company_id" class="form-control" disabled >
+            <option value="{{$properties -> company_id}}" selected >{{$properties-> company->user->name}}</option>
+          </select>
+      </div>
 
     <div class="form-grid">
 
