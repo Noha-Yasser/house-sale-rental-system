@@ -16,7 +16,7 @@ class PropertyController extends Controller
      */
     public function index()
     {
-        $properties = Property::withCount('reviews')->orderBy('id','desc')->paginate(12);
+        $properties = Property::withCount('reviews')->orderBy('id','desc')->paginate(10);
         return response()->view('dashboard.property.index',compact('properties'));
     }
 
@@ -68,21 +68,26 @@ class PropertyController extends Controller
             $properties->status = $request -> get('status');
          $properties->services = $request->get('services') ?? '';
 $properties->unique_feature = $request->get('unique_feature') ?? '';
-$properties->photo = $request->get('photo') ?? '';
+ if ($request->hasFile('photo')) {
+                $photo = $request->file('photo');
+                $imageName = time() . 'impage.' . $photo->getClientOriginalExtension();
+                $photo->move('storage/images/proparty', $imageName);
+                $properties->photo = $imageName;
+            }
     $properties->views_count = 0; 
             $isSaved = $properties -> save();
-                if ($request->hasFile('images')) {
-                    foreach ($request->file('images') as $index => $image) {
-                        $imageName = time() . '_' . $index . '.' . $image->getClientOriginalExtension();
-                        $image->move('storage/properties', $imageName);
+                // if ($request->hasFile('images')) {
+                //     foreach ($request->file('images') as $index => $image) {
+                //         $imageName = time() . '_' . $index . '.' . $image->getClientOriginalExtension();
+                //         $image->move(public_path('storage/properties'), $imageName);
                         
-                        PropertyImage::create([
-                            'property_id' => $properties->id,
-                            'image_path' => $imageName,
-                            'is_primary' => ($index === 0) 
-                        ]);
-                    }
-                }
+                //         PropertyImage::create([
+                //             'property_id' => $properties->id,
+                //             'image_path' => $imageName,
+                //             'is_primary' => ($index === 0) 
+                //         ]);
+                //     }
+                // }
             return response()->json([
                 'icon'=>'success',
                 'title'=>'Created Property is Successfully',
@@ -156,23 +161,28 @@ $properties->photo = $request->get('photo') ?? '';
             $properties->status = $request -> get('status');
          $properties->services = $request->get('services') ?? '';
 $properties->unique_feature = $request->get('unique_feature') ?? '';
-$properties->photo = $request->get('photo') ?? '';
-    $properties->views_count = 0; 
 
+    $properties->views_count = 0; 
+ if ($request->hasFile('photo')) {
+                $photo = $request->file('photo');
+                $imageName = time() . 'impage.' . $photo->getClientOriginalExtension();
+                $photo->move('storage/images/proparty', $imageName);
+                $properties->photo = $imageName;
+            }
             $isUpdated = $properties -> save();
 
-                if ($request->hasFile('images')) {
-                    foreach ($request->file('images') as $index => $image) {
-                        $imageName = time() . '_' . $index . '.' . $image->getClientOriginalExtension();
-                        $image->move('storage/properties', $imageName);
+                // if ($request->hasFile('images')) {
+                //     foreach ($request->file('images') as $index => $image) {
+                //         $imageName = time() . '_' . $index . '.' . $image->getClientOriginalExtension();
+                //         $image->move(public_path('storage/properties'), $imageName);
                         
-                        PropertyImage::create([
-                            'property_id' => $properties->id,
-                            'image_path' => $imageName,
-                            'is_primary' => ($index === 0) 
-                        ]);
-                    }
-                }
+                //         PropertyImage::create([
+                //             'property_id' => $properties->id,
+                //             'image_path' => $imageName,
+                //             'is_primary' => false
+                //         ]);
+                //     }
+                // }
                     return response()->json(['redirect'=>route('properties.index')]);
 
 
@@ -200,7 +210,7 @@ $properties->photo = $request->get('photo') ?? '';
     $image = PropertyImage::findOrFail($id);
     
    
-    $imagePath = public_path('storage/properties/' . $image->image);
+   $imagePath = public_path('storage/properties/' . $image->image_path);
     if (file_exists($imagePath)) {
         unlink($imagePath);
     }

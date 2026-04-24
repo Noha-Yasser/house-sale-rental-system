@@ -197,16 +197,16 @@
       </div>
 
        <!-- Photo -->
-      <div class="input-box">
-        <label for="photo">Photo :</label>
-        <input type="file" name="photo" id="photo" class="form-control-file @error('photo') is-invalid @enderror" accept="image/*">
-      </div>
+     <div class="form-group col-md-4">
+                    <label for="photo">photo</label>
+                    <input type="file" class="form-control" id="photo" placeholder="choose photo" name="photo" accept="image/*" required>
+                  </div>
       
-<div class="form-group">
+{{-- <div class="form-group">
     <label for="images">Property photos (you can choose multiple photos)</label>
     <input type="file" name="images[]" id="images" class="form-control" multiple accept="image/*">
     <small class="text-muted">The first image will automatically become the main image.</small>
-</div>
+</div> --}}
 
     </div>
 
@@ -235,16 +235,20 @@
     formdata.append('country_id',document.getElementById('country_id').value);
     formdata.append('zip_code',document.getElementById('zip_code').value);
     formdata.append('status',document.getElementById('status').value);
-    formdata.append('photo',document.getElementById('photo').value);
- let imagesInput = document.getElementById('images');
-    if (imagesInput && imagesInput.files.length > 0) {
-        for (let i = 0; i < imagesInput.files.length; i++) {
-            formdata.append('images[]', imagesInput.files[i]);
-        }
-        console.log('تم إضافة ' + imagesInput.files.length + ' صور');
-    } else {
-        console.log('لم يتم اختيار أي صور');
-    }
+    formdata.append('photo',document.getElementById('photo').files[0]);
+     formdata.append('city_id', document.getElementById('city_id').value);
+    formdata.append('zip_code', document.getElementById('zip_code').value);
+    formdata.append('status', document.getElementById('status').value);
+  
+//  let imagesInput = document.getElementById('images');
+//     if (imagesInput && imagesInput.files.length > 0) {
+//         for (let i = 0; i < imagesInput.files.length; i++) {
+//             formdata.append('images[]', imagesInput.files[i]);
+//         }
+//         console.log('تم إضافة ' + imagesInput.files.length + ' صور');
+//     } else {
+//         console.log('لم يتم اختيار أي صور');
+//     }
     store('/admin/properties', formdata)
 
   }

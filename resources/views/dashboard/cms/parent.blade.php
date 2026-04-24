@@ -49,10 +49,10 @@
         <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
       </li>
       <li class="nav-item d-none d-sm-inline-block">
-        <a href="index3.html" class="nav-link">Home</a>
+        <a href="{{ route('dashboard.home') }}" class="nav-link">Home</a>
       </li>
       <li class="nav-item d-none d-sm-inline-block">
-        <a href="#" class="nav-link">Contact</a>
+        <a href="{{ route('contacts.index') }}" class="nav-link">Contact</a>
       </li>
     </ul>
 
@@ -240,7 +240,7 @@
        
 
     <a href="{{ route('contacts.index') }}" class="nav-link">
-  <i class='fas fa-phone-alt'></i>
+  <i class='fas fa-phone'></i>
         <p>  Contact </p>
     </a>
 
@@ -373,7 +373,7 @@
           </li>
           <li class="nav-item">
             <a href="#" class="nav-link">
-              <i class="nav-icon fas fa-flag"></i>
+            <i class="fa-solid fa-city"></i>
               {{-- <i class="fa-solid fa-user"></i> --}}
               {{-- <i class="fa-solid fa-user"></i> --}}
               <p>
@@ -398,7 +398,7 @@
           </li>
           <li class="nav-item">
             <a href="#" class="nav-link">
-              <i class="nav-icon fas fa-flag"></i>
+           <i class="fa-regular fa-comment"></i>
               {{-- <i class="fa-solid fa-user"></i> --}}
               {{-- <i class="fa-solid fa-user"></i> --}}
               <p>
@@ -423,7 +423,7 @@
           </li>
           <li class="nav-item">
             <a href="#" class="nav-link">
-              <i class="nav-icon fas fa-flag"></i>
+    <i class="fa-regular fa-credit-card"></i>
               {{-- <i class="fa-solid fa-user"></i> --}}
               {{-- <i class="fa-solid fa-user"></i> --}}
               <p>
