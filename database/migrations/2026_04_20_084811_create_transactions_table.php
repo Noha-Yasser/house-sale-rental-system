@@ -16,6 +16,7 @@ return new class extends Migration
             $table->integer("amount");
             $table->string("payment_method");
             $table->string("status");
+            $table->foreignId('booking_id')->constrained()->cascadeOnDelete();
 
             $table->timestamps();
         });

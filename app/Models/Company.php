@@ -10,6 +10,9 @@ class Company extends Model
     /** @use HasFactory<\Database\Factories\CompanyFactory> */
     use HasFactory;
 
+    public function properties(){
+        return $this->hasMany(Property::class);
+    }
 
     protected $fillable = [
     

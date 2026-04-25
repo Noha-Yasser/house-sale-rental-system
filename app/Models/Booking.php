@@ -16,6 +16,9 @@ class Booking extends Model
     {
        return $this->belongsTo(Property::class);
     }
+    public function transactions(){
+    return $this->hasMany(Transaction::class);
+  }
 
     use HasFactory;
     protected $fillable=[

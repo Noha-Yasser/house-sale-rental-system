@@ -13,8 +13,7 @@
               <div class="card-header">
                 <h3 class="card-title">update new company</h3>
               </div>
-              <!-- /.card-header -->
-              <!-- form start -->
+             
               <form method="POST" onsubmit="event.preventDefault(); performStore();">
              @csrf
                 <div class="card-body">
@@ -91,7 +90,7 @@
                                                     <input type="text" class="form-control" id="address" placeholder="Enter customer address" name="address" value="{{$companies->user->address }}" required>
                                                   </div> 
                
-                <!-- /.card-body -->
+             
   </div>  </div>
                 <div class="card-footer">
                   <button type="button" onclick="performUpdate( {{ $companies->id }})" class="btn btn-primary">Update</button>

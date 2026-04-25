@@ -104,7 +104,16 @@
       <label for="title">Title :</label>
       <input type="text" id="title" placeholder="Title" value="{{$properties->title}}" required>
     </div>
-
+    <!-- Company Name  -->
+      <div class="input-box full">
+          <label for="company_id">Select Company Name</label>
+          <select required id="company_id" name="company_id" class="form-control" >
+            <option value="{{$properties -> company_id}}" selected >{{$properties-> company->user->name ?? ""}}</option>
+            @foreach($companies as $company)
+                  <option value="{{$company->id}}">{{$company->user->name ?? ""}}</option>
+            @endforeach
+          </select>
+      </div>
     <div class="form-grid">
 
       <!-- Description -->
@@ -158,6 +167,23 @@
         <label for="bedrooms">Bedrooms :</label>
         <input type="number" id="bedrooms" placeholder="Bedrooms" value="{{$properties->bedrooms}}" required>
       </div>
+<!-- Country and city  -->
+             <div class="input-box">
+                                                            <label>Country</label>
+                                                            <select class="form-control" id="country_id" onchange="loadCities(this.value)">
+                                                                <option value="">choose country</option>
+                                                                @foreach($countries as $country)
+                                                                    <option value="{{ $country->id }}">{{ $country->country_name }}</option>
+                                                                @endforeach
+                                                            </select>
+                                                        </div>
+
+                                                        <div class="input-box">
+                                                            <label>City</label>
+                                                            <select class="form-control" id="city_id">
+                                                                <option value="">choose city</option>
+                                                            </select>
+                                                        </div>
 
       <!-- State -->
       <div class="input-box">
@@ -176,20 +202,20 @@
       </div>
 
        <!-- Photo -->
-      <div class="input-box">
-        <label for="photo">Photo :</label>
-        <input type="text" id="photo" placeholder="Enter a URL of photo" value="{{$properties->photo}}" required>
-      </div>
+       <div class="form-group col-md-4">
+                    <label for="photo">photo</label>
+                    <input type="file" class="form-control" id="photo" placeholder="choose photo" name="photo" accept="image/*" required>
+                  </div>
       
 
-  
+{{--   
 @if($properties->images->count() > 0)
 <div class="form-group">
     <label>Current images</label>
     <div class="row">
         @foreach($properties->images as $image)
         <div class="col-md-2 text-center mb-2" id="img-{{ $image->id }}">
-            <img src="{{ asset('storage/properties/' . $image->image) }}" class="img-fluid rounded" style="height: 100px; object-fit: cover;">
+            <img src="{{ asset('storage/properties/' . $image->image_path) }}" class="img-fluid rounded" style="height: 100px; object-fit: cover;">
             @if($image->is_primary)
                 <span class="badge badge-primary d-block">main</span>
             @endif
@@ -206,7 +232,7 @@
 <div class="form-group">
     <label for="new_images">Add new photos</label>
     <input type="file" name="new_images[]" id="new_images" class="form-control" multiple accept="image/*">
-</div>
+</div> --}}
 
 
     </div>
@@ -224,6 +250,7 @@
    function performUpdate(id){
     let formdata = new FormData();
     formdata.append('title',document.getElementById('title').value);
+    formdata.append('company_id',document.getElementById('company_id').value);
     formdata.append('description',document.getElementById('description').value);
     formdata.append('price',document.getElementById('price').value);
     formdata.append('type',document.getElementById('type').value);
@@ -231,41 +258,79 @@
     formdata.append('bathrooms',document.getElementById('bathrooms').value);
     formdata.append('area',document.getElementById('area').value);
     formdata.append('address',document.getElementById('address').value);
-    formdata.append('state',document.getElementById('state').value);
     formdata.append('zip_code',document.getElementById('zip_code').value);
     formdata.append('status',document.getElementById('status').value);
-    formdata.append('photo',document.getElementById('photo').value);
-
-    let imagesInput = document.getElementById('images');
-    if (imagesInput && imagesInput.files.length > 0) {
-        for (let i = 0; i < imagesInput.files.length; i++) {
-            formdata.append('images[]', imagesInput.files[i]);
-        }
-        console.log('تم إضافة ' + imagesInput.files.length + ' صور');
-    } else {
-        console.log('لم يتم اختيار أي صور');
-    }
+    formdata.append('photo',document.getElementById('photo').files[0]);
+     formdata.append('city_id',document.getElementById('city_id').value);
+//    let imagesInput = document.getElementById('images');
+//     if (imagesInput && imagesInput.files.length > 0) {
+//         for (let i = 0; i < imagesInput.files.length; i++) {
+//             formdata.append('images[]', imagesInput.files[i]);
+//         }
+//         console.log('تم إضافة ' + imagesInput.files.length + ' صور');
+//     } else {
+//         console.log('لم يتم اختيار أي صور');
+//     }
     storeRoute('/admin/properties_update/'+id , formdata)
 
   }
 
-  function deleteImage(imageId) {
+ function deleteImage(imageId) {
     if (confirm('Are you sure you want to delete this picture?')) {
         fetch('/admin/property-images/' + imageId, {
             method: 'DELETE',
             headers: {
                 'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
-                'X-Requested-With': 'XMLHttpRequest'
+                'X-Requested-With': 'XMLHttpRequest',
+                'Accept': 'application/json'
             }
         })
         .then(response => response.json())
         .then(data => {
             if (data.success) {
                 document.getElementById('img-' + imageId).remove();
-                toastr.success('Deleted');
+                toastr.success('Image deleted successfully');
+            } else {
+                toastr.error('Failed to delete image');
             }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            toastr.error('An error occurred');
         });
     }
+}
+
+function loadCities(countryId) {
+    let citySelect = document.getElementById('city_id');
+    
+    // إذا لم يتم اختيار دولة، نفرغ قائمة المدن
+    if (!countryId) {
+        citySelect.innerHTML = '<option value="">choose city </option>';
+        return;
+    }
+
+    citySelect.innerHTML = '<option value="">Loading....</option>';
+
+    axios.get('/admin/get-cities/' + countryId)
+        .then(function (response) {
+            // تفريغ القائمة قبل البدء
+            citySelect.innerHTML = '<option value=""> choose city</option>';
+            
+            // التأكد من أن البيانات مصفوفة
+            let cities = response.data;
+            
+            cities.forEach(function (city) {
+                let option = document.createElement('option');
+                option.value = city.id;
+                option.text = city.city_name;
+                citySelect.appendChild(option);
+            });
+        })
+        .catch(function (error) {
+    console.error("Full Error:", error.response); // هذا سيطبع الخطأ كاملاً في الـ Console
+    citySelect.innerHTML = '<option value="">error: ' + error.response.status + '</option>';
+});
 }
 </script>
 @endsection

@@ -13,8 +13,7 @@
               <div class="card-header">
                 <h3 class="card-title">Create new Customer</h3>
               </div>
-              <!-- /.card-header -->
-              <!-- form start -->
+            
               <form method="POST" onsubmit="event.preventDefault(); performStore();">
              @csrf
                 <div class="card-body">
@@ -52,10 +51,7 @@
         <option value="">choose city</option>
     </select>
 </div>
-                <!-- /.form-group
-                
-              
-                --> <div class="form-group col-sm-4">
+               <div class="form-group col-sm-4">
                     <label for="address"> Detailed Customer address (street, building number)</label>
                     <input type="text" class="form-control" id="address" placeholder="Enter Customer address" name="address" required>
                   </div>
@@ -147,7 +143,7 @@
             // تفريغ القائمة قبل البدء
             citySelect.innerHTML = '<option value=""> choose city</option>';
             
-            // التأكد من أن البيانات مصفوفة
+           
             let cities = response.data;
             
             cities.forEach(function (city) {
@@ -158,7 +154,7 @@
             });
         })
         .catch(function (error) {
-    console.error("Full Error:", error.response); // هذا سيطبع الخطأ كاملاً في الـ Console
+    console.error("Full Error:", error.response); 
     citySelect.innerHTML = '<option value="">error: ' + error.response.status + '</option>';
 });
 }

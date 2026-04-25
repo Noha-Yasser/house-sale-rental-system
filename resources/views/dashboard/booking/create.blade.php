@@ -16,7 +16,7 @@
               <!-- /.card-header -->
               <!-- form start -->
               <form method="POST" onsubmit="event.preventDefault(); performStore();">
-             @csrf>
+             @csrf
                 <div class="card-body">
 
                 <div class="row">
@@ -38,16 +38,33 @@
             </div>
                   <div class="form-group">
                     <label for="date">Booking date</label>
-                    <input type="date" class="form-control" id="Booking_date" placeholder="Enter Booking date" name="Booking_date" >
+                    <input type="date" class="form-control" id="booking_date" placeholder="Enter booking date" name="booking_date" >
                   </div>
                   <div class="form-group">
-                    <label for="time">Booking time</label>
-                    <input type="time" class="form-control" id="time" placeholder="Enter Booking time" name="time" >
+                    <label for="time">booking time</label>
+                    <input type="time" class="form-control" id="booking_time" placeholder="Enter Booking time" name="booking_time" >
                   </div>
                     <div class="form-group">
                     <label for="time">Note</label>
                     <input type="text" class="form-control" id="note" placeholder="Enter Booking time" name="note" >
                   </div>
+                        <div class="form-group">
+        <label for="customer_id">Customer</label>
+        <select class="form-control" id="customer_id">
+          @foreach($customers as $customer)
+            <option value="{{ $customer->id }}">{{ $customer->name }}</option>
+          @endforeach
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label for="property_id">Property</label>
+        <select class="form-control" id="property_id">
+          @foreach($properties as $property)
+            <option value="{{ $property->id }}">{{ $property->title }}</option>
+          @endforeach
+        </select>
+      </div>
                 </div>
 
                 <!-- /.card-body -->
@@ -65,12 +82,12 @@
 <script>
     function performStore(){
         let formData=new FormData();
-        formData.append('Booking_date',document.getElementById('Booking_date').value);
-        formData.append('time',document.getElementById('time').value);
-        formData.append('satus',document.getElementById('satus').value);
+        formData.append('booking_date',document.getElementById('booking_date').value);
+        formData.append('booking_time',document.getElementById('booking_time').value);
+        formData.append('status',document.getElementById('status').value);
         formData.append('note',document.getElementById('note').value);
-        formData.append('custmer_id',document.getElementById('custmer_id').value);
-        formData.append('proparty_id',document.getElementById('proparty_id').value);
+        formData.append('customer_id',document.getElementById('customer_id').value);
+        formData.append('property_id',document.getElementById('property_id').value);
 
 
         store('/admin/bookings',formData)

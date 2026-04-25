@@ -1,8 +1,8 @@
 @extends('dashboard.cms.parent')
 
-@section('title', 'Show Data of Country')
-@section('main-title', 'Show Data of Country')
-@section('sub-title', 'Show Data of Country')
+@section('title', 'Show Data of Booking')
+@section('main-title', 'Show Data of Booking')
+@section('sub-title', 'Show Data of Booking')
 
 @section('styles')
 
@@ -11,45 +11,64 @@
 @section('content')
             <div class="card card-primary">
               <div class="card-header">
-                <h3 class="card-title">Show Data of Country</h3>
+                <h3 class="card-title">Show Booking Details</h3>
               </div>
-              <!-- /.card-header -->
-              <!-- form start -->
-              <form>
-                <div class="card-body">
-                  <div class="form-group">
-                    <label for="country_name">country name</label>
-                    <input type="text" class="form-control" id="country_name" placeholder="Enter country name" name="country_name" disabled
-                    value="{{ $countries->country_name }}"
-                    required>
-                  </div>
-                  <div class="form-group">
-                    <label for="code">country code</label>
-                    <input type="text" class="form-control" id="code" placeholder="Enter country code" name="code" disabled
-                    value="{{ $countries->code }}"
-                     required>
-                  </div>
-                  {{-- <div class="row">
-                    <div class="from-group col-md-12">
-                        @foreach ( $countries->cities as $city )
-                        <input type="text" value="{{ $city->name ?? null }}"
-                        class="form-control-solid" disabled/>
-                        <span> </span>
-                        @endforeach
-                        </div> --}}
-                </div>
-                <!-- /.card-body -->
+<form>
+    <div class="card-body">
 
-                <div class="card-footer">
-                  <button type="submit" class="btn btn-primary">Update</button>
-                  <a href="{{ route('countries.index') }}" class="btn btn-primary">Go Back</a>
-                </div>
-              </form>
-            </div>
-@endsection
+      <!-- Booking Date -->
+      <div class="form-group">
+        <label>Booking Date</label>
+        <input type="text" class="form-control"
+               value="{{ $booking->booking_date }}" disabled>
+      </div>
 
-@section('scripts')
+      <!-- Booking Time -->
+      <div class="form-group">
+        <label>Booking Time</label>
+        <input type="text" class="form-control"
+               value="{{ $booking->booking_time }}" disabled>
+      </div>
 
-@endsection
+      <!-- Status -->
+      <div class="form-group">
+        <label>Status</label>
+        <input type="text" class="form-control"
+               value="{{ $booking->status }}" disabled>
+      </div>
+
+      <!-- Customer -->
+      <div class="form-group">
+        <label>Customer</label>
+        <input type="text" class="form-control"
+               value="{{ $booking->customer->name ?? '' }}" disabled>
+      </div>
+
+      <!-- Property -->
+      <div class="form-group">
+        <label>Property</label>
+        <input type="text" class="form-control"
+               value="{{ $booking->property->title ?? '' }}" disabled>
+      </div>
+
+      <!-- Note -->
+      <div class="form-group">
+        <label>Note</label>
+        <textarea class="form-control" disabled>
+     {{ $booking->note }}
+        </textarea>
+      </div>
+
+    </div>
+
+    <div class="card-footer">
+      <a href="{{ route('bookings.index') }}" class="btn btn-primary">
+        Go Back
+      </a>
+    </div>
+
+</form>
+
+</div>@endsection
 
 

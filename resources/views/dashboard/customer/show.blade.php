@@ -13,8 +13,7 @@
               <div class="card-header">
                 <h3 class="card-title">Show Data of customer</h3>
               </div>
-              <!-- /.card-header -->
-              <!-- form start -->
+              
               <form>
                 <div class="card-body">
 
@@ -87,7 +86,7 @@
                                              </div>
                                </div>                
                 </div>
-                <!-- /.card-body -->
+             
 
                 <div class="card-footer">
            <a href="{{ route('customers.edit', $customers->id) }}" class="btn btn-primary">

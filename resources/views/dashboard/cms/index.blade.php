@@ -1,8 +1,8 @@
 @extends('dashboard.cms.parent')
 
 @section('title', 'HOME')
-@section('main-title', 'لوحة التحكم')
-@section('sub-title', 'الإحصائيات العامة')
+@section('main-title', 'Dashboard')
+@section('sub-title', 'General Statistics')
 
 @section('styles')
 <style>
@@ -14,26 +14,22 @@
 
 
 <?php
-  use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\DB;
+
+$totalProperties = DB::table('properties')->count();
+$totalRevenue = DB::table('transactions')->sum('amount') ?? 0;
+$totalCompanies = DB::table('companies')->count();
+$pendingBookings = DB::table('bookings')->where('status', 'pending')->count();
+
+$cityData = DB::table('properties')
+    ->join('cities', 'properties.city_id', '=', 'cities.id')
+    ->select('cities.city_name', DB::raw('count(properties.id) as count'))
+    ->groupBy('cities.city_name')
+    ->get();
 
 
-  $totalProperties = DB::table('properties')->count();
-  
-  
-  $totalRevenue = DB::table('transactions')->sum('amount') ?? 0;
-  
-  $totalCompanies = DB::table('companies')->count();
-  $pendingBookings = DB::table('bookings')->where('status', 'pending')->count();
-
-
-  $cityData = DB::table('properties')
-      ->join('cities', 'properties.idcity', '=', 'cities.idcity')
-      ->select('cities.name', DB::raw('count(properties.id) as count'))
-      ->groupBy('cities.name')
-      ->get();
-
-  $cityNames = $cityData->pluck('name')->toArray();
-  $cityCounts = $cityData->pluck('count')->toArray();
+$cityNames = $cityData->pluck('name')->toArray();
+$cityCounts = $cityData->pluck('count')->toArray();
 ?>
 
 <div class="container-fluid">

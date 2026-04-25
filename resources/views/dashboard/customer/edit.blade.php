@@ -13,8 +13,7 @@
               <div class="card-header">
                 <h3 class="card-title">Edit new customer</h3>
               </div>
-              <!-- /.card-header -->
-              <!-- form start -->
+             
               <form method="POST" onsubmit="event.preventDefault(); performStore();">
              @csrf
                 <div class="card-body">
@@ -28,7 +27,7 @@
                                                     <!--     <input type="text" class="form-control" id="name" placeholder="Enter customer name" name="name" value="{{ $customer->user->name ?? "" }}" required>-->
                                                     <input type="text" id="name" name="name" value="{{ $customers->user->name ?? '' }}" class="form-control">
                                                   </div>
-                <!-- /.form-group -->
+             
                                                 
                                              <div class="form-group col-md-4">
                                                     <label for="identity_id">customer identity_id</label>
@@ -95,7 +94,7 @@
                                                   </div>
                             </div>
                 </div>
-                <!-- /.card-body -->
+                
 
                 <div class="card-footer">
                 <button type="button" onclick="performUpdate({{ $customers->id }})" class="btn btn-primary">Update</button>
@@ -142,7 +141,7 @@
             // تفريغ القائمة قبل البدء
             citySelect.innerHTML = '<option value=""> choose city</option>';
             
-            // التأكد من أن البيانات مصفوفة
+         
             let cities = response.data;
             
             cities.forEach(function (city) {
@@ -153,7 +152,7 @@
             });
         })
         .catch(function (error) {
-    console.error("Full Error:", error.response); // هذا سيطبع الخطأ كاملاً في الـ Console
+    console.error("Full Error:", error.response); 
     citySelect.innerHTML = '<option value="">error: ' + error.response.status + '</option>';
 });
 }

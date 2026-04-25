@@ -1,0 +1,149 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: Arial;
+}
+/* start header */
+#header{
+    background-color: white;
+    padding-left:7%;
+    padding-right:7%;
+    background-color: white;
+    padding-left: 7%;
+    padding-right: 7%;
+    margin-bottom: 20px;
+    height: 50px;
+}
+#logo{
+    vertical-align:middle;
+    width: 160px; 
+    height:42.813px;
+    padding: 7px;
+}
+
+#header ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    display:inline;
+    vertical-align:middle;
+    overflow: hidden;
+    background-color: #333;
+  }
+  
+  #header li {
+    display: inline;
+    float: right;
+  }
+
+  #header li a{
+    display: inline-block;
+    color:#4c4c4c;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+    font-weight: bold;
+    
+  }
+
+  #header li a:hover{
+    color:white;
+    background-color: #427b01;
+  }
+
+  #header li #login{
+    color:white;
+    background-color: #427b01;
+  }
+/* end header */
+
+body {
+  background: linear-gradient(to right, #cfd9df, #e2ebf0);
+  padding: 30px;
+}
+
+/* Container */
+.container {
+  max-width: 100%;
+  margin: auto;
+  background: white;
+  padding: 25px;
+  border-radius: 20px;
+  box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+}
+
+/* Title */
+h2 {
+  margin-bottom: 20px;
+}
+
+/* Full width input */
+.full {
+  margin-bottom: 15px;
+}
+
+/* Grid (2 per row) */
+.form-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+}
+
+/* Input box */
+.input-box {
+  display: flex;
+  flex-direction: column;
+}
+
+.input-box label {
+  font-size: 13px;
+  color: black;
+  margin-bottom: 5px;
+}
+
+.input-box input, .input-box select {
+  padding: 10px;
+  border-radius: 8px;
+  border: 1px solid #ddd;
+}
+
+/* Button */
+.add-btn {
+  margin-top: 20px;
+  width: 100%;
+  padding: 12px;
+  background: #00b894;
+  color: white;
+  border: none;
+  border-radius: 10px;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.add-btn:hover {
+  background: #019875;
+}
+
+#AddEstate{
+    position: absolute;
+    background-color: #00b894a8;
+    z-index: 1000;
+    border-radius: 6px;
+    font-size: 13px;
+    bottom: 10px;
+    left: 0px;
+    padding: 10px;
+    margin: 10px 0px;
+}
+#AddEstate h1{
+    text-transform: capitalize;
+    color: white;
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+  .form-grid {
+    grid-template-columns: 1fr;
+  }
+}

@@ -30,6 +30,7 @@
                       <th class="text-center">Booking time</th>
                       <th class="text-center">status</th>
                     <th class="text-center">note</th>
+                    <th>Actions</th>
 
                     </tr>
 
@@ -38,11 +39,23 @@
                     @foreach($bookings as $Booking)
                     <tr>
                       <td>{{ $Booking->id }}</td>
-                      <td>{{ $Booking->Booking_date }}</td>
-                      <td>{{ $Booking->Booking_time}}</td>
-                      <td><span class="badge bg-info">{{ $Booking->country->country_name ?? ""}}</td>
+                      <td>{{ $Booking->booking_date }}</td>
+                      <td>{{ $Booking->booking_time}}</td><td>
+                      <td>{{ $Booking->status}}</td>
                     {{-- <td>{{ $Booking->Seeting }}</td> --}}
                        <td>
+                        <span class="badge bg-info">
+                    {{ $booking->status }}
+                  </span>
+                </td>
+
+                <td>{{ $booking->customer->name ?? '' }}</td>
+
+                <td>{{ $booking->property->title ?? '' }}</td>
+
+                <td>{{ $booking->note }}</td>
+
+                <td>
 
                 <!-- Show -->
                 <a href="{{ route('bookings.show', $Booking->id) }}" class="btn btn-info btn-sm" title="show">
@@ -65,16 +78,6 @@
                   </tbody>
                 </table>
               </div>
-              <!-- /.card-body -->
-              {{-- <div class="card-footer clearfix">
-                <ul class="pagination pagination-sm m-0 float-right">
-                  <li class="page-item"><a class="page-link" href="#">&laquo;</a></li>
-                  <li class="page-item"><a class="page-link" href="#">1</a></li>
-                  <li class="page-item"><a class="page-link" href="#">2</a></li>
-                  <li class="page-item"><a class="page-link" href="#">3</a></li>
-                  <li class="page-item"><a class="page-link" href="#">&raquo;</a></li>
-                </ul>
-              </div> --}}
               {{ $bookings->links() }}
             </div>
           </div>

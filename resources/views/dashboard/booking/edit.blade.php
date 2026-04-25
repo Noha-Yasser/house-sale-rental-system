@@ -9,46 +9,72 @@
 @endsection
 
 @section('content')
-            <div class="card card-primary">
-              <div class="card-header">
-                <h3 class="card-title">Edit new Booking</h3>
-              </div>
-              <!-- /.card-header -->
-              <!-- form start -->
-              <form method="POST" onsubmit="event.preventDefault(); performStore();">
-             @csrf>
-                <div class="card-body">
+    <div class="card-body">
 
-                <div class="row">
-              <div class="col-12 col-sm-4">
+      <div class="form-group">
+        <label>Status</label>
+        <select id="status" class="form-control">
+          <option value="pending" {{ $booking->status == 'pending' ? 'selected' : '' }}>Pending</option>
+          <option value="confirmed" {{ $booking->status == 'confirmed' ? 'selected' : '' }}>Confirmed</option>
+          <option value="cancelled" {{ $booking->status == 'cancelled' ? 'selected' : '' }}>Cancelled</option>
+        </select>
+      </div>
 
-              </div>
-            </div>
+      <div class="form-group">
+        <label>Booking Date</label>
+        <input type="date" id="booking_date" class="form-control"
+               value="{{ $booking->booking_date }}">
+      </div>
 
-                  <div class="form-group">
-                    <label for="status">Select status</label>
-                    <select required id="property_id" name="property_id" class="form-control" >
-                       <option selected value="{{$reviews->property->id}}"> {{ $reviews->property->title }}</option>
-                      @foreach($properties as $property)
-                        <option value="{{$property->id}}">{{$property->title}}</option>
-                      @endforeach
-                    </select>
-                  </div>
+      <div class="form-group">
+        <label>Booking Time</label>
+        <input type="time" id="booking_time" class="form-control"
+               value="{{ $booking->booking_time }}">
+      </div>
 
-                  <div class="form-group">
-                    <label for="comments">Commment</label>
-                    <input type="text" class="form-control" id="comments" placeholder="Enter Your Comment" name="comments" value="{{$reviews->comments}}" required>
-                  </div>
+      <div class="form-group">
+        <label>Note</label>
+        <input type="text" id="note" class="form-control"
+               value="{{ $booking->note }}">
+      </div>
 
+      <div class="form-group">
+        <label>Customer</label>
+        <select id="customer_id" class="form-control">
+          @foreach($customers as $customer)
+            <option value="{{ $customer->id }}"
+              {{ $booking->customer_id == $customer->id ? 'selected' : '' }}>
+              {{ $customer->name }}
+            </option>
+          @endforeach
+        </select>
+      </div>
 
-                </div>
+      <div class="form-group">
+        <label>Property</label>
+        <select id="property_id" class="form-control">
+          @foreach($properties as $property)
+            <option value="{{ $property->id }}"
+              {{ $booking->property_id == $property->id ? 'selected' : '' }}>
+              {{ $property->title }}
+            </option>
+          @endforeach
+        </select>
+      </div>
+
+    </div>
+
+    <div class="card-footer">
+      <button type="button" onclick="performUpdate({{ $booking->id }})"
+              class="btn btn-primary">
+        Update
+      </button>
                 <!-- /.card-body -->
 
-                <div class="card-footer">
-                  <button type="button" onclick="performUpdate({{$reviews->id}})" class="btn btn-primary">Update</button>
-                <a href="{{ route('reviews.index') }}" class="btn btn-primary">Go Back</a>
-
-                </div>
+      <a href="{{ route('bookings.index') }}" class="btn btn-secondary">
+        Go Back
+      </a>
+    </div>
               </form>
             </div>
 @endsection
@@ -57,13 +83,15 @@
 <script>
     function performUpdate(id){
         let formData=new FormData();
-        formData.append('comments',document.getElementById('comments').value);
-        formData.append('property_id',document.getElementById('property_id').value);
+formData.append('status', document.getElementById('status').value);
+    formData.append('booking_date', document.getElementById('booking_date').value);
+    formData.append('booking_time', document.getElementById('booking_time').value);
+    formData.append('note', document.getElementById('note').value);
+    formData.append('customer_id', document.getElementById('customer_id').value);
+    formData.append('property_id', document.getElementById('property_id').value);
 
-
-        storeRoute('/admin/bookings_update/'+id,formData)
-
-    }
+    store('/admin/bookings/' + id, formData);
+}
 </script>
 
 @endsection

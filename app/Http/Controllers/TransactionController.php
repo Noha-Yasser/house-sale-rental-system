@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\transaction;
+use App\Models\Transaction;
+use App\Models\Booking;
+use Illuminate\Support\Facades\Validator;
 use Illuminate\Http\Request;
 
 class TransactionController extends Controller
@@ -12,8 +14,11 @@ class TransactionController extends Controller
      */
     public function index()
     {
-         $transactions = Transaction::all();
-        return response()->view('dashboard.transaction.index',compact('transactions'));
+            $transactions = Transaction::with('booking')
+            ->orderBy('id','desc')
+            ->paginate(10);
+
+        return view('dashboard.transaction.index', compact('transactions'));
     }
 
     /**
@@ -21,7 +26,8 @@ class TransactionController extends Controller
      */
     public function create()
     {
-        return response()->view('dashboard.transaction.create');    
+         $bookings = Booking::all();
+        return response()->view('dashboard.transaction.create', compact('bookings'));
     }
 
     /**
@@ -29,11 +35,12 @@ class TransactionController extends Controller
      */
     public function store(Request $request)
     {
-           $validator=Validator($request->all(),
+           $validator=Validator::make($request->all(),
         [
            'amount' => 'required|numeric',
            'payment_method' => 'required',
            'status' => 'required',
+           'booking_id' => 'required|exists:bookings,id',
             ]);
 
          if ($validator->fails()){
@@ -46,6 +53,7 @@ class TransactionController extends Controller
         $transactions->payment_method=$request->get('payment_method');
          $transactions->status=$request->input('status');
          $transactions->amount=$request->input('amount');
+         $transactions->booking_id = $request->booking_id;
 
          $isSaved=$transactions->save();
 
@@ -71,7 +79,8 @@ class TransactionController extends Controller
     public function edit($id)
     {
         $transactions = Transaction::findOrFail($id);
-         return response()->view('dashboard.transaction.edit',compact('transactions'));
+        $bookings = Booking::all();
+         return response()->view('dashboard.transaction.edit',compact('transactions','bookings'));
     }
 
     /**
@@ -84,6 +93,7 @@ class TransactionController extends Controller
            'amount' => 'required|numeric',
            'payment_method' => 'required',
            'status' => 'required',
+           'booking_id' => 'required|exists:bookings,id',
             ]);
 
          if ($validator->fails()){
@@ -97,9 +107,10 @@ class TransactionController extends Controller
          $transactions->status=$request->input('status');
          $transactions->amount=$request->input('amount');
 
+
          $isUpdated=$transactions->save();
 
-         return rdirect()->route('transactions.index');
+         return ['redirect' => route('transactions.index')];
 
          }
     }
