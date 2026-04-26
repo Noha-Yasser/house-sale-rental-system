@@ -197,16 +197,16 @@
       </div>
 
        <!-- Photo -->
-     <div class="form-group col-md-4">
-                    <label for="photo">photo</label>
+     <div class="input-box">
+                    <label for="photo">Main photo</label>
                     <input type="file" class="form-control" id="photo" placeholder="choose photo" name="photo" accept="image/*" required>
                   </div>
       
-{{-- <div class="form-group">
-    <label for="images">Property photos (you can choose multiple photos)</label>
-    <input type="file" name="images[]" id="images" class="form-control" multiple accept="image/*">
-    <small class="text-muted">The first image will automatically become the main image.</small>
-</div> --}}
+      <!-- multiple photos -->
+      <div class="input-box">
+          <label for="images">Property photos (you can choose multiple photos)</label>
+          <input type="file" id="images" name="images[]" multiple>
+      </div> 
 
     </div>
 
@@ -236,9 +236,13 @@
     formdata.append('zip_code',document.getElementById('zip_code').value);
     formdata.append('status',document.getElementById('status').value);
     formdata.append('photo',document.getElementById('photo').files[0]);
-     formdata.append('city_id', document.getElementById('city_id').value);
-    formdata.append('zip_code', document.getElementById('zip_code').value);
-    formdata.append('status', document.getElementById('status').value);
+    
+
+    let images = document.getElementById('images').files;
+
+    for (let i = 0; i < images.length; i++) {
+        formdata.append('images[]', images[i]);
+    }
   
 //  let imagesInput = document.getElementById('images');
 //     if (imagesInput && imagesInput.files.length > 0) {

@@ -185,11 +185,6 @@
                                                             </select>
                                                         </div>
 
-      <!-- State -->
-      <div class="input-box">
-        <label for="state">State :</label>
-        <input type="text" id="state" placeholder="State" value="{{$properties->state}}" required>
-      </div>
 
       <!-- Status -->
       <div class="input-box">
@@ -202,38 +197,16 @@
       </div>
 
        <!-- Photo -->
-       <div class="form-group col-md-4">
-                    <label for="photo">photo</label>
+       <div class="input-box">
+                    <label for="photo">Main photo</label>
                     <input type="file" class="form-control" id="photo" placeholder="choose photo" name="photo" accept="image/*" required>
                   </div>
-      
 
-{{--   
-@if($properties->images->count() > 0)
-<div class="form-group">
-    <label>Current images</label>
-    <div class="row">
-        @foreach($properties->images as $image)
-        <div class="col-md-2 text-center mb-2" id="img-{{ $image->id }}">
-            <img src="{{ asset('storage/properties/' . $image->image_path) }}" class="img-fluid rounded" style="height: 100px; object-fit: cover;">
-            @if($image->is_primary)
-                <span class="badge badge-primary d-block">main</span>
-            @endif
-            <button type="button" class="btn btn-danger btn-sm mt-1" onclick="deleteImage({{ $image->id }})">
-                <i class="fas fa-trash"></i> delete
-            </button>
-        </div>
-        @endforeach
-    </div>
-</div>
-@endif
-
-
-<div class="form-group">
-    <label for="new_images">Add new photos</label>
-    <input type="file" name="new_images[]" id="new_images" class="form-control" multiple accept="image/*">
-</div> --}}
-
+        <!-- multiple photos -->
+      <div class="input-box">
+          <label for="images">Property photos (you can choose multiple photos)</label>
+          <input type="file" id="images" name="images[]" multiple>
+      </div> 
 
     </div>
 

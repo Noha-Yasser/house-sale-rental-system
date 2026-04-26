@@ -93,40 +93,18 @@
     
 
   <form>
-
-    {{-- @php
-        $primaryImage = $properties->images()->where('is_primary', true)->first();
-    @endphp
-    
-    @if($primaryImage)
-        <img src="{{ asset('storage/properties/' . $primaryImage->image_path) }}" class="img-fluid rounded" style="max-height: 400px;">
-    @elseif($properties->images()->first())
-        <img src="{{ asset('storage/properties/' . $properties->images()->first()->image_path) }}" class="img-fluid rounded" style="max-height: 400px;">
-    @else
-        <img src="{{ asset('cms/dist/img/no-image.png') }}" class="img-fluid rounded" style="max-height: 400px;">
-    @endif
-</div>
-@if($properties->images()->where('is_primary', false)->count() > 0)
-<h5>Gallery</h5>
-<div class="row">
-    @foreach($properties->images()->where('is_primary', false)->get() as $image)
-    <div class="col-md-3 mb-2">
-        <img src="{{ asset('storage/properties/' . $image->image_path) }}" class="img-fluid rounded" style="height: 150px; width: 100%; object-fit: cover;">
-    </div>
-    @endforeach
-</div>
-@endif --}}
-
-  <div class="text-center">
-    @if($properties->photo ?? "" )
-        <img src="{{ asset('storage/images/proparty/' . $properties->photo) }}" 
-           class=" img-bordered-sm"  width="80" height="80"  cover; >
+  <!-- photo -->
+    @if($properties->photo ?? false)
+        <img src="{{ asset('images/property/'.$properties->photo) }}" 
+           class="w-100 shadow" height="450"  cover; >
     @else
         <span class="text-muted">No Image</span>
     @endif
-     </div>
+
+ 
+    
     <!-- Title -->
-    <div class="input-box full">
+    <div class="input-box full mt-5">
       <label for="title">Title :</label>
       <input type="text" id="title" placeholder="Title" value="{{$properties->title}}" required disabled>
     </div>
@@ -212,17 +190,17 @@
 
     </div>
 
-{{--      
-      @if($properties->images->where('is_primary', false)->count() > 0)
-      <h5>معرض الصور</h5>
-      <div class="row">
-          @foreach($properties->images->where('is_primary', false) as $image)
-          <div class="col-md-3 mb-2">
-              <img src="{{ asset('storage/properties/' . $image->image) }}" class="img-fluid rounded">
-          </div>
-          @endforeach
-      </div>
-      @endif --}}
+     <h2 class=" bg-light shadow-sm rounded d-flex px-2 m-2 mt-4 w-100">   
+                  Gallary
+    </h2> 
+    <div class="row">
+        @foreach($properties->images as $img)
+            <div class="col-md-3 mb-3">
+                <img src="{{ asset('images/property/'.$img->image_path) }}" 
+                    class="img-fluid rounded">
+            </div>
+        @endforeach
+    </div>
 
     <h2 class=" bg-light shadow-sm rounded d-flex px-2 m-2 mt-4 w-100">   
                   REVIEWS
