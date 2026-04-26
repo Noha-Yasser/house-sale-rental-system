@@ -225,7 +225,7 @@
               </p>
             </a>
             <ul class="nav nav-treeview">
-            
+
 
 <li class="nav-item">
 
@@ -446,7 +446,31 @@
               </li>
             </ul>
           </li>
-
+          <li class="nav-item">
+            <a href="#" class="nav-link">
+              <i class="nav-icon fas fa-flag"></i>
+              {{-- <i class="fa-solid fa-user"></i> --}}
+              {{-- <i class="fa-solid fa-user"></i> --}}
+              <p>
+                Booking
+                <i class="fas fa-angle-left right"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="{{ route('bookings.index') }}" class="nav-link">
+                  <i class="fas fa-list-ul nav-icon"></i>
+                  <p>Index</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="{{ route('bookings.create') }}" class="nav-link">
+                  <i class="fas fa-plus-circle nav-icon"></i>
+                  <p>Create</p>
+                </a>
+              </li>
+            </ul>
+          </li>
           <li class="nav-header">Seeting</li>
           <li class="nav-item">
             <a href="iframe.html" class="nav-link">

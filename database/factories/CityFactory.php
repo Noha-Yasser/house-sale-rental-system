@@ -18,7 +18,8 @@ class CityFactory extends Factory
     public function definition(): array
     {
         return [
-            //
+            'city_name'=>fake()->city(),
+            'street'=>fake()->streetName(),
         ];
     }
 }
