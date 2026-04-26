@@ -96,7 +96,7 @@
   <!-- photo -->
     @if($properties->photo ?? false)
         <img src="{{ asset('images/property/'.$properties->photo) }}" 
-           class="w-100 shadow" height="450"  cover; >
+           class="w-100 shadow" cover; >
     @else
         <span class="text-muted">No Image</span>
     @endif
