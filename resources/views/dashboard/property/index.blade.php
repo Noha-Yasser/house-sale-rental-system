@@ -68,26 +68,15 @@
     <!-- Card -->
      @foreach ($properties as $property)
         <div class="card">
-            {{-- @php
-        $primaryImage = $property->images()->where('is_primary', true)->first();
-    @endphp
-    
-    @if($primaryImage)
-        <img src="{{ asset('storage/properties/' . $primaryImage->image_path) }}" style="width: 100%; height: 200px; object-fit: cover;">
-    @elseif($property->images()->first())
-        <img src="{{ asset('storage/properties/' . $property->images()->first()->image_path) }}" style="width: 100%; height: 200px; object-fit: cover;">
-    @else
-        <img src="{{ asset('cms/dist/img/no-image.png') }}" style="width: 100%; height: 200px;">
-    @endif --}}
 
-    <td class="text-center">
+   <!-- photo -->
     @if($property->photo ?? false)
-        <img src="{{ asset('storage/images/proparty/' . $property->photo) }}" 
+        <img src="{{ asset('images/property/'.$property->photo) }}" 
            class=" img-bordered-sm"  width="80" height="80"  cover; >
     @else
         <span class="text-muted">No Image</span>
     @endif
-      </td>
+
         <h4>{{$property ->title}}</h4>
         <p>{{$property ->address}}</p>
         <p>{{$property ->type}} | {{$property ->status}}</p>

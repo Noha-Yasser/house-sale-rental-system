@@ -1,34 +1,23 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="css/contactstyle.css">
-    <script src="https://kit.fontawesome.com/yourcode.js" crossorigin="anonymous"></script>
 
- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <title>contact</title>
-    
-</head>
-<body>
-    <div id="header">
-        <img id="logo" src="img/apartments-for-rent-logo.png">
-        <ul id="menu">
-             <li><a href="login.html" id="login">Login</a></li>
-            <li><a href="shop.html">Shop</a></li>
-            <li><a href="contact.html">Contact</a></li>
-            <li><a href="about.html">About Us</a></li>
-       
-            <li><a href="home.html">Home</a></li>
-        </ul>
-    </div>
+  
+   @extends('front.parent')
+@section('title','Temp Title')
+@section('styles')
+  <link rel="stylesheet" href="{{ asset('front/css/contactstyle.css') }}">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
+
+  @endsection
+@section('content')
+
+
+
+
    <section class="consec1">
         <div class="center">
          <h1>Help Center Frequently Asked Questions</h1>
               <div class="sec1div1">
                          <div class="sec1img">
-                                  <img src="img/Hand with key_0.png" alt="con">
+                                  <img src="{{ asset('front/img/Hand with key_0.png') }}" alt="con">
                          </div>
                          <div class="sec1text">
                                <h3> I'm a renter</h3>
@@ -38,7 +27,7 @@
                  </div>
                 <div class="sec1div2">
                          <div class="sec1img">
-                             <img src="img/Buildings_0.png" alt="con">
+                             <img src="{{ asset('front/img/Capture.PNG') }}" alt="con">
                          </div>
                          <div class="sec1text">
                               <h3>I manage rentals</h3>
@@ -49,6 +38,7 @@
                         </div>
         </div>
 </section>
+
 <section class="sec2">
 <div class="sec2div1">
     <h1>Top FAQs for renters</h1>
@@ -72,21 +62,25 @@
 </div>
 </section>
 <section class="sec3">
-    <img src="img/Capture.PNG" alt="con">
+    <img src="{{ asset('front/img/Capture.PNG') }}" alt="con">
     <h1>Can’t Find What You’re Looking For?</h1>
     <p>Fill out the form below and we will get in touch with you as soon as possible.</p>
 
 </section>
+
 <section class="sec4">
     <form  >
-        <div class="form1">
-        <input type="text" placeholder="First Name*" required style="display: inline;">
-        <input type="text" placeholder="Last Name*" required></div>
-        <div class="form2"><input type="email" placeholder="Email*" required style="display: inline;">
-        <input type="tel" placeholder="phone(optional)"></div>
        
-        <textarea placeholder=" What can we help you with?"></textarea>
-        <input type="submit" class="sub">
+        <div class="form1">
+        <input type="text"  id="first_name" name="first_name"  placeholder="First Name*" required style="display: inline;">
+        <input type="text"  id="last_name" name="last_name" placeholder="Last Name*" required></div>
+        <div class="form2">
+            <input type="email"  id="email" name="email" placeholder="Email*" required style="display: inline;">
+        <input type="tel"  id="phone" name="phone" placeholder="phone(optional)"></div>
+       
+        <textarea  id="message" name="message" placeholder=" What can we help you with?"></textarea>
+      
+          <button type="button" onclick="performContact()" class="sub btn btn-primary">Submit</button>
     </form>
 </section>
 <section class="sec5">
@@ -156,35 +150,27 @@
 
 
 
+@endsection
+@section('scripts')
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script src="{{ asset('js/crud.js') }}"></script>
+<script>
+    function performContact(){
+        let formData=new FormData();
+      
+       formData.append('first_name',document.getElementById('first_name').value);
+        formData.append('last_name',document.getElementById('last_name').value);
+        formData.append('email',document.getElementById('email').value);
+           formData.append('phone',document.getElementById('phone').value);
+        formData.append('message',document.getElementById('message').value);
+     
+        store('/web/contact',formData)}
+</script>
+
+
+@endsection
 
 
 
-
-
-
-<footer class="myfooter">
-    <img style="height: 52px;" src="img/logo.svg" alt="logo" style="display: block;">
-    <br><p>&copy; 2023 CoStar Group, Inc.</p>
-   <i class="fa fa-home" style="display: inline;"></i>  Equal Housing Opportunity
-    <ul class="icon">
-        <li>
-            <a href="https/www.facebook.com"> <i class="fa fa-facebook fa-2x"></i></a>
-        </li>
-        <li>
-            <a href="https/www.instagram.com">   <i class="fa fa-instagram fa-2x"></i></a>
-        </li>
-        <li>
-            <a href="https/www.twitter.com">  <i class="fa fa-twitter fa-2x"></i></i></a>
-        </li>
-        <li> 
-            <a href="https/www.youtube.com">  <i class="fa fa-youtube fa-2x"></i></a>
-        </li>
-        <li>
-            <a href="https/www.pinterest.com">   <i class=" fa fa-pinterest fa-2x"></i></a>
-        </li>
-    </ul>
-
-   
-</footer>
-</body>
-</html>
+ 

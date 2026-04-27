@@ -65,10 +65,16 @@
         
             
                
-              <div class="form-group col-sm-4">
-                    <label for="gender">Customer gender</label>
-                    <input type="text" class="form-control" id="gender" placeholder="Enter Customer gender" name="gender" required>
-                  </div>
+              
+
+                  <div class="form-group col-md-4">
+    <label for="gender">Gender</label>
+    <select class="form-control" id="gender" name="gender" required>
+        <option value="">Select Gender</option>
+        <option value="male">Male</option>
+        <option value="female">Female</option>
+    </select>
+</div>
                    <div class="form-group col-sm-4">
                     <label for="password">Customer password</label>
                     <input type="text" class="form-control" id="password" placeholder="Enter Customer password" name="password" required>
@@ -76,7 +82,7 @@
 <div class="row">
                 <div class="form-group col-sm-4">
                     <label for="birthday">Customer birthday</label>
-                    <input type="text" class="form-control" id="birthday" placeholder="Enter Customer birthday" name="birthday" required>
+                    <input type="date" class="form-control" id="birthday" placeholder="Enter Customer birthday" name="birthday" required>
                   </div>
                 
                

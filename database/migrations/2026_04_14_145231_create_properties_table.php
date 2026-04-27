@@ -22,7 +22,7 @@ return new class extends Migration
             $table->integer('bathrooms')->nullable();
            $table->integer('views_count')->default(0);
             $table->string('address')->nullable();
-            $table->string('state')->nullable();
+          
             $table->string('zip_code');
             $table->string('status');
             $table->string('photo')->nullable(); 

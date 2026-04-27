@@ -28,7 +28,7 @@ $cityData = DB::table('properties')
     ->get();
 
 
-$cityNames = $cityData->pluck('name')->toArray();
+$cityNames = $cityData->pluck('city_name')->toArray();
 $cityCounts = $cityData->pluck('count')->toArray();
 ?>
 
@@ -106,7 +106,7 @@ $cityCounts = $cityData->pluck('count')->toArray();
   $(function () {
     var ctx = document.getElementById('cityChart').getContext('2d');
     var myChart = new Chart(ctx, {
-        type: 'bar',
+        type: 'doughnut',
         data: {
             labels: {!! json_encode($cityNames) !!},
             datasets: [{

@@ -8,6 +8,7 @@ use App\Models\City;
 use App\Models\Country;
 use App\Models\PropertyImage;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\File;
 
 class PropertyController extends Controller
 {
@@ -49,6 +50,8 @@ class PropertyController extends Controller
             'zip_code' => 'required|digits:4',
             'status' => 'required',
             'city_id' => 'required|exists:cities,id',
+            'photo' => 'sometimes|image|mimes:jpg,png,jpeg|max:2048',
+            'images.*' => 'image|mimes:jpg,png,jpeg|max:2048'
         
         ]);
 
@@ -67,27 +70,34 @@ class PropertyController extends Controller
             $properties->zip_code = $request -> get('zip_code');
             $properties->status = $request -> get('status');
          $properties->services = $request->get('services') ?? '';
-$properties->unique_feature = $request->get('unique_feature') ?? '';
- if ($request->hasFile('photo')) {
+            $properties->unique_feature = $request->get('unique_feature') ?? '';
+
+             if ($request->hasFile('photo')) {
                 $photo = $request->file('photo');
-                $imageName = time() . 'impage.' . $photo->getClientOriginalExtension();
-                $photo->move('storage/images/proparty', $imageName);
+                $imageName = time() . 'photo.' . $photo->getClientOriginalExtension();
+                $photo->move(public_path('images/property'), $imageName);
                 $properties->photo = $imageName;
-            }
-    $properties->views_count = 0; 
+            } 
+
+            $properties->views_count = 0; 
             $isSaved = $properties -> save();
-                // if ($request->hasFile('images')) {
-                //     foreach ($request->file('images') as $index => $image) {
-                //         $imageName = time() . '_' . $index . '.' . $image->getClientOriginalExtension();
-                //         $image->move(public_path('storage/properties'), $imageName);
-                        
-                //         PropertyImage::create([
-                //             'property_id' => $properties->id,
-                //             'image_path' => $imageName,
-                //             'is_primary' => ($index === 0) 
-                //         ]);
-                //     }
-                // }
+
+                 //  حفظ عدة صور
+                if ($request->hasFile('images')) {
+
+                    foreach ($request->file('images') as $image) {
+
+                        $imageName = time() . '_' . uniqid() . '.' . $image->getClientOriginalExtension();
+
+                        $image->move(public_path('images/property'), $imageName);
+
+                        PropertyImage::create([
+                            'property_id' => $properties->id,
+                            'image_path' => $imageName
+                        ]);
+                    }
+                }
+           
             return response()->json([
                 'icon'=>'success',
                 'title'=>'Created Property is Successfully',
@@ -163,26 +173,33 @@ $properties->unique_feature = $request->get('unique_feature') ?? '';
 $properties->unique_feature = $request->get('unique_feature') ?? '';
 
     $properties->views_count = 0; 
- if ($request->hasFile('photo')) {
+    
+             if ($request->hasFile('photo')) {
                 $photo = $request->file('photo');
-                $imageName = time() . 'impage.' . $photo->getClientOriginalExtension();
-                $photo->move('storage/images/proparty', $imageName);
+                $imageName = time() . 'photo.' . $photo->getClientOriginalExtension();
+                $photo->move(public_path('images/property'), $imageName);
                 $properties->photo = $imageName;
-            }
-            $isUpdated = $properties -> save();
+            } 
 
-                // if ($request->hasFile('images')) {
-                //     foreach ($request->file('images') as $index => $image) {
-                //         $imageName = time() . '_' . $index . '.' . $image->getClientOriginalExtension();
-                //         $image->move(public_path('storage/properties'), $imageName);
-                        
-                //         PropertyImage::create([
-                //             'property_id' => $properties->id,
-                //             'image_path' => $imageName,
-                //             'is_primary' => false
-                //         ]);
-                //     }
-                // }
+
+    $isUpdated = $properties -> save();
+
+              //  حفظ عدة صور
+                if ($request->hasFile('images')) {
+
+                    foreach ($request->file('images') as $image) {
+
+                        $imageName = time() . '_' . uniqid() . '.' . $image->getClientOriginalExtension();
+
+                        $image->move(public_path('images/property'), $imageName);
+
+                        PropertyImage::create([
+                            'property_id' => $properties->id,
+                            'image_path' => $imageName
+                        ]);
+                    }
+                }
+           
                     return response()->json(['redirect'=>route('properties.index')]);
 
 
