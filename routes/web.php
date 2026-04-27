@@ -21,7 +21,7 @@ use App\Http\Controllers\PropertyController;
 // use App\Http\Controllers\TransactionController;
 // use App\Models\Booking;
 use App\Models\Contact;
-
+use GuzzleHttp\Middleware;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -117,7 +117,8 @@ Route::prefix('web/')->group(function(){
 
 Route::get('temp',[HomeController::class, 'home'])->name('temp');
 
-
+Route::get('contact',[HomeController::class, 'showContact'])->name('contact.page');
+Route::post('contact',[HomeController::class, 'contactStore']);
 
 
 });

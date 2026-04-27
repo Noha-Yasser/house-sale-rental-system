@@ -36,7 +36,7 @@ class PropertyFactory extends Factory
 
             'address' => fake()->streetAddress(),
 
-            'state' => fake()->city(),
+          'company_id' => \App\Models\company::inRandomOrder()->first()->id,
 
             'zip_code' => fake()->postcode(),
 

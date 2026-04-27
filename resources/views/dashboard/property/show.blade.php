@@ -96,7 +96,7 @@
   <!-- photo -->
     @if($properties->photo ?? false)
         <img src="{{ asset('images/property/'.$properties->photo) }}" 
-           class="w-100 shadow" cover; >
+           class="w-100 shadow" width="100%" height="100%" cover; >
     @else
         <span class="text-muted">No Image</span>
     @endif
@@ -171,11 +171,7 @@
         <input type="number" id="bedrooms" placeholder="Bedrooms" value="{{$properties->bedrooms}}" required disabled>
       </div>
 
-      <!-- State -->
-      <div class="input-box">
-        <label for="state">State :</label>
-        <input type="text" id="state" placeholder="State" value="{{$properties->state}}" required>
-      </div>
+    
 
       <!-- Status -->
       <div class="input-box">

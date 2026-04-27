@@ -20,6 +20,7 @@ class CityFactory extends Factory
         return [
             'city_name'=>fake()->city(),
             'street'=>fake()->streetName(),
+            'country_id' => \App\Models\Country::inRandomOrder()->first()->id,
         ];
     }
 }

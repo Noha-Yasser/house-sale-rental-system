@@ -46,7 +46,6 @@ public function primaryImage() {
         'area',
         'bathrooms',
         'address',
-        'state',
         'status',
         'zip_code',
         'photo',

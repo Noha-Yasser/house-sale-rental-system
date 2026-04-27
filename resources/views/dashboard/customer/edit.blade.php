@@ -69,10 +69,15 @@
                           </div>
                           
                           <div class="row">
-                              <div class="form-group col-md-4">
-                                                      <label for="gender">customer gender</label>
-                                                      <input type="text" class="form-control" id="gender" placeholder="Enter customer gender" name="gender" value="{{$customers->gender }}" required>
-                                                    </div>
+                             
+                                                    <div class="form-group col-md-4">
+                                                    <label for="gender">Gender</label>
+                                                    <select class="form-control" id="gender" name="gender" required>
+                                                        <option value="">Select Gender</option>
+                                                        <option value="male" {{ ($customers->gender ?? '') == 'male' ? 'selected' : '' }}>Male</option>
+                                                        <option value="female" {{ ($customers->gender ?? '') == 'female' ? 'selected' : '' }}>Female</option>
+                                                    </select>
+                                                </div>
                                               <div class="form-group col-md-4">
                                                       <label for="email">customer email</label>
                                                       <input type="text" class="form-control" id="email" placeholder="Enter customer email" name="email" value="{{$customers->email }}" required>
@@ -84,7 +89,7 @@
                                                       </div>
                                                       <div class="form-group col-md-4">
                                                       <label for="birthday">customer birthday</label>
-                                                      <input type="text" class="form-control" id="birthday" placeholder="Enter customer birthday" name="birthday" value="{{$customers->birthday }}" required>
+                                                      <input type="date" class="form-control" id="birthday" placeholder="Enter customer birthday" name="birthday" value="{{$customers->birthday }}" required>
                                                     </div>
                                                   
                                                        
