@@ -36,8 +36,11 @@ Route::prefix('admin')->group(function(){
 
    Route::resource('countries',CountryController::class);
    Route::post('countries_update/{id}',[CountryController::class,'update'])->name('countries _update');
+    // soft delete
+   Route::get('countries-trashed',[CountryController::class,'trashed'])->name('countries-trashed');
+   Route::get('countries-restore/{id}',[CountryController::class,'restore'])->name('countries-restore');
+   Route::get('countries-force/{id}',[CountryController::class,'force'])->name('countries-force');
 
-      Route::get('countries-trashed',[CountryController::class,'trashed'])->name('countries-trashed');
 
    Route::resource('cities',CityController::class);
    Route::post('cities_update/{id}',[CityController::class,'update'])->name('cities _update');
@@ -100,11 +103,10 @@ Route::prefix('web/')->group(function(){
 
 Route::get('temp',[HomeController::class, 'home'])->name('temp');
 
-<<<<<<< HEAD
-=======
+
 Route::get('contact',[HomeController::class, 'showContact'])->name('contact.page');
 Route::post('contact',[HomeController::class, 'contactStore']);
 
->>>>>>> 693eedd68263bec5a19c025b20f3fc50d0991bc4
+
 
 });

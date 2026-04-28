@@ -448,7 +448,7 @@
           </li>
           <li class="nav-item">
             <a href="#" class="nav-link">
-              <i class="nav-icon fas fa-flag"></i>
+              <i class="nav-icon fas fa-ticket-alt"></i>
               {{-- <i class="fa-solid fa-user"></i> --}}
               {{-- <i class="fa-solid fa-user"></i> --}}
               <p>

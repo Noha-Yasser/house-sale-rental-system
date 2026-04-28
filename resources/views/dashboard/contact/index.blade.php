@@ -15,7 +15,7 @@
             <div class="card">
               <div class="card-header">
                 {{-- <h3 class="card-title">contact Table</h3> --}}
-               
+
 
               </div>
               <!-- /.card-header -->
@@ -25,13 +25,13 @@
 
 
                     <tr>
-                      <th style="width: 10px">ID</th>
-                      <th class="text-center"> First Name</th>
-                      <th class="text-center"> Last Name</th> 
-                       <th class="text-center">Phone</th>
-                      <th class="text-center">Email</th>
+                    <th style="width: 10px">ID</th>
+                    <th class="text-center"> First Name</th>
+                    <th class="text-center"> Last Name</th>
+                    <th class="text-center">Phone</th>
+                    <th class="text-center">Email</th>
                     <th class="text-center">Message</th>
-    <th class="text-center">Seeting</th>
+                   <th class="text-center">Seeting</th>
                     </tr>
 
                   </thead>
@@ -41,14 +41,13 @@
                       <td>{{ $contact->id }}</td>
                       <td>{{ $contact->first_name ??""}}</td>
                  <td>{{ $contact->last_name ??""}}</td>
-                      <td>{{ $contact->phone ??""}}</td>
-                       <td>{{ $contact->email }}</td>
-                         <td>{{ $contact->message }}</td>
-                 
+                    <td>{{ $contact->phone ??""}}</td>
+                    <td>{{ $contact->email }}</td>
+                    <td>{{ $contact->message }}</td>
                    <td>{{ $contact->Seeting }}
-                     
 
-          
+
+
                 <button type="button" onclick="performDestroy({{ $contact->id }}, this)" class="btn btn-danger btn-sm" title="delete">
                     <i class="fas fa-trash"></i>
                 </button>

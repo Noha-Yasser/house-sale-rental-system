@@ -83,7 +83,7 @@
 <script>
     function performUpdate(id){
         let formData=new FormData();
-formData.append('status', document.getElementById('status').value);
+    formData.append('status', document.getElementById('status').value);
     formData.append('booking_date', document.getElementById('booking_date').value);
     formData.append('booking_time', document.getElementById('booking_time').value);
     formData.append('note', document.getElementById('note').value);

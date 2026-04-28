@@ -28,7 +28,6 @@
                       <th style="width: 10px">ID</th>
                       <th class="text-center">Country Name</th>
                       <th class="text-center">Code</th>
-                      <th class="text-center">Number of City</th>
                       <th class="text-center">Seeting</th>
                     </tr>
 
@@ -39,15 +38,14 @@
                       <td>{{ $country->id }}</td>
                       <td>{{ $country->country_name }}</td>
                       <td>{{ $country->code }}</td>
-                      <td><span class="badge bg-info">{{ $country->cities_count}}</td>
                        <td>
                 <!-- Show -->
                 <a href="{{ route('countries.show', $country->id) }}" class="btn btn-info btn-sm" title="show">
                     <i class="fas fa-eye"></i>
                 </a>
 
-                <!-- Edit -->
-                <a href="{{ route('countries.edit', $country->id) }}" class="btn btn-warning btn-sm" title="edit">
+                <!-- Restore -->
+                <a href="{{ route('countries-restore', $country->id) }}" class="btn btn-warning btn-sm" title="restore">
                     <i class="fas fa-edit"></i>
                 </a>
 
@@ -72,7 +70,6 @@
                   <li class="page-item"><a class="page-link" href="#">&raquo;</a></li>
                 </ul>
               </div> --}}
-              {{ $countries->links() }}
             </div>
           </div>
          </div>

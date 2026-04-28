@@ -6,7 +6,7 @@
 
 @section('styles')
     <style>
-        
+
             /* Container */
             .container {
             max-width: 100%;
@@ -84,7 +84,7 @@
                 grid-template-columns: 1fr;
             }
             }
-    
+
     </style>
 @endsection
 
@@ -131,14 +131,14 @@
             <option value="Estate">Estate</option>
           </select>
       </div>
-      
+
 
       <!-- Area -->
       <div class="input-box">
         <label for="area">Area :</label>
         <input type="number" id="area" placeholder="Area" name="area" required>
       </div>
-      
+
       <!-- Zip Code -->
       <div class="input-box">
         <label for="zip_code">Zip Code :</label>
@@ -167,24 +167,22 @@
       <div class="input-box">
         <label for="bedrooms">Bedrooms :</label>
         <input type="number" id="bedrooms" placeholder="Bedrooms"  name="bedrooms" required>
-      </div>
-
+       </div>
           <div class="input-box">
-                                                            <label>Country</label>
-                                                            <select class="form-control" id="country_id" onchange="loadCities(this.value)">
-                                                                <option value="">choose country</option>
-                                                                @foreach($countries as $country)
-                                                                    <option value="{{ $country->id }}">{{ $country->country_name }}</option>
-                                                                @endforeach
-                                                            </select>
-                                                        </div>
-
-                                                        <div class="input-box">
-                                                            <label>City</label>
-                                                            <select class="form-control" id="city_id">
-                                                                <option value="">choose city</option>
-                                                            </select>
-                                                        </div>
+           <label>Country</label>
+           <select class="form-control" id="country_id" onchange="loadCities(this.value)">
+             <option value="">choose country</option>
+              @foreach($countries as $country)
+              <option value="{{ $country->id }}">{{ $country->country_name }}</option>
+             @endforeach
+             </select>
+              </div>
+              <div class="input-box">
+              <label>City</label>
+             <select class="form-control" id="city_id">
+              <option value="">choose city</option>
+               </select>
+               </div>
 
       <!-- Status -->
       <div class="input-box">
@@ -201,12 +199,12 @@
                     <label for="photo">Main photo</label>
                     <input type="file" class="form-control" id="photo" placeholder="choose photo" name="photo" accept="image/*" required>
                   </div>
-      
+
       <!-- multiple photos -->
       <div class="input-box">
           <label for="images">Property photos (you can choose multiple photos)</label>
           <input type="file" id="images" name="images[]" multiple>
-      </div> 
+      </div>
 
     </div>
 
@@ -236,14 +234,14 @@
     formdata.append('zip_code',document.getElementById('zip_code').value);
     formdata.append('status',document.getElementById('status').value);
     formdata.append('photo',document.getElementById('photo').files[0]);
-    
+
 
     let images = document.getElementById('images').files;
 
     for (let i = 0; i < images.length; i++) {
         formdata.append('images[]', images[i]);
     }
-  
+
 //  let imagesInput = document.getElementById('images');
 //     if (imagesInput && imagesInput.files.length > 0) {
 //         for (let i = 0; i < imagesInput.files.length; i++) {
@@ -259,7 +257,7 @@
 
   function loadCities(countryId) {
     let citySelect = document.getElementById('city_id');
-    
+
     // إذا لم يتم اختيار دولة، نفرغ قائمة المدن
     if (!countryId) {
         citySelect.innerHTML = '<option value="">choose city </option>';
@@ -272,10 +270,10 @@
         .then(function (response) {
             // تفريغ القائمة قبل البدء
             citySelect.innerHTML = '<option value=""> choose city</option>';
-            
+
             // التأكد من أن البيانات مصفوفة
             let cities = response.data;
-            
+
             cities.forEach(function (city) {
                 let option = document.createElement('option');
                 option.value = city.id;
@@ -284,7 +282,7 @@
             });
         })
         .catch(function (error) {
-    console.error("Full Error:", error.response); 
+    console.error("Full Error:", error.response);
     citySelect.innerHTML = '<option value="">error: ' + error.response.status + '</option>';
 });
 }
