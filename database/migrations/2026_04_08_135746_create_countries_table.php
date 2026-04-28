@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('country_name');
             $table->string('code');
+            $table->softDeletes();
             $table->timestamps();
         });
     }

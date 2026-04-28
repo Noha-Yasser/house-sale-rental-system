@@ -1,8 +1,8 @@
 @extends('dashboard.cms.parent')
 
-@section('title', 'contact')
-@section('main-title', 'index contact')
-@section('sub-title', 'index contact')
+@section('title', 'country')
+@section('main-title', 'index Country')
+@section('sub-title', 'index Country')
 
 @section('styles')
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
@@ -14,8 +14,8 @@
           <div class="col-md-12">
             <div class="card">
               <div class="card-header">
-                {{-- <h3 class="card-title">contact Table</h3> --}}
-
+                {{-- <h3 class="card-title">Country Table</h3> --}}
+                <a href="{{ route('countries.create') }}" class="btn btn-primary">ADD NEW COUNTRY</a>
 
               </div>
               <!-- /.card-header -->
@@ -25,30 +25,32 @@
 
 
                     <tr>
-                    <th style="width: 10px">ID</th>
-                    <th class="text-center"> First Name</th>
-                    <th class="text-center"> Last Name</th>
-                    <th class="text-center">Phone</th>
-                    <th class="text-center">Email</th>
-                    <th class="text-center">Message</th>
-                   <th class="text-center">Seeting</th>
+                      <th style="width: 10px">ID</th>
+                      <th class="text-center">Country Name</th>
+                      <th class="text-center">Code</th>
+                      <th class="text-center">Seeting</th>
                     </tr>
 
                   </thead>
                   <tbody>
-                    @foreach($contacts as $contact)
+                    @foreach($countries as $country)
                     <tr>
-                      <td>{{ $contact->id }}</td>
-                      <td>{{ $contact->first_name ??""}}</td>
-                 <td>{{ $contact->last_name ??""}}</td>
-                    <td>{{ $contact->phone ??""}}</td>
-                    <td>{{ $contact->email }}</td>
-                    <td>{{ $contact->message }}</td>
-                   <td>{{ $contact->Seeting }}
+                      <td>{{ $country->id }}</td>
+                      <td>{{ $country->country_name }}</td>
+                      <td>{{ $country->code }}</td>
+                       <td>
+                <!-- Show -->
+                <a href="{{ route('countries.show', $country->id) }}" class="btn btn-info btn-sm" title="show">
+                    <i class="fas fa-eye"></i>
+                </a>
 
+                <!-- Restore -->
+                <a href="{{ route('countries-restore', $country->id) }}" class="btn btn-warning btn-sm" title="restore">
+                    <i class="fas fa-edit"></i>
+                </a>
 
-
-                <button type="button" onclick="performDestroy({{ $contact->id }}, this)" class="btn btn-danger btn-sm" title="delete">
+                <!-- Delete -->
+                <button type="button" onclick="performDestroy({{ $country->id }}, this)" class="btn btn-danger btn-sm" title="delete">
                     <i class="fas fa-trash"></i>
                 </button>
             </td>
@@ -68,7 +70,6 @@
                   <li class="page-item"><a class="page-link" href="#">&raquo;</a></li>
                 </ul>
               </div> --}}
-              {{ $contacts->links() }}
             </div>
           </div>
          </div>
@@ -78,7 +79,7 @@
 @section('scripts')
 <script>
     function performDestroy(id,reference){
-        confirmDestroy('/admin/contacts/'+id,reference);
+        confirmDestroy('/admin/countries/'+id,reference);
     }
 </script>
 @endsection

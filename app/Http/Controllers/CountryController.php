@@ -120,4 +120,25 @@ class CountryController extends Controller
         //
         $countries=Country::destroy($id);
     }
+       public function trashed()
+    {
+        //
+        $countries=Country::onlyTrashed()->orderBy('deleted_at','desc')->get();
+        return response()->view('dashboard.country.trashed',compact('countries'));
+    }
+
+           public function restore($id)
+    {
+
+        $countries=Country::onlyTrashed()->findOrFail($id)->restore();
+       return back()->with('success','Success');
+    }
+
+        public function force($id)
+    {
+
+        $countries=Country::onlyTrashed()->findOrFail($id)->forceDelete();
+       return back()->with('success','Success');
+    }
+
 }

@@ -16,6 +16,7 @@
               <div class="card-header">
                 {{-- <h3 class="card-title">Country Table</h3> --}}
                 <a href="{{ route('countries.create') }}" class="btn btn-primary">ADD NEW COUNTRY</a>
+                <a href="{{ route('countries-trashed') }}" class="btn btn-danger">TRASHED</a>
 
               </div>
               <!-- /.card-header -->
