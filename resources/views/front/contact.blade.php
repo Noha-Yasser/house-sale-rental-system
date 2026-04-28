@@ -1,7 +1,7 @@
 
   
    @extends('front.parent')
-@section('title','Temp Title')
+@section('title','Contact')
 @section('styles')
   <link rel="stylesheet" href="{{ asset('front/css/contactstyle.css') }}">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
@@ -27,7 +27,7 @@
                  </div>
                 <div class="sec1div2">
                          <div class="sec1img">
-                             <img src="{{ asset('front/img/Capture.PNG') }}" alt="con">
+                             <img src="{{ asset('front/img/Buildings_0.png') }}" alt="con">
                          </div>
                          <div class="sec1text">
                               <h3>I manage rentals</h3>

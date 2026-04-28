@@ -139,9 +139,9 @@ font-size: 35px;
     .sec4 select:focus option{background-color: #ffffff;border: 1px white solid; color:#427b01;;border: 0cm;}
 /* .sec4 select::before{Which category best describes your issue? } */
  
-.sec4 textarea{margin-top: 20px;margin-left: 30%; 
+.sec4 textarea{margin-top: 20px;margin-left: 25.5%; 
     font-weight: 50px; font-size: 20px; font-family: "icomoon";background-color: #e6e6e6; display: block;
-    border-radius:20px; height:150px;width: 600px; border: 1px white solid;  padding-left: 20px; padding-top: 10px;
+    border-radius:20px; height:150px;width: 730px; border: 1px white solid;  padding-left: 20px; padding-top: 10px;
 }
 .sub{margin-top: 20px;margin-left: 17px; color: #ffffff;
     font-weight: 70px; font-size:35px; font-family: "icomoon";border: 1px white solid; 

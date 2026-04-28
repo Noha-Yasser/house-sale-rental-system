@@ -1,32 +1,16 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+@extends('front.parent')
+@section('title','Home1')
+@section('styles')
 
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <link rel="stylesheet" href="css/home1style.css">
-    <script src="https://kit.fontawesome.com/yourcode.js" crossorigin="anonymous"></script>
 
- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <title>Home1</title>
-    
-</head>
-<body>
-    <div id="header">
-        <img id="logo" src="img/apartments-for-rent-logo.png">
-        <ul id="menu">
-             <li><a href="login.html" id="login">Login</a></li>
-            <li><a href="shop.html">Shop</a></li>
-            <li><a href="contact.html">Contact</a></li>
-            <li><a href="about.html">About Us</a></li>
-            <li><a href="home.html">Home</a></li>
-        </ul>
-    </div>
+    <link rel="stylesheet" href="{{ asset('front/css/home1style.css') }}">
+  @endsection
+@section('content')
+
     <section class="sec1">
 <div class="par">
     <div class="chi">
-       
+       {{asset('storage/images/property/'. $property->photo ?? "")}}
         <img src="img/home1a.jpg" alt="h">
         <img src="img/home1b.jpg" alt="h">
         <img src="img/home1c.jpg" alt="h">
@@ -38,6 +22,21 @@
         <img src="img/home1k.jpg" alt="h">
 
     </div>
+    $table->string('title');
+            $table->string('description');
+            $table->decimal('price');
+            $table->string('type');
+            $table->integer('bedrooms')->nullable();
+            $table->integer('area');
+            $table->integer('bathrooms')->nullable();
+           $table->integer('views_count')->default(0);
+            $table->string('address')->nullable();
+          
+            $table->string('zip_code');
+            $table->string('status');
+            $table->string('photo')->nullable(); 
+            $table->string('services')->nullable();
+            $table->string('unique_feature')->nullable();
 
 </div></section>
 <section class="first">
@@ -47,9 +46,9 @@
                                        
                                                <div style="float:left; margin-top: 10px;" >
                                                              <div class="divttxt">
-                                                                     <h1>Rancho Mirage</h1>
-                                                                     <p>4250 S Arville St, Las Vegas, NV 89103</p>
-                                                                     <h3>West of the Strip</h3>
+                                                                     <h1>{{ $properties->title }}</h1>
+                                                                     <p>{{ $properties->address }}</p>
+                                                                     <h3>{{ $properties->address }}<</h3>
                                                              </div>
                                                          <div class="rev">
                                                             <i class="fa fa-star checked"></i>
@@ -330,29 +329,6 @@
 
 
 
-    <footer class="myfooter">
-        <img style="height: 52px;" src="img/apartments-for-rent-logo.png" alt="logo" style="display: block;">
-        <br><p>&copy; 2023 CoStar Group, Inc.</p>
-       <i class="fa fa-home" style="display: inline;"></i>  Equal Housing Opportunity
-        <ul class="icon">
-            <li>
-                <a href="https/www.facebook.com"> <i class="fa fa-facebook fa-2x"></i></a>
-            </li>
-            <li>
-                <a href="https/www.instagram.com">   <i class="fa fa-instagram fa-2x"></i></a>
-            </li>
-            <li>
-                <a href="https/www.twitter.com">  <i class="fa fa-twitter fa-2x"></i></i></a>
-            </li>
-            <li> 
-                <a href="https/www.youtube.com">  <i class="fa fa-youtube fa-2x"></i></a>
-            </li>
-            <li>
-                <a href="https/www.pinterest.com">   <i class=" fa fa-pinterest fa-2x"></i></a>
-            </li>
-        </ul>
-
-       
-    </footer>
-</body>
-</html>
+@endsection
+@section('scripts')
+@endsection 

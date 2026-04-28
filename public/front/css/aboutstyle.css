@@ -199,12 +199,13 @@ margin-left: 5%;
      .video{width: 80%;margin-left: 4%;}
 .myfooter{
     background-color:  #050505;
-    /* border-top: #c0bfbf solid 1px; */
+    border-top: #c0bfbf solid 0px;
     text-align: center;
     font-family: "CostarBrownRegular",sans-serif;
     height: 300px;
     padding-top: 90px;
     color: white;
+    border:0 px;
   }
   
   .myfooter p{margin-top: 3px;}

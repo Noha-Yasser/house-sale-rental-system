@@ -119,6 +119,10 @@ Route::get('temp',[HomeController::class, 'home'])->name('temp');
 
 Route::get('contact',[HomeController::class, 'showContact'])->name('contact.page');
 Route::post('contact',[HomeController::class, 'contactStore']);
-
+Route::get('home',[HomeController::class, 'home'])->name('home.page');
+Route::get('about',[HomeController::class, 'about'])->name('about.page');
+Route::get('shop',[HomeController::class, 'shop'])->name('shop.page');
+Route::get('login',[HomeController::class, 'login'])->name('login.page');
+Route::get('home1/{id}',[HomeController::class, 'home1'])->name('home1.page');
 
 });

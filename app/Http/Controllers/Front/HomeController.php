@@ -4,17 +4,36 @@ namespace App\Http\Controllers\Front;
 
 use App\Http\Controllers\Controller;
 use App\Models\Contact;
+use App\Models\Property;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
 {
     public function home(){
-return view('front.temp');
+  $properties = Property::take(4)->get();
+return view('front.home',compact('properties'));
+
+    }
+public function about(){
+      $footerImage = asset('front/img/logo.svg');
+return view('front.about',compact('footerImage'));
+
+    }
+    public function shop(){
+          $properties = Property::take(6)->get();
+return view('front.shop',compact('properties'));
 
     }
 
+    public function login(){
+        return view('front.login');
+    }
     public function showContact(){
         return view('front.contact');
+    }
+      public function home1($id){
+           $properties = Property::find($id);
+        return view('front.home1',compact('properties'));
     }
 
      public function contactStore(Request $request)

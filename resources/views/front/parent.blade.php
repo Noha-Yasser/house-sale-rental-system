@@ -15,11 +15,11 @@
     <div id="header">
         <img id="logo" src="{{asset('front/img/apartments-for-rent-logo.png') }}">
         <ul id="menu">
-            <li><a href="login.html" id="login">Login</a></li>
-            <li><a href="shop.html">Shop</a></li>
-            <li><a href="contact.html">Contact</a></li>
-            <li><a href="about.html">About Us</a></li>
-            <li><a href="home.html">Home</a></li>
+            <li><a href="login" id="login">Login</a></li>
+            <li><a href="shop">Shop</a></li>
+            <li><a href="contact">Contact</a></li>
+            <li><a href="about">About Us</a></li>
+            <li><a href="home">Home</a></li>
 
         </ul>
     </div>
@@ -34,7 +34,11 @@
 
 
     <footer class="myfooter">
-        <img style="height: 52px;" src="{{ asset('front/img/apartments-for-rent-logo.png') }}" alt="logo" style="display: block;">
+        @php
+        $footerImage = $footerImage ?? asset('front/img/apartments-for-rent-logo.png');
+    @endphp
+    <img src="{{ $footerImage }}" alt="Footer Logo">
+        {{-- <img style="height: 52px;" src="{{ asset('front/img/apartments-for-rent-logo.png') }}" alt="logo" style="display: block;"> --}}
         <br><p>&copy; 2023 CoStar Group, Inc.</p>
        <i class="fa fa-home" style="display: inline;"></i>  Equal Housing Opportunity
         <ul class="icon">
