@@ -1,4 +1,4 @@
-<@extends('front.parent')
+@extends('front.parent')
 @section('title','Home')
 @section('styles')
 
@@ -26,8 +26,8 @@
        <div>
         
        @foreach ($properties as $property)
-          <div class="home" ><a href="home1">
-              <img src="{{asset('storage/images/property/'. $property->photo ?? "")}}" alt="home1" >
+          <div class="home" ><a href="{{ route('home1.page', $property->id) }}">
+              <img src="{{ asset('images/property/'.$property->photo) }}" alt="home1" >
               <div class="home1">
              <h3>{{ $property->title }}</h3>
              <h5>{{ $property->address }}</h5>
@@ -37,7 +37,7 @@
             @endforeach 
         </div>
       <div id="sec1view">
-       <a   href="shop">View More</a></div>
+       <a   href="{{ route('shop.page')}}">View More</a></div>
 
     </section>
 

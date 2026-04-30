@@ -21,6 +21,7 @@ class TransactionFactory extends Factory
             'payment_method' => fake() -> randomElement(['cash', 'card', 'paypal']),
             'amount' => fake() -> numberBetween(100, 10000),
             'status' => fake() -> randomElement(['pending', 'paid', 'failed']),
+              'booking_id' => \App\Models\Booking::inRandomOrder()->first()->id ,
         ];
     }
 }

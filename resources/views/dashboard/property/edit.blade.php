@@ -235,6 +235,11 @@
     formdata.append('status',document.getElementById('status').value);
     formdata.append('photo',document.getElementById('photo').files[0]);
      formdata.append('city_id',document.getElementById('city_id').value);
+        let images = document.getElementById('images').files;
+
+    for (let i = 0; i < images.length; i++) {
+        formdata.append('images[]', images[i]);
+    }
 //    let imagesInput = document.getElementById('images');
 //     if (imagesInput && imagesInput.files.length > 0) {
 //         for (let i = 0; i < imagesInput.files.length; i++) {

@@ -45,15 +45,15 @@
                     {{-- <td>{{ $Booking->Seeting }}</td> --}}
                        <td>
                         <span class="badge bg-info">
-                    {{ $booking->status }}
+                    {{ $Booking->status }}
                   </span>
                 </td>
 
-                <td>{{ $booking->customer->name ?? '' }}</td>
+                <td>{{ $Booking->customer->name ?? '' }}</td>
 
-                <td>{{ $booking->property->title ?? '' }}</td>
+                <td>{{ $Booking->property->title ?? '' }}</td>
 
-                <td>{{ $booking->note }}</td>
+                <td>{{ $Booking->note }}</td>
 
                 <td>
 

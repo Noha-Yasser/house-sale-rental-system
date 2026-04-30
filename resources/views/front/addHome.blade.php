@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <title>Add Estate</title>
-  <link rel="stylesheet" href="css/addHome.css">
+  <link rel="stylesheet" href="{{ asset('front/css/addHome.css') }}">
 </head>
 <body>
 

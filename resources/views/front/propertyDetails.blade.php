@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <title>Property Details</title>
-  <link rel="stylesheet" href="./css/propertyDetails.css">
+  <link rel="stylesheet" href="{{ asset('front/css/propertyDetails.css') }}">
 </head>
 <body>
 

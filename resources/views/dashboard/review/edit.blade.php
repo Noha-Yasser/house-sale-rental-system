@@ -28,7 +28,7 @@
                   <div class="form-group">
                     <label for="property_id">Select Property Title</label>
                     <select required id="property_id" name="property_id" class="form-control" >
-                       <option selected value="{{$reviews->property->id}}"> {{ $reviews->property->title }}</option>
+                       <option selected value="{{$reviews->property->id ?? ""}}"> {{ $reviews->property->title  ?? ""}}</option>
                       @foreach($properties as $property)
                         <option value="{{$property->id}}">{{$property->title}}</option>
                       @endforeach

@@ -110,6 +110,12 @@ Route::get('home',[HomeController::class, 'home'])->name('home.page');
 Route::get('about',[HomeController::class, 'about'])->name('about.page');
 Route::get('shop',[HomeController::class, 'shop'])->name('shop.page');
 Route::get('login',[HomeController::class, 'login'])->name('login.page');
+Route::get('payment',[HomeController::class, 'payment'])->name('payment.page');
+Route::get('addHome',[HomeController::class, 'addHome'])->name('addHome.page');
+Route::get('adminProfile',[HomeController::class, 'adminProfile'])->name('adminProfile.page');
+Route::get('companyProfile',[HomeController::class, 'companyProfile'])->name('companyProfile.page');
+Route::get('customerProfile',[HomeController::class, 'customerProfile'])->name('customerProfile.page');
+Route::get('register',[HomeController::class, 'register'])->name('register.page');
 Route::get('home1/{id}',[HomeController::class, 'home1'])->name('home1.page');
 
 

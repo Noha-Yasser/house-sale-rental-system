@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <title>Company Profile</title>
-  <link rel="stylesheet" href="css/customerProfile.css">
+  <link rel="stylesheet" href="{{ asset('front/css/customerProfile.css') }}">
 </head>
 <body>
     <!-- start web header -->

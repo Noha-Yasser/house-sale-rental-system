@@ -15,11 +15,11 @@
     <div id="header">
         <img id="logo" src="{{asset('front/img/apartments-for-rent-logo.png') }}">
         <ul id="menu">
-            <li><a href="login" id="login">Login</a></li>
-            <li><a href="shop">Shop</a></li>
-            <li><a href="contact">Contact</a></li>
-            <li><a href="about">About Us</a></li>
-            <li><a href="home">Home</a></li>
+            <li><a href="{{ route('login.page')}}" id="login">Login</a></li>
+            <li><a href="{{ route('shop.page')}}">Shop</a></li>
+            <li><a href="{{ route('contact.page')}}">Contact</a></li>
+            <li><a href="{{ route('about.page')}}">About Us</a></li>
+            <li><a href="{{ route('home.page')}}">Home</a></li>
 
         </ul>
     </div>

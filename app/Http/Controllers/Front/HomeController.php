@@ -3,14 +3,16 @@
 namespace App\Http\Controllers\Front;
 
 use App\Http\Controllers\Controller;
+use App\Models\City;
 use App\Models\Contact;
 use App\Models\Property;
+use App\Models\PropertyImage;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
 {
     public function home(){
-  $properties = Property::take(4)->get();
+  $properties = Property::take(4)->orderBy('id','desc')->get();
 return view('front.home',compact('properties'));
 
     }
@@ -24,15 +26,39 @@ return view('front.about',compact('footerImage'));
 return view('front.shop',compact('properties'));
 
     }
-
+ public function payment(){
+        return view('front.payment');
+    }
     public function login(){
         return view('front.login');
     }
     public function showContact(){
         return view('front.contact');
     }
+   
+    public function addHome(){
+        return view('front.addHome');
+    }  
+     public function adminProfile(){
+        return view('front.adminProfile');
+    }   
+    public function companyProfile(){
+        return view('front.companyProfile');
+    }  
+     public function customerProfile(){
+        return view('front.customerProfile');
+    }   
+    public function register(){
+        return view('front.register');
+    }
+
+
+
+
       public function home1($id){
-           $properties = Property::find($id);
+          $properties = Property::with(['company',  'reviews'  ,     // جلب الشركة المرتبطة بالعقار
+        'company.user','city', 'images', 'primaryImage'])->withCount('reviews')->findOrFail($id);
+    
         return view('front.home1',compact('properties'));
     }
 

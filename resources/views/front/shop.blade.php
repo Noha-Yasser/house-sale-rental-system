@@ -13,8 +13,8 @@
             <div class="homee">
                 @foreach ($properties as $property)  
                 <div class="home">
-                    <img src="{{asset('storage/images/property/'. $property->photo ?? "")}}" alt="home3">
-                    <a href="home1">
+                    <img src="{{ asset('images/property/'.$property->photo) }}" alt="home3">
+                    <a href="{{ route('home1.page', $property->id) }}">
                         <div class="home1">
                             <h3>{{ $property->title }}</h3>
                             <h5>{{ $property->address }}</h5>

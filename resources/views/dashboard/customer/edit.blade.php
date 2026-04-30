@@ -101,68 +101,68 @@
                 </div>
                 
 
-                <div class="card-footer">
-                <button type="button" onclick="performUpdate({{ $customers->id }})" class="btn btn-primary">Update</button>
-                 <!--  <button type="button" onclick="performUpdate({{ $customers->id }})" class="btn btn-primary">Update</button>-->
-                <a href="{{ route('customers.index') }}" class="btn btn-primary">Go to Index</a>
+                                                <div class="card-footer">
+                                                <button type="button" onclick="performUpdate({{ $customers->id }})" class="btn btn-primary">Update</button>
+                                                <!--  <button type="button" onclick="performUpdate({{ $customers->id }})" class="btn btn-primary">Update</button>-->
+                                                <a href="{{ route('customers.index') }}" class="btn btn-primary">Go to Index</a>
 
-                </div>
-              </form>
-            </div>
-@endsection
+                                                </div>
+                                            </form>
+                                            </div>
+                                @endsection
 
-@section('scripts')
-<script>
-    function performUpdate(id){
-        let formData=new FormData();
-        formData.append('image',document.getElementById('image').files[0]);
-         formData.append('city_id',document.getElementById('city_id').value);
-        formData.append('name',document.getElementById('name').value);
-        formData.append('email',document.getElementById('email').value);
-        formData.append('password',document.getElementById('password').value);
-        formData.append('gender',document.getElementById('gender').value);
-        formData.append('birthday',document.getElementById('birthday').value);
-         formData.append('address',document.getElementById('address').value);
-        formData.append('identity_id',document.getElementById('identity_id').value);
-             formData.append('phone',document.getElementById('phone').value);
+                                @section('scripts')
+                                <script>
+                                    function performUpdate(id){
+                                        let formData=new FormData();
+                                        formData.append('image',document.getElementById('image').files[0]);
+                                        formData.append('city_id',document.getElementById('city_id').value);
+                                        formData.append('name',document.getElementById('name').value);
+                                        formData.append('email',document.getElementById('email').value);
+                                        formData.append('password',document.getElementById('password').value);
+                                        formData.append('gender',document.getElementById('gender').value);
+                                        formData.append('birthday',document.getElementById('birthday').value);
+                                        formData.append('address',document.getElementById('address').value);
+                                        formData.append('identity_id',document.getElementById('identity_id').value);
+                                            formData.append('phone',document.getElementById('phone').value);
 
-        storeRoute('/admin/customers_update/'+id,formData);
+                                        storeRoute('/admin/customers_update/'+id,formData);
 
-    }
+                                    }
 
-    function loadCities(countryId) {
-    let citySelect = document.getElementById('city_id');
-    
-    // إذا لم يتم اختيار دولة، نفرغ قائمة المدن
-    if (!countryId) {
-        citySelect.innerHTML = '<option value="">choose city </option>';
-        return;
-    }
+                                    function loadCities(countryId) {
+                                    let citySelect = document.getElementById('city_id');
+                                    
+                                    // إذا لم يتم اختيار دولة، نفرغ قائمة المدن
+                                    if (!countryId) {
+                                        citySelect.innerHTML = '<option value="">choose city </option>';
+                                        return;
+                                    }
 
-    citySelect.innerHTML = '<option value="">Loading....</option>';
+                                    citySelect.innerHTML = '<option value="">Loading....</option>';
 
-    axios.get('/admin/get-cities/' + countryId)
-        .then(function (response) {
-            // تفريغ القائمة قبل البدء
-            citySelect.innerHTML = '<option value=""> choose city</option>';
-            
-         
-            let cities = response.data;
-            
-            cities.forEach(function (city) {
-                let option = document.createElement('option');
-                option.value = city.id;
-                option.text = city.city_name;
-                citySelect.appendChild(option);
-            });
-        })
-        .catch(function (error) {
-    console.error("Full Error:", error.response); 
-    citySelect.innerHTML = '<option value="">error: ' + error.response.status + '</option>';
-});
-}
-</script>
+                                    axios.get('/admin/get-cities/' + countryId)
+                                        .then(function (response) {
+                                            // تفريغ القائمة قبل البدء
+                                            citySelect.innerHTML = '<option value=""> choose city</option>';
+                                            
+                                        
+                                            let cities = response.data;
+                                            
+                                            cities.forEach(function (city) {
+                                                let option = document.createElement('option');
+                                                option.value = city.id;
+                                                option.text = city.city_name;
+                                                citySelect.appendChild(option);
+                                            });
+                                        })
+                                        .catch(function (error) {
+                                    console.error("Full Error:", error.response); 
+                                    citySelect.innerHTML = '<option value="">error: ' + error.response.status + '</option>';
+                                });
+                                }
+                                </script>
 
-@endsection
+                                @endsection
 
 

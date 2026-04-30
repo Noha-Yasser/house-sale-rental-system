@@ -151,7 +151,7 @@ class PropertyController extends Controller
             'address' => 'nullable|string|max:30|min:3',
             'zip_code' => 'required|digits:4',
             'status' => 'required',
-            'city_id' => 'required|exists:cities,id',
+            'city_id' => 'sometimes|exists:cities,id',
         
         ]);
 

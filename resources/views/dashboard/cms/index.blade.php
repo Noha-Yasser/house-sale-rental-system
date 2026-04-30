@@ -105,26 +105,23 @@ $cityCounts = $cityData->pluck('count')->toArray();
 <script>
   $(function () {
     var ctx = document.getElementById('cityChart').getContext('2d');
+    
+    // ألوان مختلفة لكل مدينة
+    var colors = ['#3c8dbc', '#28a745', '#ffc107', '#dc3545', '#17a2b8', '#6f42c1', '#fd7e14', '#20c997'];
+    
     var myChart = new Chart(ctx, {
         type: 'doughnut',
         data: {
             labels: {!! json_encode($cityNames) !!},
             datasets: [{
-                label: 'Number of properties',
                 data: {!! json_encode($cityCounts) !!},
-                backgroundColor: 'rgba(60,141,188,0.8)',
-                borderColor: 'rgba(60,141,188,1)',
+                backgroundColor: colors.slice(0, {!! json_encode($cityNames) !!}.length),
                 borderWidth: 1
             }]
         },
         options: {
             responsive: true,
-            maintainAspectRatio: false,
-            scales: {
-                y: {
-                    beginAtZero: true
-                }
-            }
+            maintainAspectRatio: false
         }
     });
   });
