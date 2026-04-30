@@ -1,16 +1,21 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Login Page</title>
-  <link rel="stylesheet" href="css/login.css" />
-
-</head>
-<body>
- <script src="system.js" ></script>
+@extends('front.parent')
+@section('title','Login Page')
+@section('styles')
 
 
+
+  <link rel="stylesheet" href="{{ asset('front/css/login.css') }}" />
+  <style>
+
+  footer, .footer, [class*="footer"] {
+    display: none !important;
+}</style>
+
+@endsection
+
+ {{-- <script src="system.js" ></script> --}}
+
+@section('content')
   <!-- Popup -->
   <div class="overlay" id="overlay">
     <div class="popup">
@@ -31,13 +36,20 @@
       <h1>Login</h1>
       <p class="role-text" id="roleText">Selected: -</p>
 
-      <form>
+              <form method="POST" action="{{ route('login.submit') }}" id="loginForm">
+@csrf
+<input type="hidden" name="role" id="selectedRole" value="">
         <div class="input-box">
-          <input type="text" placeholder="Username" required />
-        </div>
+                <input type="email" name="email" placeholder="Email" required value="{{ old('email') }}" />
+                @error('email')
+                    <span style="color: red; font-size: 12px;">{{ $message }}</span>
+                @enderror
 
         <div class="input-box">
           <input type="password" placeholder="Password" required />
+           @error('password')
+                    <span style="color: red; font-size: 12px;">{{ $message }}</span>
+                @enderror
         </div>
 
         <div class="options">
@@ -45,18 +57,38 @@
             <input type="checkbox" />
             Remember me
           </label>
-          <a href="home.html">Forgot password?</a>
+          <a href="{{ route('password.request') }}">Forgot password?</a>
         </div>
-        <button type="button"  class="login-btn" onclick="gotoProfile()" >Login</button>
+        <button type="submit"  class="login-btn" onclick="gotoProfile()" >Login</button>
 
         <p class="register">
-          Don't have an account? <a href="register.html">Register</a>
+          Don't have an account? <a href="{{route('register.page') }}">Register</a>
         </p>
       </form>
     </div>
   </div>
 
- 
+
 
 </body>
 </html>
+@endsection
+
+@section('scripts')
+
+<script>
+    // تخزين نوع المستخدم المختار
+    let selectedRole = '';
+
+    function chooseRole(role) {
+        selectedRole = role;
+        document.getElementById('selectedRole').value = role;
+        document.getElementById('roleText').innerText = 'Selected: ' + role;
+        document.getElementById('overlay').style.display = 'none';
+        document.getElementById('loginWrapper').style.display = 'flex';
+    }
+
+
+</script>
+
+@endsection

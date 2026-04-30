@@ -1,12 +1,25 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>Admin Profile</title>
-  <link rel="stylesheet" href="css/adminProfile.css">
-</head>
-<body>
-    <!-- start web header -->
+@extends('front.parent')
+@section('title','Admin Profile')
+@section('styles')
+
+
+    <link rel="stylesheet" href="{{ asset('front/css/adminProfile.css') }}">
+    <div id="header">
+        <img id="logo" src="{{ asset('img/apartments-for-rent-logo.png') }}">
+        <ul id="menu">
+            <li><a href="adminProfile.html" id="profile-img"><img src="{{ asset('img/brad-1.png') }}"/></a></li>
+            <li><a href="shop.html">Shop</a></li>
+            <li><a href="contact.html">Contact</a></li>
+            <li><a href="about.html">About Us</a></li>
+            <li><a href="blog.html">Blog</a></li>
+            <li><a href="home.html">Home</a></li>
+
+        </ul>
+    </div>
+@endsection
+@section('content')
+
+
     <div id="header">
         <img id="logo" src="img/apartments-for-rent-logo.png">
         <ul id="menu">
@@ -75,3 +88,8 @@
 
 </body>
 </html>
+
+@endsection
+
+@section('scripts')
+@endsection

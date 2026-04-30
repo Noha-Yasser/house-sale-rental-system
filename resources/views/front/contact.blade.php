@@ -1,5 +1,5 @@
 
-  
+
    @extends('front.parent')
 @section('title','Contact')
 @section('styles')
@@ -22,7 +22,7 @@
                          <div class="sec1text">
                                <h3> I'm a renter</h3>
                                <p> Learn about searching for rentals and paying rent online.</p>
-                             <a href="gmail.com"> <h5>Renter Help Center </h5></a> 
+                             <a href="gmail.com"> <h5>Renter Help Center </h5></a>
                          </div>
                  </div>
                 <div class="sec1div2">
@@ -32,8 +32,8 @@
                          <div class="sec1text">
                               <h3>I manage rentals</h3>
                                <p>Get help adding, editing, and managing your properties.</p>
-                                 <a href="gmail.com">   <h5> Rental Manager Help Center</h5></a> 
-                           
+                                 <a href="gmail.com">   <h5> Rental Manager Help Center</h5></a>
+
                            </div>
                         </div>
         </div>
@@ -70,16 +70,16 @@
 
 <section class="sec4">
     <form  >
-       
+
         <div class="form1">
         <input type="text"  id="first_name" name="first_name"  placeholder="First Name*" required style="display: inline;">
         <input type="text"  id="last_name" name="last_name" placeholder="Last Name*" required></div>
         <div class="form2">
             <input type="email"  id="email" name="email" placeholder="Email*" required style="display: inline;">
         <input type="tel"  id="phone" name="phone" placeholder="phone(optional)"></div>
-       
+
         <textarea  id="message" name="message" placeholder=" What can we help you with?"></textarea>
-      
+
           <button type="button" onclick="performContact()" class="sub btn btn-primary">Submit</button>
     </form>
 </section>
@@ -103,7 +103,7 @@
        <div class="div2ul">
         <div  style="float: left;">
         <h3 style="margin-left: 20px; display: block;">Support</h3>
-      
+
         <ul >
             <li><p>Rental manager tools</p></li>
             <li><p>support@apartments.com </p> </li>
@@ -111,11 +111,11 @@
         </ul></div>
     <div style="float: right;">
         <h3 style="margin-left: 20px; display: block;" >Billing</h3>
-        
+
         <ul  >
             <li><p>billing@apartments.com</p></li>
             <li><p>(888)658-7368</p> </li>
-           
+
         </ul></div>
     </div>
     </div>
@@ -132,14 +132,14 @@
         </ul>
          <p>Questions regarding rent payments processed through Apartments.com:</p>
         <p class="p3">rentpayments@apartments.com</p>
-        </div> 
+        </div>
         <div class="div4">
             <h1>Renters</h1>
-        <p>Get help finding a new home, online tours, applying to properties, signing your lease, and paying rent online.</p> 
+        <p>Get help finding a new home, online tours, applying to properties, signing your lease, and paying rent online.</p>
         <ul>
             <li><h4 >Email:</h4><p>Rental manager tools</p></li>
             <li><h4 >Call:</h4><p>support@apartments.com</p> </li>
-           
+
         </ul>
         <p>Questions regarding rent payments processed through Apartments.com:</p>
         <p class="p3">rentpayments@apartments.com</p>
@@ -158,13 +158,13 @@
 <script>
     function performContact(){
         let formData=new FormData();
-      
+
        formData.append('first_name',document.getElementById('first_name').value);
         formData.append('last_name',document.getElementById('last_name').value);
         formData.append('email',document.getElementById('email').value);
-           formData.append('phone',document.getElementById('phone').value);
+        formData.append('phone',document.getElementById('phone').value);
         formData.append('message',document.getElementById('message').value);
-     
+
         store('/web/contact',formData)}
 </script>
 
@@ -173,4 +173,3 @@
 
 
 
- 

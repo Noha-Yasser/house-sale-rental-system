@@ -43,6 +43,38 @@ return [
             'provider' => 'users',
         ],
     ],
+        'admin' => [
+        'driver' => 'session',
+        'provider' => 'admins',
+    ],
+
+        'company' => [
+        'driver' => 'session',
+        'provider' => 'companies',
+    ],
+
+        'customer' => [
+        'driver' => 'session',
+        'provider' => 'customers',
+    ],
+
+        'admins' => [
+        'driver' => 'eloquent',
+        'model' => App\Models\Admin::class,
+    ],
+
+    'companies' => [
+        'driver' => 'eloquent',
+        'model' => App\Models\Company::class,
+    ],
+
+    'customers' => [
+        'driver' => 'eloquent',
+        'model' => App\Models\Customer::class,
+    ],
+
+
+
 
     /*
     |--------------------------------------------------------------------------

@@ -1,5 +1,6 @@
 <?php
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\BookingController;
 use App\Http\Controllers\CityController;
 use App\Http\Controllers\CompanyController;
@@ -22,6 +23,7 @@ use App\Http\Controllers\PropertyController;
 // use App\Models\Booking;
 use App\Models\Contact;
 use GuzzleHttp\Middleware;
+// use App\Http\Controllers\Auth\LoginController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -109,8 +111,18 @@ Route::post('contact',[HomeController::class, 'contactStore']);
 Route::get('home',[HomeController::class, 'home'])->name('home.page');
 Route::get('about',[HomeController::class, 'about'])->name('about.page');
 Route::get('shop',[HomeController::class, 'shop'])->name('shop.page');
-Route::get('login',[HomeController::class, 'login'])->name('login.page');
+// Route::get('login',[LoginController::class, 'login'])->name('login.page');
 Route::get('home1/{id}',[HomeController::class, 'home1'])->name('home1.page');
 
+    // عرض صفحة login
+    Route::get('login', [\App\Http\Controllers\Auth\LoginController::class, 'showLoginForm'])->name('login.page');    // معالجة login
+    Route::post('login', [\App\Http\Controllers\Auth\LoginController::class, 'login'])->name('login.submit');
+
+    // logout
+    Route::post('logout', [\App\Http\Controllers\Auth\LoginController::class, 'logout'])->name('logout');
+Route::get('register', [\App\Http\Controllers\Auth\RegisterController::class, 'showRegisterForm'])->name('register.page');
+Route::post('register', [\App\Http\Controllers\Auth\RegisterController::class, 'register.submit']);
+ Route::get('password/reset', [\App\Http\Controllers\Auth\ForgotPasswordController::class, 'showLinkRequestForm'])->name('password.request');
+     Route::post('register', [\App\Http\Controllers\Auth\RegisterController::class, 'register'])->name('register.submit');
 
 });
