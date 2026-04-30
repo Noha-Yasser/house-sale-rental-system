@@ -9,7 +9,9 @@
 
  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <title>@yield('title')</title>
-       @yield('styles') 
+       @yield('styles')
+
+
 </head>
 <body>
     <div id="header">
@@ -51,7 +53,7 @@
             <li>
                 <a href="https/www.twitter.com">  <i class="fa fa-twitter fa-2x"></i></i></a>
             </li>
-            <li> 
+            <li>
                 <a href="https/www.youtube.com">  <i class="fa fa-youtube fa-2x"></i></a>
             </li>
             <li>
@@ -59,7 +61,7 @@
             </li>
         </ul>
 
-       
+
     </footer>
 
     @yield('scripts')
