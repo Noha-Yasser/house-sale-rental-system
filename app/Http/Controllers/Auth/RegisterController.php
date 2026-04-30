@@ -30,7 +30,7 @@ class RegisterController extends Controller
                 'phone' => 'required',
 
                 'full_name' => 'required_if:role,Customer',
-                'birthday' => 'required_if:role,Customer|date',
+                // 'birthday' => 'required_if:role,Customer|date',
                 'gender' => 'required_if:role,Customer',
 
                 'company_name' => 'required_if:role,Company',

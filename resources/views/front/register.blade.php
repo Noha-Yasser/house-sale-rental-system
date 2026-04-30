@@ -1,4 +1,4 @@
-@extends('front.parent')
+{{-- @extends('front.parent')
 @section('title','Register Page')
 @section('styles')
     <link rel="stylesheet" href="{{ asset('front/css/register.css') }}" />
@@ -8,10 +8,17 @@
             display: none !important;
         }
     </style>
-@endsection
+@endsection --}}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Register Page</title>
+   <link rel="stylesheet" href="{{ asset('front/css/register.css') }}" />
+</head>
+<body>
 
-
-@section('content')
+{{-- @section('content') --}}
 <!-- Popup -->
 <div class="overlay" id="overlay">
     <div class="popup">
@@ -107,9 +114,9 @@
         @endif
     </div>
 </div>
-@endsection
+{{-- @endsection --}}
 
-@section('scripts')
+{{-- @section('scripts') --}}
 <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script>
@@ -226,4 +233,4 @@
             });
     }
 </script>
-@endsection
+{{-- @endsection --}}

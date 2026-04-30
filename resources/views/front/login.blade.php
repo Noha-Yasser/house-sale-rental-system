@@ -1,4 +1,4 @@
-@extends('front.parent')
+{{-- @extends('front.parent')
 @section('title','Login Page')
 @section('styles')
 
@@ -11,11 +11,20 @@
     display: none !important;
 }</style>
 
-@endsection
+@endsection --}}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Login</title>
+   <link rel="stylesheet" href="{{ asset('front/css/login.css') }}" />
+</head>
+<body>
+
 
  {{-- <script src="system.js" ></script> --}}
-
-@section('content')
+{{-- 
+@section('content') --}}
   <!-- Popup -->
   <div class="overlay" id="overlay">
     <div class="popup">
@@ -40,7 +49,7 @@
 @csrf
 <input type="hidden" name="role" id="selectedRole" value="">
         <div class="input-box">
-                <input type="email" name="email" placeholder="Email" required value="{{ old('email') }}" />
+                <input type="email" style="  margin-bottom: 5px;" name="email" placeholder="Email" required value="{{ old('email') }}" />
                 @error('email')
                     <span style="color: red; font-size: 12px;">{{ $message }}</span>
                 @enderror
@@ -72,9 +81,9 @@
 
 </body>
 </html>
-@endsection
+{{-- @endsection --}}
 
-@section('scripts')
+{{-- @section('scripts') --}}
 
 <script>
     // تخزين نوع المستخدم المختار
@@ -90,5 +99,5 @@
 
 
 </script>
-
-@endsection
+{{-- 
+@endsection --}}

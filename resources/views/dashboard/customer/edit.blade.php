@@ -60,7 +60,7 @@
                                                         </div>
   <div class="form-group col-md-4">
                                                     <label for="address">Detailed Customer address (street, building number)</label>
-                                                    <input type="text" class="form-control" id="address" placeholder="Enter customer address" name="address" value="{{$customers->user->address }}" required>
+                                                    <input type="text" class="form-control" id="address" placeholder="Enter customer address" name="address" value="{{$customers->user->address ?? ""}}" required>
                                                   </div> 
 
                                                   
@@ -95,7 +95,7 @@
                                                        
                                                     <div class="form-group col-md-4">
                                                     <label for="phone">customer phone</label>
-                                                    <input type="text" class="form-control" id="phone" placeholder="Enter customer phone" name="phone" value="{{$customers->user->phone }}" required>
+                                                    <input type="text" class="form-control" id="phone" placeholder="Enter customer phone" name="phone" value="{{$customers->user->phone ?? ""}}" required>
                                                   </div>
                             </div>
                 </div>
